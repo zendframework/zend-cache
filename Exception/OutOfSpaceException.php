@@ -14,46 +14,18 @@
  *
  * @category   Zend
  * @package    Zend_Cache
- * @subpackage Storage
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
-namespace Zend\Cache\Storage;
-
-use Zend\Cache\Exception,
-    Zend\Loader\PluginBroker;
+namespace Zend\Cache\Exception;
 
 /**
- * Broker for cache storage adapter instances
- *
  * @category   Zend
  * @package    Zend_Cache
- * @subpackage Storage
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
-class AdapterBroker extends PluginBroker
+class OutOfSpaceException extends \OverflowException implements ExceptionInterface
 {
-    /**
-     * @var string Default plugin loading strategy
-     */
-    protected $defaultClassLoader = 'Zend\Cache\Storage\AdapterLoader';
-
-    /**
-     * Determine if we have a valid adapter
-     *
-     * @param  mixed $plugin
-     * @return bool
-     * @throws Exception\RuntimeException
-     */
-    protected function validatePlugin($plugin)
-    {
-        if (!$plugin instanceof StorageInterface) {
-            throw new Exception\RuntimeException(
-                'Cache storage adapters must implement Zend\Cache\Storage\StorageInterface'
-            );
-        }
-        return true;
-    }
 }

@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2013 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -25,7 +25,6 @@ use Zend\Cache\Storage\OptimizableInterface;
 use Zend\Cache\Storage\TaggableInterface;
 use Zend\Cache\Storage\TotalSpaceCapableInterface;
 use Zend\Stdlib\ErrorHandler;
-use ArrayObject;
 
 class Filesystem extends AbstractAdapter implements
     AvailableSpaceCapableInterface,
@@ -132,8 +131,6 @@ class Filesystem extends AbstractAdapter implements
      * Remove expired items
      *
      * @return bool
-     *
-     * @triggers clearExpired.exception(ExceptionEvent)
      */
     public function clearExpired()
     {
@@ -164,13 +161,7 @@ class Filesystem extends AbstractAdapter implements
         }
         $error = ErrorHandler::stop();
         if ($error) {
-            $result = false;
-            return $this->triggerException(
-                __FUNCTION__,
-                new ArrayObject(),
-                $result,
-                new Exception\RuntimeException('Failed to clear expired items', 0, $error)
-            );
+            throw new Exception\RuntimeException("Failed to clear expired items", 0, $error);
         }
 
         return true;
@@ -198,7 +189,7 @@ class Filesystem extends AbstractAdapter implements
         $flags = GlobIterator::SKIP_DOTS | GlobIterator::CURRENT_AS_PATHNAME;
         $path = $options->getCacheDir()
             . str_repeat(DIRECTORY_SEPARATOR . $prefix . '*', $options->getDirLevel())
-            . DIRECTORY_SEPARATOR . $prefix . '*.*';
+            . DIRECTORY_SEPARATOR . $prefix . '*';
         $glob = new GlobIterator($path, $flags);
 
         ErrorHandler::start();
@@ -236,7 +227,7 @@ class Filesystem extends AbstractAdapter implements
         $flags = GlobIterator::SKIP_DOTS | GlobIterator::CURRENT_AS_PATHNAME;
         $path = $options->getCacheDir()
             . str_repeat(DIRECTORY_SEPARATOR . $nsPrefix . '*', $options->getDirLevel())
-            . DIRECTORY_SEPARATOR . $nsPrefix . $prefix . '*.*';
+            . DIRECTORY_SEPARATOR . $nsPrefix . $prefix . '*';
         $glob = new GlobIterator($path, $flags);
 
         ErrorHandler::start();
@@ -422,7 +413,7 @@ class Filesystem extends AbstractAdapter implements
                     $events->detach($handle);
                 }
             };
-            $events->attach('option', $callback);
+            $handle = $events->attach('option', $callback);
         }
 
         return $this->totalSpace;
@@ -545,6 +536,7 @@ class Filesystem extends AbstractAdapter implements
      */
     protected function internalGetItems(array & $normalizedKeys)
     {
+        $options = $this->getOptions();
         $keys    = $normalizedKeys; // Don't change argument passed by reference
         $result  = array();
         while ($keys) {
@@ -1475,7 +1467,7 @@ class Filesystem extends AbstractAdapter implements
 
                 if (!$res) {
                     $oct = ($perm === false) ? '777' : decoct($perm);
-                    ErrorHandler::stop();
+                    $err = ErrorHandler::stop();
                     throw new Exception\RuntimeException(
                         "mkdir('{$path}', 0{$oct}, false) failed"
                     );
@@ -1483,7 +1475,7 @@ class Filesystem extends AbstractAdapter implements
 
                 if ($perm !== false && !chmod($path, $perm)) {
                     $oct = decoct($perm);
-                    ErrorHandler::stop();
+                    $err = ErrorHandler::stop();
                     throw new Exception\RuntimeException(
                         "chmod('{$path}', 0{$oct}) failed"
                     );
@@ -1608,7 +1600,7 @@ class Filesystem extends AbstractAdapter implements
      *
      * @param string $file
      * @return void
-     * @throws Exception\RuntimeException
+     * @throws RuntimeException
      */
     protected function unlink($file)
     {

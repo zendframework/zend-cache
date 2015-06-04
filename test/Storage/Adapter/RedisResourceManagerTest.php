@@ -9,6 +9,8 @@
 
 namespace ZendTest\Cache\Storage\Adapter;
 
+use Zend\Cache\Storage\Adapter\Redis;
+use Zend\Cache\Storage\Adapter\RedisOptions;
 use Zend\Cache\Storage\Adapter\RedisResourceManager;
 
 /**
@@ -130,5 +132,24 @@ class RedisResourceManagerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertNotSame($expectedPersistentId, $this->resourceManager->getPersistentId($resourceId));
         $this->assertEmpty($this->resourceManager->getPersistentId($resourceId));
+    }
+
+    /**
+     * @group 2
+     */
+    public function testConnectUsesPersistentIdSetViaOptions()
+    {
+        if (! extension_loaded('redis')) {
+            $this->markTestSkipped('This test requires the redis extension');
+        }
+
+        $options = new RedisOptions();
+        $options
+            ->setServer([ 'host' => 'localhost' ])
+            ->setPersistentId('RDB');
+
+        // This essentially succeeds if no notices are issued.
+        $redis = new Redis($options);
+        $this->assertInstanceOf('Zend\Cache\Storage\Adapter\Redis', $redis);
     }
 }

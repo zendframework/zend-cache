@@ -262,7 +262,7 @@ class RedisResourceManager
     {
         $server = $resource['server'];
         $redis  = $resource['resource'];
-        if ($resource['persistent_id'] !== '') {
+        if (isset($resource['persistent_id']) && $resource['persistent_id'] !== '') {
             //connect or reuse persistent connection
             $success = $redis->pconnect($server['host'], $server['port'], $server['timeout'], $server['persistent_id']);
         } elseif ($server['port']) {

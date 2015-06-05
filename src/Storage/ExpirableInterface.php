@@ -9,32 +9,35 @@
 
 namespace Zend\Cache\Storage;
 
+use Zend\Cache\Exception;
+
 /**
  * Interface ExpirableInterface
  * Adapters that implements this interfaces are able to set a specific ttl to their items
  *  and get the remaining ttl applied to their items
  *
- * @author Konstantin Kudryashov <ever.zet@gmail.com>
+ * @author Oscar Fanelli <oscar.nesis@gmail.com>
  */
 interface ExpirableInterface
 {
     /**
      * Sets an expiration date (a timeout) on an item
      *
-     * @param $key
-     * @param $ttl
+     * @param string $key
+     * @param int $ttl
      *
      * @return bool
+     * @throws Exception\RuntimeException
      */
     public function setTimeout($key, $ttl);
 
     /**
      * Remaining timeout of an item
      *
-     * @param $key
+     * @param string $key
      *
-     * @return mixed
+     * @return int
+     * @throws Exception\RuntimeException
      */
     public function getRemainingTimeout($key);
-
 }

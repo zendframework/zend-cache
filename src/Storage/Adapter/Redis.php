@@ -175,7 +175,7 @@ class Redis extends AbstractAdapter implements
     {
         $redis = $this->getRedisResource();
 
-        $namespacedKeys = [];
+        $namespacedKeys = array();
         foreach ($normalizedKeys as $normalizedKey) {
             $namespacedKeys[] = $this->namespacePrefix . $normalizedKey;
         }
@@ -255,7 +255,7 @@ class Redis extends AbstractAdapter implements
         $redis = $this->getRedisResource();
         $ttl   = $this->getOptions()->getTtl();
 
-        $namespacedKeyValuePairs = [];
+        $namespacedKeyValuePairs = array();
         foreach ($normalizedKeyValuePairs as $normalizedKey => $value) {
             $namespacedKeyValuePairs[$this->namespacePrefix . $normalizedKey] = $value;
         }
@@ -281,7 +281,7 @@ class Redis extends AbstractAdapter implements
             throw new Exception\RuntimeException($redis->getLastError());
         }
 
-        return [];
+        return array();
     }
 
     /**
@@ -434,8 +434,8 @@ class Redis extends AbstractAdapter implements
             $this->capabilities     = new Capabilities(
                 $this,
                 $this->capabilityMarker,
-                [
-                    'supportedDatatypes' => [
+                array(
+                    'supportedDatatypes' => array(
                         'NULL'     => 'string',
                         'boolean'  => 'string',
                         'integer'  => 'string',
@@ -444,8 +444,8 @@ class Redis extends AbstractAdapter implements
                         'array'    => false,
                         'object'   => false,
                         'resource' => false,
-                    ],
-                    'supportedMetadata'  => [],
+                    ),
+                    'supportedMetadata'  => array(),
                     'minTtl'             => $minTtl,
                     'maxTtl'             => 0,
                     'staticTtl'          => true,
@@ -454,7 +454,7 @@ class Redis extends AbstractAdapter implements
                     'expiredRead'        => false,
                     'maxKeyLength'       => 255,
                     'namespaceIsPrefix'  => true,
-                ]
+                )
             );
         }
 
@@ -468,6 +468,7 @@ class Redis extends AbstractAdapter implements
      * @param integer $ttl
      *
      * @return bool
+     * @throws Exception\RuntimeException
      */
     public function setTimeout($key, $ttl)
     {
@@ -489,6 +490,7 @@ class Redis extends AbstractAdapter implements
      * @param string $key
      *
      * @return int
+     * @throws Exception\RuntimeException
      */
     public function getRemainingTimeout($key)
     {

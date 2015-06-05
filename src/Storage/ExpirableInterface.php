@@ -9,6 +9,13 @@
 
 namespace Zend\Cache\Storage;
 
+/**
+ * Interface ExpirableInterface
+ * Adapters that implements this interfaces are able to set a specific ttl to their items
+ *  and get the remaining ttl applied to their items
+ *
+ * @author Konstantin Kudryashov <ever.zet@gmail.com>
+ */
 interface ExpirableInterface
 {
     /**

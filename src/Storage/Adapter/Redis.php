@@ -16,11 +16,13 @@ use Traversable;
 use Zend\Cache\Storage\ClearByPrefixInterface;
 use Zend\Cache\Exception;
 use Zend\Cache\Storage\Capabilities;
+use Zend\Cache\Storage\ExpirableInterface;
 use Zend\Cache\Storage\FlushableInterface;
 use Zend\Cache\Storage\TotalSpaceCapableInterface;
 
 class Redis extends AbstractAdapter implements
     ClearByPrefixInterface,
+    ExpirableInterface,
     FlushableInterface,
     TotalSpaceCapableInterface
 {
@@ -173,7 +175,7 @@ class Redis extends AbstractAdapter implements
     {
         $redis = $this->getRedisResource();
 
-        $namespacedKeys = array();
+        $namespacedKeys = [];
         foreach ($normalizedKeys as $normalizedKey) {
             $namespacedKeys[] = $this->namespacePrefix . $normalizedKey;
         }
@@ -253,7 +255,7 @@ class Redis extends AbstractAdapter implements
         $redis = $this->getRedisResource();
         $ttl   = $this->getOptions()->getTtl();
 
-        $namespacedKeyValuePairs = array();
+        $namespacedKeyValuePairs = [];
         foreach ($normalizedKeyValuePairs as $normalizedKey => $value) {
             $namespacedKeyValuePairs[$this->namespacePrefix . $normalizedKey] = $value;
         }
@@ -279,7 +281,7 @@ class Redis extends AbstractAdapter implements
             throw new Exception\RuntimeException($redis->getLastError());
         }
 
-        return array();
+        return [];
     }
 
     /**
@@ -432,8 +434,8 @@ class Redis extends AbstractAdapter implements
             $this->capabilities     = new Capabilities(
                 $this,
                 $this->capabilityMarker,
-                array(
-                    'supportedDatatypes' => array(
+                [
+                    'supportedDatatypes' => [
                         'NULL'     => 'string',
                         'boolean'  => 'string',
                         'integer'  => 'string',
@@ -442,8 +444,8 @@ class Redis extends AbstractAdapter implements
                         'array'    => false,
                         'object'   => false,
                         'resource' => false,
-                    ),
-                    'supportedMetadata'  => array(),
+                    ],
+                    'supportedMetadata'  => [],
                     'minTtl'             => $minTtl,
                     'maxTtl'             => 0,
                     'staticTtl'          => true,
@@ -452,10 +454,51 @@ class Redis extends AbstractAdapter implements
                     'expiredRead'        => false,
                     'maxKeyLength'       => 255,
                     'namespaceIsPrefix'  => true,
-                )
+                ]
             );
         }
 
         return $this->capabilities;
+    }
+
+    /**
+     * Sets an expiration date (a timeout) on an item, in seconds
+     *
+     * @param string $key
+     * @param integer $ttl
+     *
+     * @return bool
+     */
+    public function setTimeout($key, $ttl)
+    {
+        $this->normalizeKey($key);
+
+        $redis = $this->getRedisResource();
+        try {
+            return $redis->expire($this->namespacePrefix . $key, $ttl);
+        } catch (RedisResourceException $e) {
+            throw new Exception\RuntimeException($redis->getLastError(), $e->getCode(), $e);
+        }
+    }
+
+    /**
+     * Remaining ttl of an item, in seconds
+     * In redis 2.6, the command return -1 if the key does not exist
+     * In redis > 2.8, the command return -2 if the key does not exist, -1 if the key exists but has no associated expire
+     *
+     * @param string $key
+     *
+     * @return int
+     */
+    public function getRemainingTimeout($key)
+    {
+        $this->normalizeKey($key);
+
+        $redis = $this->getRedisResource();
+        try {
+            return $redis->ttl($this->namespacePrefix . $key);
+        } catch (RedisResourceException $e) {
+            throw new Exception\RuntimeException($redis->getLastError(), $e->getCode(), $e);
+        }
     }
 }

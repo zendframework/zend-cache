@@ -312,4 +312,21 @@ class RedisTest extends CommonAdapterTest
         $this->_options->setPassword($password);
         $this->assertEquals($password, $this->_options->getPassword(), 'Password was set incorrectly using RedisOptions');
     }
+
+    public function testSetTimeout()
+    {
+        $ttl = 300;
+        $key = 'key';
+        $this->_storage->setItem($key, 'val');
+        $this->assertTrue($this->_storage->setTimeout($key, $ttl));
+    }
+
+    public function testGetRemainingTimeout()
+    {
+        $ttl = 300;
+        $key = 'key';
+        $this->_storage->setItem($key, 'val');
+        $this->_storage->setTimeout($key, $ttl);
+        $this->assertEquals($ttl, $this->_storage->getRemainingTimeout($key));
+    }
 }

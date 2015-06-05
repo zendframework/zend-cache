@@ -16,11 +16,13 @@ use Traversable;
 use Zend\Cache\Storage\ClearByPrefixInterface;
 use Zend\Cache\Exception;
 use Zend\Cache\Storage\Capabilities;
+use Zend\Cache\Storage\ExpirableInterface;
 use Zend\Cache\Storage\FlushableInterface;
 use Zend\Cache\Storage\TotalSpaceCapableInterface;
 
 class Redis extends AbstractAdapter implements
     ClearByPrefixInterface,
+    ExpirableInterface,
     FlushableInterface,
     TotalSpaceCapableInterface
 {
@@ -457,5 +459,48 @@ class Redis extends AbstractAdapter implements
         }
 
         return $this->capabilities;
+    }
+
+    /**
+     * Sets an expiration date (a timeout) on an item, in seconds
+     *
+     * @param string $key
+     * @param integer $ttl
+     *
+     * @return bool
+     * @throws Exception\RuntimeException
+     */
+    public function setTimeout($key, $ttl)
+    {
+        $this->normalizeKey($key);
+
+        $redis = $this->getRedisResource();
+        try {
+            return $redis->expire($this->namespacePrefix . $key, $ttl);
+        } catch (RedisResourceException $e) {
+            throw new Exception\RuntimeException($redis->getLastError(), $e->getCode(), $e);
+        }
+    }
+
+    /**
+     * Remaining ttl of an item, in seconds
+     * In redis 2.6, the command return -1 if the key does not exist
+     * In redis > 2.8, the command return -2 if the key does not exist, -1 if the key exists but has no associated expire
+     *
+     * @param string $key
+     *
+     * @return int
+     * @throws Exception\RuntimeException
+     */
+    public function getRemainingTimeout($key)
+    {
+        $this->normalizeKey($key);
+
+        $redis = $this->getRedisResource();
+        try {
+            return $redis->ttl($this->namespacePrefix . $key);
+        } catch (RedisResourceException $e) {
+            throw new Exception\RuntimeException($redis->getLastError(), $e->getCode(), $e);
+        }
     }
 }

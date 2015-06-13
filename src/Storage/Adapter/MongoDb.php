@@ -114,7 +114,7 @@ class MongoDb extends AbstractAdapter implements FlushableInterface
      *
      * @throws Exception\RuntimeException
      */
-    protected function internalGetItem(& $normalizedKey, & $success = null, & $casToken = null)
+    protected function internalGetItem($normalizedKey, & $success = null, & $casToken = null)
     {
         $result  = $this->fetchFromCollection($normalizedKey);
         $success = false;
@@ -158,7 +158,7 @@ class MongoDb extends AbstractAdapter implements FlushableInterface
      *
      * @throws Exception\RuntimeException
      */
-    protected function internalSetItem(& $normalizedKey, & $value)
+    protected function internalSetItem($normalizedKey, $value)
     {
         $mongo     = $this->getMongoDbResource();
         $key       = $this->namespacePrefix . $normalizedKey;
@@ -191,7 +191,7 @@ class MongoDb extends AbstractAdapter implements FlushableInterface
      *
      * @throws Exception\RuntimeException
      */
-    protected function internalRemoveItem(& $normalizedKey)
+    protected function internalRemoveItem($normalizedKey)
     {
         try {
             $result = $this->getMongoDbResource()->remove(['key' => $this->namespacePrefix . $normalizedKey]);
@@ -253,7 +253,7 @@ class MongoDb extends AbstractAdapter implements FlushableInterface
      *
      * @throws Exception\ExceptionInterface
      */
-    protected function internalGetMetadata(& $normalizedKey)
+    protected function internalGetMetadata($normalizedKey)
     {
         $result = $this->fetchFromCollection($normalizedKey);
 

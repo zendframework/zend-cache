@@ -384,7 +384,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @return mixed Data on success, null on failure
      * @throws Exception\ExceptionInterface
      */
-    abstract protected function internalGetItem(& $normalizedKey, & $success = null, & $casToken = null);
+    abstract protected function internalGetItem($normalizedKey, & $success = null, & $casToken = null);
 
     /**
      * Get multiple items.
@@ -429,7 +429,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @return array Associative array of keys and values
      * @throws Exception\ExceptionInterface
      */
-    protected function internalGetItems(array & $normalizedKeys)
+    protected function internalGetItems(array $normalizedKeys)
     {
         $success = null;
         $result  = [];
@@ -486,7 +486,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalHasItem(& $normalizedKey)
+    protected function internalHasItem($normalizedKey)
     {
         $success = null;
         $this->internalGetItem($normalizedKey, $success);
@@ -536,7 +536,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @return array Array of found keys
      * @throws Exception\ExceptionInterface
      */
-    protected function internalHasItems(array & $normalizedKeys)
+    protected function internalHasItems(array $normalizedKeys)
     {
         $result = [];
         foreach ($normalizedKeys as $normalizedKey) {
@@ -590,7 +590,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @return array|bool Metadata on success, false on failure
      * @throws Exception\ExceptionInterface
      */
-    protected function internalGetMetadata(& $normalizedKey)
+    protected function internalGetMetadata($normalizedKey)
     {
         if (!$this->internalHasItem($normalizedKey)) {
             return false;
@@ -642,7 +642,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @return array Associative array of keys and metadata
      * @throws Exception\ExceptionInterface
      */
-    protected function internalGetMetadatas(array & $normalizedKeys)
+    protected function internalGetMetadatas(array $normalizedKeys)
     {
         $result = [];
         foreach ($normalizedKeys as $normalizedKey) {
@@ -702,7 +702,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    abstract protected function internalSetItem(& $normalizedKey, & $value);
+    abstract protected function internalSetItem($normalizedKey, $value);
 
     /**
      * Store multiple items.
@@ -747,7 +747,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @return array Array of not stored keys
      * @throws Exception\ExceptionInterface
      */
-    protected function internalSetItems(array & $normalizedKeyValuePairs)
+    protected function internalSetItems(array $normalizedKeyValuePairs)
     {
         $failedKeys = [];
         foreach ($normalizedKeyValuePairs as $normalizedKey => $value) {
@@ -804,7 +804,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalAddItem(& $normalizedKey, & $value)
+    protected function internalAddItem($normalizedKey, $value)
     {
         if ($this->internalHasItem($normalizedKey)) {
             return false;
@@ -855,7 +855,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @return array Array of not stored keys
      * @throws Exception\ExceptionInterface
      */
-    protected function internalAddItems(array & $normalizedKeyValuePairs)
+    protected function internalAddItems(array $normalizedKeyValuePairs)
     {
         $result = [];
         foreach ($normalizedKeyValuePairs as $normalizedKey => $value) {
@@ -912,7 +912,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalReplaceItem(& $normalizedKey, & $value)
+    protected function internalReplaceItem($normalizedKey, $value)
     {
         if (!$this->internalhasItem($normalizedKey)) {
             return false;
@@ -964,7 +964,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @return array Array of not stored keys
      * @throws Exception\ExceptionInterface
      */
-    protected function internalReplaceItems(array & $normalizedKeyValuePairs)
+    protected function internalReplaceItems(array $normalizedKeyValuePairs)
     {
         $result = [];
         foreach ($normalizedKeyValuePairs as $normalizedKey => $value) {
@@ -1027,7 +1027,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @see    getItem()
      * @see    setItem()
      */
-    protected function internalCheckAndSetItem(& $token, & $normalizedKey, & $value)
+    protected function internalCheckAndSetItem($token, $normalizedKey, $value)
     {
         $oldValue = $this->internalGetItem($normalizedKey);
         if ($oldValue !== $token) {
@@ -1080,7 +1080,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalTouchItem(& $normalizedKey)
+    protected function internalTouchItem($normalizedKey)
     {
         $success = null;
         $value   = $this->internalGetItem($normalizedKey, $success);
@@ -1133,7 +1133,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @return array Array of not updated keys
      * @throws Exception\ExceptionInterface
      */
-    protected function internalTouchItems(array & $normalizedKeys)
+    protected function internalTouchItems(array $normalizedKeys)
     {
         $result = [];
         foreach ($normalizedKeys as $normalizedKey) {
@@ -1187,7 +1187,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    abstract protected function internalRemoveItem(& $normalizedKey);
+    abstract protected function internalRemoveItem($normalizedKey);
 
     /**
      * Remove multiple items.
@@ -1231,7 +1231,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @return array Array of not removed keys
      * @throws Exception\ExceptionInterface
      */
-    protected function internalRemoveItems(array & $normalizedKeys)
+    protected function internalRemoveItems(array $normalizedKeys)
     {
         $result = [];
         foreach ($normalizedKeys as $normalizedKey) {
@@ -1288,7 +1288,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @return int|bool The new value on success, false on failure
      * @throws Exception\ExceptionInterface
      */
-    protected function internalIncrementItem(& $normalizedKey, & $value)
+    protected function internalIncrementItem($normalizedKey, $value)
     {
         $success  = null;
         $value    = (int) $value;
@@ -1347,7 +1347,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @return array Associative array of keys and new values
      * @throws Exception\ExceptionInterface
      */
-    protected function internalIncrementItems(array & $normalizedKeyValuePairs)
+    protected function internalIncrementItems(array $normalizedKeyValuePairs)
     {
         $result = [];
         foreach ($normalizedKeyValuePairs as $normalizedKey => $value) {
@@ -1405,7 +1405,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @return int|bool The new value on success, false on failure
      * @throws Exception\ExceptionInterface
      */
-    protected function internalDecrementItem(& $normalizedKey, & $value)
+    protected function internalDecrementItem($normalizedKey, $value)
     {
         $success  = null;
         $value    = (int) $value;
@@ -1464,7 +1464,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @return array Associative array of keys and new values
      * @throws Exception\ExceptionInterface
      */
-    protected function internalDecrementItems(array & $normalizedKeyValuePairs)
+    protected function internalDecrementItems(array $normalizedKeyValuePairs)
     {
         $result = [];
         foreach ($normalizedKeyValuePairs as $normalizedKey => $value) {

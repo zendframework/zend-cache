@@ -144,7 +144,7 @@ class Redis extends AbstractAdapter implements
      * @return mixed Data on success, false on key not found
      * @throws Exception\RuntimeException
      */
-    protected function internalGetItem(& $normalizedKey, & $success = null, & $casToken = null)
+    protected function internalGetItem($normalizedKey, & $success = null, & $casToken = null)
     {
         $redis = $this->getRedisResource();
         try {
@@ -171,7 +171,7 @@ class Redis extends AbstractAdapter implements
      * @return array Associative array of keys and values
      * @throws Exception\RuntimeException
      */
-    protected function internalGetItems(array & $normalizedKeys)
+    protected function internalGetItems(array $normalizedKeys)
     {
         $redis = $this->getRedisResource();
 
@@ -202,7 +202,7 @@ class Redis extends AbstractAdapter implements
      * @return bool
      * @throws Exception\RuntimeException
      */
-    protected function internalHasItem(& $normalizedKey)
+    protected function internalHasItem($normalizedKey)
     {
         $redis = $this->getRedisResource();
         try {
@@ -221,7 +221,7 @@ class Redis extends AbstractAdapter implements
      * @return bool
      * @throws Exception\RuntimeException
      */
-    protected function internalSetItem(& $normalizedKey, & $value)
+    protected function internalSetItem($normalizedKey, $value)
     {
         $redis   = $this->getRedisResource();
         $options = $this->getOptions();
@@ -251,7 +251,7 @@ class Redis extends AbstractAdapter implements
      * @return array Array of not stored keys
      * @throws Exception\RuntimeException
      */
-    protected function internalSetItems(array & $normalizedKeyValuePairs)
+    protected function internalSetItems(array $normalizedKeyValuePairs)
     {
         $redis   = $this->getRedisResource();
         $options = $this->getOptions();
@@ -295,7 +295,7 @@ class Redis extends AbstractAdapter implements
      * @return bool
      * @throws Exception\RuntimeException
      */
-    protected function internalAddItem(& $normalizedKey, & $value)
+    protected function internalAddItem($normalizedKey, $value)
     {
         $redis   = $this->getRedisResource();
         $options = $this->getOptions();
@@ -352,7 +352,7 @@ class Redis extends AbstractAdapter implements
      * @return bool
      * @throws Exception\RuntimeException
      */
-    protected function internalRemoveItem(& $normalizedKey)
+    protected function internalRemoveItem($normalizedKey)
     {
         $redis = $this->getRedisResource();
         try {
@@ -370,7 +370,7 @@ class Redis extends AbstractAdapter implements
      * @return int|bool The new value on success, false on failure
      * @throws Exception\RuntimeException
      */
-    protected function internalIncrementItem(& $normalizedKey, & $value)
+    protected function internalIncrementItem($normalizedKey, $value)
     {
         $redis = $this->getRedisResource();
         try {
@@ -388,7 +388,7 @@ class Redis extends AbstractAdapter implements
      * @return int|bool The new value on success, false on failure
      * @throws Exception\RuntimeException
      */
-    protected function internalDecrementItem(& $normalizedKey, & $value)
+    protected function internalDecrementItem($normalizedKey, $value)
     {
         $redis = $this->getRedisResource();
         try {

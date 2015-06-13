@@ -521,7 +521,7 @@ class Filesystem extends AbstractAdapter implements
      * @throws Exception\ExceptionInterface
      * @throws BaseException
      */
-    protected function internalGetItem(& $normalizedKey, & $success = null, & $casToken = null)
+    protected function internalGetItem($normalizedKey, & $success = null, & $casToken = null)
     {
         if (!$this->internalHasItem($normalizedKey)) {
             $success = false;
@@ -551,7 +551,7 @@ class Filesystem extends AbstractAdapter implements
      * @return array Associative array of keys and values
      * @throws Exception\ExceptionInterface
      */
-    protected function internalGetItems(array & $normalizedKeys)
+    protected function internalGetItems(array $normalizedKeys)
     {
         $keys    = $normalizedKeys; // Don't change argument passed by reference
         $result  = [];
@@ -634,7 +634,7 @@ class Filesystem extends AbstractAdapter implements
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalHasItem(& $normalizedKey)
+    protected function internalHasItem($normalizedKey)
     {
         $file = $this->getFileSpec($normalizedKey) . '.dat';
         if (!file_exists($file)) {
@@ -697,7 +697,7 @@ class Filesystem extends AbstractAdapter implements
      * @param string $normalizedKey
      * @return array|bool Metadata on success, false on failure
      */
-    protected function internalGetMetadata(& $normalizedKey)
+    protected function internalGetMetadata($normalizedKey)
     {
         if (!$this->internalHasItem($normalizedKey)) {
             return false;
@@ -730,7 +730,7 @@ class Filesystem extends AbstractAdapter implements
      * @return array Associative array of keys and metadata
      * @throws Exception\ExceptionInterface
      */
-    protected function internalGetMetadatas(array & $normalizedKeys)
+    protected function internalGetMetadatas(array $normalizedKeys)
     {
         $options = $this->getOptions();
         $result  = [];
@@ -896,7 +896,7 @@ class Filesystem extends AbstractAdapter implements
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalSetItem(& $normalizedKey, & $value)
+    protected function internalSetItem($normalizedKey, $value)
     {
         $filespec = $this->getFileSpec($normalizedKey);
         $this->prepareDirectoryStructure($filespec);
@@ -923,7 +923,7 @@ class Filesystem extends AbstractAdapter implements
      * @return array Array of not stored keys
      * @throws Exception\ExceptionInterface
      */
-    protected function internalSetItems(array & $normalizedKeyValuePairs)
+    protected function internalSetItems(array $normalizedKeyValuePairs)
     {
         // create an associated array of files and contents to write
         $contents = [];
@@ -990,7 +990,7 @@ class Filesystem extends AbstractAdapter implements
      * @see    getItem()
      * @see    setItem()
      */
-    protected function internalCheckAndSetItem(& $token, & $normalizedKey, & $value)
+    protected function internalCheckAndSetItem($token, $normalizedKey, $value)
     {
         if (!$this->internalHasItem($normalizedKey)) {
             return false;
@@ -1055,7 +1055,7 @@ class Filesystem extends AbstractAdapter implements
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalTouchItem(& $normalizedKey)
+    protected function internalTouchItem($normalizedKey)
     {
         if (!$this->internalHasItem($normalizedKey)) {
             return false;
@@ -1122,7 +1122,7 @@ class Filesystem extends AbstractAdapter implements
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalRemoveItem(& $normalizedKey)
+    protected function internalRemoveItem($normalizedKey)
     {
         $filespec = $this->getFileSpec($normalizedKey);
         if (!file_exists($filespec . '.dat')) {

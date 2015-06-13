@@ -212,7 +212,7 @@ class Apc extends AbstractAdapter implements
      * @return mixed Data on success, null on failure
      * @throws Exception\ExceptionInterface
      */
-    protected function internalGetItem(& $normalizedKey, & $success = null, & $casToken = null)
+    protected function internalGetItem($normalizedKey, & $success = null, & $casToken = null)
     {
         $options     = $this->getOptions();
         $namespace   = $options->getNamespace();
@@ -235,7 +235,7 @@ class Apc extends AbstractAdapter implements
      * @return array Associative array of keys and values
      * @throws Exception\ExceptionInterface
      */
-    protected function internalGetItems(array & $normalizedKeys)
+    protected function internalGetItems(array $normalizedKeys)
     {
         $options   = $this->getOptions();
         $namespace = $options->getNamespace();
@@ -268,7 +268,7 @@ class Apc extends AbstractAdapter implements
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalHasItem(& $normalizedKey)
+    protected function internalHasItem($normalizedKey)
     {
         $options   = $this->getOptions();
         $namespace = $options->getNamespace();
@@ -283,7 +283,7 @@ class Apc extends AbstractAdapter implements
      * @return array Array of found keys
      * @throws Exception\ExceptionInterface
      */
-    protected function internalHasItems(array & $normalizedKeys)
+    protected function internalHasItems(array $normalizedKeys)
     {
         $options   = $this->getOptions();
         $namespace = $options->getNamespace();
@@ -317,7 +317,7 @@ class Apc extends AbstractAdapter implements
      * @return array|bool Metadata on success, false on failure
      * @throws Exception\ExceptionInterface
      */
-    protected function internalGetMetadata(& $normalizedKey)
+    protected function internalGetMetadata($normalizedKey)
     {
         $options     = $this->getOptions();
         $namespace   = $options->getNamespace();
@@ -352,7 +352,7 @@ class Apc extends AbstractAdapter implements
      * @triggers getMetadatas.post(PostEvent)
      * @triggers getMetadatas.exception(ExceptionEvent)
      */
-    protected function internalGetMetadatas(array & $normalizedKeys)
+    protected function internalGetMetadatas(array $normalizedKeys)
     {
         $keysRegExp = [];
         foreach ($normalizedKeys as $normalizedKey) {
@@ -397,7 +397,7 @@ class Apc extends AbstractAdapter implements
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalSetItem(& $normalizedKey, & $value)
+    protected function internalSetItem($normalizedKey, $value)
     {
         $options     = $this->getOptions();
         $namespace   = $options->getNamespace();
@@ -422,7 +422,7 @@ class Apc extends AbstractAdapter implements
      * @return array Array of not stored keys
      * @throws Exception\ExceptionInterface
      */
-    protected function internalSetItems(array & $normalizedKeyValuePairs)
+    protected function internalSetItems(array $normalizedKeyValuePairs)
     {
         $options   = $this->getOptions();
         $namespace = $options->getNamespace();
@@ -457,7 +457,7 @@ class Apc extends AbstractAdapter implements
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalAddItem(& $normalizedKey, & $value)
+    protected function internalAddItem($normalizedKey, $value)
     {
         $options     = $this->getOptions();
         $namespace   = $options->getNamespace();
@@ -486,7 +486,7 @@ class Apc extends AbstractAdapter implements
      * @return array Array of not stored keys
      * @throws Exception\ExceptionInterface
      */
-    protected function internalAddItems(array & $normalizedKeyValuePairs)
+    protected function internalAddItems(array $normalizedKeyValuePairs)
     {
         $options   = $this->getOptions();
         $namespace = $options->getNamespace();
@@ -521,7 +521,7 @@ class Apc extends AbstractAdapter implements
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalReplaceItem(& $normalizedKey, & $value)
+    protected function internalReplaceItem($normalizedKey, $value)
     {
         $options     = $this->getOptions();
         $namespace   = $options->getNamespace();
@@ -550,7 +550,7 @@ class Apc extends AbstractAdapter implements
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalRemoveItem(& $normalizedKey)
+    protected function internalRemoveItem($normalizedKey)
     {
         $options   = $this->getOptions();
         $namespace = $options->getNamespace();
@@ -565,7 +565,7 @@ class Apc extends AbstractAdapter implements
      * @return array Array of not removed keys
      * @throws Exception\ExceptionInterface
      */
-    protected function internalRemoveItems(array & $normalizedKeys)
+    protected function internalRemoveItems(array $normalizedKeys)
     {
         $options   = $this->getOptions();
         $namespace = $options->getNamespace();
@@ -598,7 +598,7 @@ class Apc extends AbstractAdapter implements
      * @return int|bool The new value on success, false on failure
      * @throws Exception\ExceptionInterface
      */
-    protected function internalIncrementItem(& $normalizedKey, & $value)
+    protected function internalIncrementItem($normalizedKey, $value)
     {
         $options     = $this->getOptions();
         $namespace   = $options->getNamespace();
@@ -629,7 +629,7 @@ class Apc extends AbstractAdapter implements
      * @return int|bool The new value on success, false on failure
      * @throws Exception\ExceptionInterface
      */
-    protected function internalDecrementItem(& $normalizedKey, & $value)
+    protected function internalDecrementItem($normalizedKey, $value)
     {
         $options     = $this->getOptions();
         $namespace   = $options->getNamespace();
@@ -743,7 +743,7 @@ class Apc extends AbstractAdapter implements
      * @see    getItem()
      * @see    setItem()
      */
-    protected function internalCheckAndSetItem(& $token, & $normalizedKey, & $value)
+    protected function internalCheckAndSetItem($token, $normalizedKey, $value)
     {
         if (is_int($token) && is_int($value)) {
             return apc_cas($normalizedKey, $token, $value);

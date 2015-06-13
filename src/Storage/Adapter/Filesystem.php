@@ -262,7 +262,7 @@ class Filesystem extends AbstractAdapter implements
      */
     public function setTags($key, array $tags)
     {
-        $this->normalizeKey($key);
+        $key = $this->normalizeKey($key);
         if (!$this->internalHasItem($key)) {
             return false;
         }
@@ -286,7 +286,7 @@ class Filesystem extends AbstractAdapter implements
      */
     public function getTags($key)
     {
-        $this->normalizeKey($key);
+        $key = $this->normalizeKey($key);
         if (!$this->internalHasItem($key)) {
             return false;
         }

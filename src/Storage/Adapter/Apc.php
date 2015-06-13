@@ -338,8 +338,7 @@ class Apc extends AbstractAdapter implements
             return false;
         }
 
-        $this->normalizeMetadata($metadata);
-        return $metadata;
+        return $this->normalizeMetadata($metadata);
     }
 
     /**
@@ -380,8 +379,7 @@ class Apc extends AbstractAdapter implements
                 continue;
             }
 
-            $this->normalizeMetadata($metadata);
-            $result[substr($internalKey, $prefixL)] = $metadata;
+            $result[substr($internalKey, $prefixL)] = $this->normalizeMetadata($metadata);
         }
 
         return $result;
@@ -718,10 +716,9 @@ class Apc extends AbstractAdapter implements
      * @param  array $metadata
      * @return void
      */
-    protected function normalizeMetadata(array & $metadata)
+    protected function normalizeMetadata(array $metadata)
     {
-        $apcMetadata = $metadata;
-        $metadata = [
+        return [
             'internal_key' => isset($metadata['key']) ? $metadata['key'] : $metadata['info'],
             'atime'        => isset($metadata['access_time']) ? $metadata['access_time'] : $metadata['atime'],
             'ctime'        => isset($metadata['creation_time']) ? $metadata['creation_time'] : $metadata['ctime'],

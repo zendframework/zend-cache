@@ -210,9 +210,7 @@ class WinCache extends AbstractAdapter implements
 
         $info = wincache_ucache_info(true, $internalKey);
         if (isset($info['ucache_entries'][1])) {
-            $metadata = $info['ucache_entries'][1];
-            $this->normalizeMetadata($metadata);
-            return $metadata;
+            return $this->normalizeMetadata($info['ucache_entries'][1]);
         }
 
         return false;
@@ -516,18 +514,13 @@ class WinCache extends AbstractAdapter implements
      * @param  array $metadata
      * @return void
      */
-    protected function normalizeMetadata(array & $metadata)
+    protected function normalizeMetadata(array $metadata)
     {
-        $metadata['internal_key'] = $metadata['key_name'];
-        $metadata['hits']         = $metadata['hitcount'];
-        $metadata['ttl']          = $metadata['ttl_seconds'];
-        $metadata['size']         = $metadata['value_size'];
-
-        unset(
-            $metadata['key_name'],
-            $metadata['hitcount'],
-            $metadata['ttl_seconds'],
-            $metadata['value_size']
-        );
+        return [
+            'internal_key' => $metadata['key_name'],
+            'ttl'          => $metadata['ttl_seconds'],
+            'hits'         => $metadata['hitcount'],
+            'size'         => $metadata['value_size'],
+        ];
     }
 }

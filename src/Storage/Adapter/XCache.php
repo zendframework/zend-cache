@@ -316,8 +316,7 @@ class XCache extends AbstractAdapter implements
                 $list = xcache_list(XC_TYPE_VAR, $i);
                 foreach ($list['cache_list'] as & $metadata) {
                     if ($metadata['name'] === $internalKey) {
-                        $this->normalizeMetadata($metadata);
-                        return $metadata;
+                        return $this->normalizeMetadata($metadata);
                     }
                 }
             }
@@ -523,9 +522,16 @@ class XCache extends AbstractAdapter implements
      *
      * @param  array $metadata
      */
-    protected function normalizeMetadata(array & $metadata)
+    protected function normalizeMetadata(array $metadata)
     {
-        $metadata['internal_key'] = &$metadata['name'];
-        unset($metadata['name']);
+        return [
+            'internal_key' => $metadata['name'],
+            'size'         => $metadata['size'],
+            'refcount'     => $metadata['refcount'],
+            'hits'         => $metadata['hits'],
+            'ctime'        => $metadata['ctime'],
+            'atime'        => $metadata['atime'],
+            'hvalue'       => $metadata['hvalue'],
+        ];
     }
 }

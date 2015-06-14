@@ -521,6 +521,7 @@ class XCache extends AbstractAdapter implements
      * Normalize metadata to work with XCache
      *
      * @param  array $metadata
+     * @return array
      */
     protected function normalizeMetadata(array $metadata)
     {

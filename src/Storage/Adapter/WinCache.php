@@ -512,7 +512,7 @@ class WinCache extends AbstractAdapter implements
      * Normalize metadata to work with WinCache
      *
      * @param  array $metadata
-     * @return void
+     * @return array
      */
     protected function normalizeMetadata(array $metadata)
     {

@@ -714,7 +714,7 @@ class Apc extends AbstractAdapter implements
      * Normalize metadata to work with APC
      *
      * @param  array $metadata
-     * @return void
+     * @return array
      */
     protected function normalizeMetadata(array $metadata)
     {

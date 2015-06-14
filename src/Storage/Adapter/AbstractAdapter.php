@@ -1524,7 +1524,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * Validates and normalizes a key
      *
      * @param  string $key
-     * @return void
+     * @return string
      * @throws Exception\InvalidArgumentException On an invalid key
      */
     protected function normalizeKey($key)
@@ -1547,8 +1547,8 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
     /**
      * Validates and normalizes multiple keys
      *
-     * @param  array $keys
-     * @return void
+     * @param  string[] $keys
+     * @return string[]
      * @throws Exception\InvalidArgumentException On an invalid key
      */
     protected function normalizeKeys(array $keys)
@@ -1568,7 +1568,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * Validates and normalizes an array of key-value pairs
      *
      * @param  array $keyValuePairs
-     * @return void
+     * @return array
      * @throws Exception\InvalidArgumentException On an invalid key
      */
     protected function normalizeKeyValuePairs(array $keyValuePairs)

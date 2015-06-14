@@ -126,7 +126,7 @@ class MemcacheResourceManager
             }
 
             $resourceOptions = [
-                'servers' => [],
+                'servers'                   => [],
                 'auto_compress_threshold'   => null,
                 'auto_compress_min_savings' => null,
             ];
@@ -137,14 +137,12 @@ class MemcacheResourceManager
                 $resource['auto_compress_threshold'],
                 $resource['auto_compress_min_savings']
             );
-            $this->normalizeServers($resource['servers']);
+            $resource['servers'] = $this->normalizeServers($resource['servers']);
         }
 
-        $this->normalizeServerDefaults($serverDefaults);
-
-        $this->resources[$id] = $resource;
+        $this->resources[$id]        = $resource;
         $this->failureCallbacks[$id] = $failureCallback;
-        $this->serverDefaults[$id] = $serverDefaults;
+        $this->serverDefaults[$id]   = $this->normalizeServerDefaults($serverDefaults);
 
         return $this;
     }
@@ -214,7 +212,7 @@ class MemcacheResourceManager
             throw new Exception\RuntimeException("No resource with id '{$id}'");
         }
 
-        $resource = & $this->resources[$id];
+        $resource = $this->resources[$id];
         if ($resource instanceof MemcacheResource) {
             // Cannot get options from Memcache resource once created
             throw new Exception\RuntimeException("Cannot get compress threshold once resource is created");
@@ -265,7 +263,7 @@ class MemcacheResourceManager
             throw new Exception\RuntimeException("No resource with id '{$id}'");
         }
 
-        $resource = & $this->resources[$id];
+        $resource = $this->resources[$id];
         if ($resource instanceof MemcacheResource) {
             // Cannot get options from Memcache resource once created
             throw new Exception\RuntimeException("Cannot get compress min savings once resource is created");
@@ -320,8 +318,7 @@ class MemcacheResourceManager
             ]);
         }
 
-        $this->normalizeServerDefaults($serverDefaults);
-        $this->serverDefaults[$id] = $serverDefaults;
+        $this->serverDefaults[$id] = $this->normalizeServerDefaults($serverDefaults);
 
         return $this;
     }
@@ -342,10 +339,11 @@ class MemcacheResourceManager
     }
 
     /**
-     * @param array $serverDefaults
+     * @param  array $serverDefaults
+     * @return array
      * @throws Exception\InvalidArgumentException
      */
-    protected function normalizeServerDefaults(& $serverDefaults)
+    protected function normalizeServerDefaults($serverDefaults)
     {
         if (!is_array($serverDefaults) && !($serverDefaults instanceof Traversable)) {
             throw new Exception\InvalidArgumentException(
@@ -355,9 +353,9 @@ class MemcacheResourceManager
 
         // Defaults
         $result = [
-            'persistent' => true,
-            'weight' => 1,
-            'timeout' => 1, // seconds
+            'persistent'     => true,
+            'weight'         => 1,
+            'timeout'        => 1,  // seconds
             'retry_interval' => 15, // seconds
         ];
 
@@ -375,7 +373,7 @@ class MemcacheResourceManager
             $result[$key] = $value;
         }
 
-        $serverDefaults = $result;
+        return $result;
     }
 
     /**
@@ -423,7 +421,7 @@ class MemcacheResourceManager
             throw new Exception\RuntimeException("No resource with id '{$id}'");
         }
 
-        $resource = & $this->resources[$id];
+        $resource = $this->resources[$id];
         if ($resource instanceof MemcacheResource) {
             throw new Exception\RuntimeException("Cannot get server list once resource is created");
         }
@@ -445,8 +443,7 @@ class MemcacheResourceManager
             ]);
         }
 
-        $this->normalizeServers($servers);
-
+        $servers  = $this->normalizeServers($servers);
         $resource = & $this->resources[$id];
         if ($resource instanceof MemcacheResource) {
             foreach ($servers as $server) {
@@ -515,9 +512,10 @@ class MemcacheResourceManager
      * Normalize a list of servers into the following format:
      * array(array('host' => <host>, 'port' => <port>, 'weight' => <weight>)[, ...])
      *
-     * @param string|array $servers
+     * @param  string|array $servers
+     * @return array
      */
-    protected function normalizeServers(& $servers)
+    protected function normalizeServers($servers)
     {
         if (is_string($servers)) {
             // Convert string into a list of servers
@@ -526,11 +524,11 @@ class MemcacheResourceManager
 
         $result = [];
         foreach ($servers as $server) {
-            $this->normalizeServer($server);
+            $server = $this->normalizeServer($server);
             $result[$server['host'] . ':' . $server['port']] = $server;
         }
 
-        $servers = array_values($result);
+        return array_values($result);
     }
 
     /**
@@ -541,15 +539,16 @@ class MemcacheResourceManager
      *   'timeout' => <timeout>, 'retry_interval' => <retryInterval>,
      * )
      *
-     * @param string|array $server
+     * @param  string|array $server
+     * @return array
      * @throws Exception\InvalidArgumentException
      */
-    protected function normalizeServer(& $server)
+    protected function normalizeServer($server)
     {
         // WARNING: The order of this array is important.
         // Used for converting an ordered array to a keyed array.
         // Append new options, do not insert or you will break BC.
-        $sTmp = [
+        $result = [
             'host'           => null,
             'port'           => 11211,
             'weight'         => null,
@@ -569,11 +568,11 @@ class MemcacheResourceManager
                 // Convert ordered array to keyed array
                 // array(<host>[, <port>[, <weight>[, <status>[, <persistent>[, <timeout>[, <retryInterval>]]]]]])
                 $server = array_combine(
-                    array_slice(array_keys($sTmp), 0, count($server)),
+                    array_slice(array_keys($result), 0, count($server)),
                     $server
                 );
             }
-            $sTmp = array_merge($sTmp, $server);
+            $result = array_merge($result, $server);
         } elseif (is_string($server)) {
             // parse server from URI host{:?port}{?weight}
             $server = trim($server);
@@ -586,20 +585,20 @@ class MemcacheResourceManager
                 throw new Exception\InvalidArgumentException("Invalid server given");
             }
 
-            $sTmp = array_merge($sTmp, array_intersect_key($urlParts, $sTmp));
+            $result = array_merge($result, array_intersect_key($urlParts, $result));
             if (isset($urlParts['query'])) {
                 $query = null;
                 parse_str($urlParts['query'], $query);
-                $sTmp = array_merge($sTmp, array_intersect_key($query, $sTmp));
+                $result = array_merge($result, array_intersect_key($query, $result));
             }
         }
 
-        if (!$sTmp['host']) {
+        if (!$result['host']) {
             throw new Exception\InvalidArgumentException('Missing required server host');
         }
 
         // Filter values
-        foreach ($sTmp as $key => $value) {
+        foreach ($result as $key => $value) {
             if (isset($value)) {
                 switch ($key) {
                     case 'host':
@@ -617,16 +616,12 @@ class MemcacheResourceManager
                         break;
                 }
             }
-            $sTmp[$key] = $value;
+            $result[$key] = $value;
         }
-        $sTmp = array_filter(
-            $sTmp,
-            function ($val) {
-                return isset($val);
-            }
-        );
 
-        $server = $sTmp;
+        return array_filter($result, function ($val) {
+                return isset($val);
+        });
     }
 
     /**

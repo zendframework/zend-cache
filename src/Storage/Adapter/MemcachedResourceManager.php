@@ -39,8 +39,7 @@ class MemcachedResourceManager
             throw new Exception\RuntimeException("No resource with id '{$id}'");
         }
 
-        $resource = & $this->resources[$id];
-
+        $resource = $this->resources[$id];
         if ($resource instanceof MemcachedResource) {
             return $resource->getServerList();
         }
@@ -51,10 +50,11 @@ class MemcachedResourceManager
      * Normalize one server into the following format:
      * array('host' => <host>, 'port' => <port>, 'weight' => <weight>)
      *
-     * @param string|array &$server
+     * @param  string|array $server
+     * @return array
      * @throws Exception\InvalidArgumentException
      */
-    protected function normalizeServer(&$server)
+    protected function normalizeServer($server)
     {
         $host   = null;
         $port   = 11211;
@@ -107,7 +107,7 @@ class MemcachedResourceManager
             throw new Exception\InvalidArgumentException('Missing required server host');
         }
 
-        $server = [
+        return [
             'host'   => $host,
             'port'   => $port,
             'weight' => $weight,
@@ -195,9 +195,9 @@ class MemcachedResourceManager
             ], $resource);
 
             // normalize and validate params
-            $this->normalizePersistentId($resource['persistent_id']);
-            $this->normalizeLibOptions($resource['lib_options']);
-            $this->normalizeServers($resource['servers']);
+            $resource['persistent_id'] = $this->normalizePersistentId($resource['persistent_id']);
+            $resource['lib_options']   = $this->normalizeLibOptions($resource['lib_options']);
+            $resource['servers']       = $this->normalizeServers($resource['servers']);
         }
 
         $this->resources[$id] = $resource;
@@ -232,15 +232,14 @@ class MemcachedResourceManager
             ]);
         }
 
-        $resource = & $this->resources[$id];
-        if ($resource instanceof MemcachedResource) {
+        if ($this->resources[$id] instanceof MemcachedResource) {
             throw new Exception\RuntimeException(
                 "Can't change persistent id of resource {$id} after instanziation"
             );
         }
 
-        $this->normalizePersistentId($persistentId);
-        $resource['persistent_id'] = $persistentId;
+        $persistentId = $this->normalizePersistentId($persistentId);
+        $this->resources[$id]['persistent_id'] = $persistentId;
 
         return $this;
     }
@@ -258,8 +257,7 @@ class MemcachedResourceManager
             throw new Exception\RuntimeException("No resource with id '{$id}'");
         }
 
-        $resource = & $this->resources[$id];
-
+        $resource = $this->resources[$id];
         if ($resource instanceof MemcachedResource) {
             throw new Exception\RuntimeException(
                 "Can't get persistent id of an instantiated memcached resource"
@@ -272,11 +270,12 @@ class MemcachedResourceManager
     /**
      * Normalize the persistent id
      *
-     * @param string $persistentId
+     * @param  string $persistentId
+     * @return string
      */
-    protected function normalizePersistentId(& $persistentId)
+    protected function normalizePersistentId($persistentId)
     {
-        $persistentId = (string) $persistentId;
+        return (string) $persistentId;
     }
 
     /**
@@ -294,9 +293,9 @@ class MemcachedResourceManager
             ]);
         }
 
-        $this->normalizeLibOptions($libOptions);
+        $libOptions = $this->normalizeLibOptions($libOptions);
 
-        $resource = & $this->resources[$id];
+        $resource = $this->resources[$id];
         if ($resource instanceof MemcachedResource) {
             if (method_exists($resource, 'setOptions')) {
                 $resource->setOptions($libOptions);
@@ -306,7 +305,7 @@ class MemcachedResourceManager
                 }
             }
         } else {
-            $resource['lib_options'] = $libOptions;
+            $this->resources[$id]['lib_options'] = $libOptions;
         }
 
         return $this;
@@ -325,7 +324,7 @@ class MemcachedResourceManager
             throw new Exception\RuntimeException("No resource with id '{$id}'");
         }
 
-        $resource = & $this->resources[$id];
+        $resource = $this->resources[$id];
 
         if ($resource instanceof MemcachedResource) {
             $libOptions = [];
@@ -368,8 +367,8 @@ class MemcachedResourceManager
             throw new Exception\RuntimeException("No resource with id '{$id}'");
         }
 
-        $this->normalizeLibOptionKey($key);
-        $resource   = & $this->resources[$id];
+        $key      = $this->normalizeLibOptionKey($key);
+        $resource = $this->resources[$id];
 
         if ($resource instanceof MemcachedResource) {
             return $resource->getOption($key);
@@ -381,10 +380,11 @@ class MemcachedResourceManager
     /**
      * Normalize libmemcached options
      *
-     * @param array|Traversable $libOptions
+     * @param  array|Traversable $libOptions
+     * @return array
      * @throws Exception\InvalidArgumentException
      */
-    protected function normalizeLibOptions(& $libOptions)
+    protected function normalizeLibOptions($libOptions)
     {
         if (!is_array($libOptions) && !($libOptions instanceof Traversable)) {
             throw new Exception\InvalidArgumentException(
@@ -394,20 +394,21 @@ class MemcachedResourceManager
 
         $result = [];
         foreach ($libOptions as $key => $value) {
-            $this->normalizeLibOptionKey($key);
+            $key = $this->normalizeLibOptionKey($key);
             $result[$key] = $value;
         }
 
-        $libOptions = $result;
+        return $result;
     }
 
     /**
      * Convert option name into it's constant value
      *
-     * @param string|int $key
+     * @param  string|int $key
+     * @return int
      * @throws Exception\InvalidArgumentException
      */
-    protected function normalizeLibOptionKey(& $key)
+    protected function normalizeLibOptionKey($key)
     {
         // convert option name into it's constant value
         if (is_string($key)) {
@@ -415,10 +416,9 @@ class MemcachedResourceManager
             if (!defined($const)) {
                 throw new Exception\InvalidArgumentException("Unknown libmemcached option '{$key}' ({$const})");
             }
-            $key = constant($const);
-        } else {
-            $key = (int) $key;
+            return constant($const);
         }
+        return (int) $key;
     }
 
     /**
@@ -442,9 +442,8 @@ class MemcachedResourceManager
             ]);
         }
 
-        $this->normalizeServers($servers);
-
-        $resource = & $this->resources[$id];
+        $servers  = $this->normalizeServers($servers);
+        $resource = $this->resources[$id];
         if ($resource instanceof MemcachedResource) {
             // don't add servers twice
             $servers = array_udiff($servers, $resource->getServerList(), [$this, 'compareServers']);
@@ -452,7 +451,7 @@ class MemcachedResourceManager
                 $resource->addServers($servers);
             }
         } else {
-            $resource['servers'] = $servers;
+            $this->resources[$id]['servers'] = $servers;
         }
 
         return $this;
@@ -473,9 +472,8 @@ class MemcachedResourceManager
             ]);
         }
 
-        $this->normalizeServers($servers);
-
-        $resource = & $this->resources[$id];
+        $servers  = $this->normalizeServers($servers);
+        $resource = $this->resources[$id];
         if ($resource instanceof MemcachedResource) {
             // don't add servers twice
             $servers = array_udiff($servers, $resource->getServerList(), [$this, 'compareServers']);
@@ -484,7 +482,7 @@ class MemcachedResourceManager
             }
         } else {
             // don't add servers twice
-            $resource['servers'] = array_merge(
+            $this->resources[$id]['servers'] = array_merge(
                 $resource['servers'],
                 array_udiff($servers, $resource['servers'], [$this, 'compareServers'])
             );
@@ -509,9 +507,10 @@ class MemcachedResourceManager
      * Normalize a list of servers into the following format:
      * array(array('host' => <host>, 'port' => <port>, 'weight' => <weight>)[, ...])
      *
-     * @param string|array $servers
+     * @param  string|array $servers
+     * @return array[]
      */
-    protected function normalizeServers(& $servers)
+    protected function normalizeServers($servers)
     {
         if (!is_array($servers) && !$servers instanceof Traversable) {
             // Convert string into a list of servers
@@ -520,11 +519,11 @@ class MemcachedResourceManager
 
         $result = [];
         foreach ($servers as $server) {
-            $this->normalizeServer($server);
+            $server = $this->normalizeServer($server);
             $result[$server['host'] . ':' . $server['port']] = $server;
         }
 
-        $servers = array_values($result);
+        return array_values($result);
     }
 
     /**

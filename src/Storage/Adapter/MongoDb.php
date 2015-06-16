@@ -75,7 +75,7 @@ class MongoDb extends AbstractAdapter implements FlushableInterface
      *
      * @return MongoResource
      */
-    private function getMongoDbResource()
+    public function getMongoDbResource()
     {
         if (! $this->initialized) {
             $options = $this->getOptions();

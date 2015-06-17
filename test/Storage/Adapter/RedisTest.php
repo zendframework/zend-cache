@@ -14,18 +14,6 @@ use Redis as RedisResource;
 
 class RedisTest extends CommonAdapterTest
 {
-    /**
-     *
-     * @var Cache\Storage\Adapter\RedisOptions
-     */
-    protected $_options;
-
-    /**
-     *
-     * @var Cache\Storage\Adapter\Redis
-     */
-    protected $_storage;
-
     public function setUp()
     {
         if (!getenv('TESTS_ZEND_CACHE_REDIS_ENABLED')) {
@@ -311,5 +299,10 @@ class RedisTest extends CommonAdapterTest
         $password = 'my-secret';
         $this->_options->setPassword($password);
         $this->assertEquals($password, $this->_options->getPassword(), 'Password was set incorrectly using RedisOptions');
+    }
+
+    public function testGetRedisResource()
+    {
+        $this->assertInstanceOf('Redis', $this->_storage->getRedisResource());
     }
 }

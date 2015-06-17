@@ -93,4 +93,9 @@ class MongoDbTest extends CommonAdapterTest
 
         $this->assertEquals([], $this->_storage->hasItems([$key1, $key2]));
     }
+
+    public function testGetMongoDbResource()
+    {
+        $this->assertInstanceOf('MongoCollection', $this->_storage->getMongoDbResource());
+    }
 }

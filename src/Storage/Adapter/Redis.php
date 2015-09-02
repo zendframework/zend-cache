@@ -446,6 +446,7 @@ class Redis extends AbstractAdapter implements
         if ($this->capabilities === null) {
             $this->capabilityMarker = new stdClass();
 
+            $this->getRedisResource(); // Initializes the resource if needed.
             $redisVersion = $this->resourceManager->getMajorVersion($this->resourceId);
             $minTtl = version_compare($redisVersion, '2', '<') ? 0 : 1;
             $supportedMetadata = version_compare($redisVersion, '2', '>=') ? ['ttl'] : [];

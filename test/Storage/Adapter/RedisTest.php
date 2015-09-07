@@ -14,6 +14,18 @@ use Redis as RedisResource;
 
 class RedisTest extends CommonAdapterTest
 {
+    /**
+     *
+     * @var Cache\Storage\Adapter\RedisOptions
+     */
+    protected $_options;
+
+    /**
+     *
+     * @var Cache\Storage\Adapter\Redis
+     */
+    protected $_storage;
+
     public function setUp()
     {
         if (!getenv('TESTS_ZEND_CACHE_REDIS_ENABLED')) {
@@ -304,5 +316,21 @@ class RedisTest extends CommonAdapterTest
     public function testGetRedisResource()
     {
         $this->assertInstanceOf('Redis', $this->_storage->getRedisResource());
+    }
+
+    public function testTouchItem()
+    {
+        $key = 'key';
+
+        // no TTL
+        $this->_storage->getOptions()->setTtl(0);
+        $this->_storage->setItem($key, 'val');
+        $this->assertEquals(0, $this->_storage->getMetadata($key)['ttl']);
+
+        // touch with a specific TTL will add this TTL
+        $ttl = 1000;
+        $this->_storage->getOptions()->setTtl($ttl);
+        $this->assertTrue($this->_storage->touchItem($key));
+        $this->assertEquals($ttl, ceil($this->_storage->getMetadata($key)['ttl']));
     }
 }

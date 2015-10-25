@@ -333,7 +333,7 @@ class Redis extends AbstractAdapter implements
      * @return bool
      * @throws Exception\RuntimeException
      */
-    protected function internalTouchItem(& $normalizedKey)
+    protected function internalTouchItem($normalizedKey)
     {
         $redis = $this->getRedisResource();
         try {
@@ -547,7 +547,7 @@ class Redis extends AbstractAdapter implements
      *
      * @throws Exception\ExceptionInterface
      */
-    protected function internalGetMetadata(& $normalizedKey)
+    protected function internalGetMetadata($normalizedKey)
     {
         $redis    = $this->getRedisResource();
         $metadata = [];

@@ -78,7 +78,7 @@ class Redis extends AbstractAdapter implements
      *
      * @return RedisResource
      */
-    protected function getRedisResource()
+    public function getRedisResource()
     {
         if (!$this->initialized) {
             $options = $this->getOptions();

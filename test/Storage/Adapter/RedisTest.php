@@ -303,6 +303,11 @@ class RedisTest extends CommonAdapterTest
         $this->assertEquals($password, $this->_options->getPassword(), 'Password was set incorrectly using RedisOptions');
     }
 
+    public function testGetRedisResource()
+    {
+        $this->assertInstanceOf('Redis', $this->_storage->getRedisResource());
+    }
+
     public function testTouchItem()
     {
         $key = 'key';

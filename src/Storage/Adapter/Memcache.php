@@ -77,7 +77,7 @@ class Memcache extends AbstractAdapter implements
      *
      * @return MemcacheResource
      */
-    protected function getMemcacheResource()
+    public function getMemcacheResource()
     {
         if ($this->initialized) {
             return $this->resourceManager->getResource($this->resourceId);

@@ -198,4 +198,9 @@ class MemcachedTest extends CommonAdapterTest
 
         parent::tearDown();
     }
+
+    public function testGetMemcachedResource()
+    {
+        $this->assertInstanceOf('Memcached', $this->_storage->getMemcachedResource());
+    }
 }

@@ -139,6 +139,14 @@ abstract class StorageFactory
             // $adapterName is already an adapter object
             $adapter = $adapterName;
         } else {
+            if ($adapterName == 'apc' && class_exists('APCuIterator', false)) {
+                // APCu > 5.1 new API (apc compat is optional)
+               $adapterName = 'apcu';
+            }
+            else if ($adapterName == 'apcu' && !class_exists('APCuIterator', false)) {
+                // APCu < 5.1, keep using apc API
+               $adapterName = 'apc';
+            }
             $adapter = static::getAdapterPluginManager()->get($adapterName);
         }
 

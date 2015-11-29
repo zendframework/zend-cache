@@ -927,12 +927,12 @@ class Filesystem extends AbstractAdapter implements
     {
         // create an associated array of files and contents to write
         $contents = [];
-        foreach ($normalizedKeyValuePairs as $key => & $value) {
+        foreach ($normalizedKeyValuePairs as $key => $value) {
             $filespec = $this->getFileSpec($key);
             $this->prepareDirectoryStructure($filespec);
 
             // *.dat file
-            $contents[$filespec . '.dat'] = & $value;
+            $contents[$filespec . '.dat'] = $value;
 
             // *.tag file
             $this->unlink($filespec . '.tag');
@@ -943,7 +943,7 @@ class Filesystem extends AbstractAdapter implements
             $nonBlocking = count($contents) > 1;
             $wouldblock  = null;
 
-            foreach ($contents as $file => & $content) {
+            foreach ($contents as $file => $content) {
                 $this->putFileContent($file, $content, $nonBlocking, $wouldblock);
                 if (!$nonBlocking || !$wouldblock) {
                     unset($contents[$file]);

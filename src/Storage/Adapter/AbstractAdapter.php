@@ -215,7 +215,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @param  mixed       $result
      * @return mixed
      */
-    protected function triggerPost($eventName, ArrayObject $args, & $result)
+    protected function triggerPost($eventName, ArrayObject $args, $result)
     {
         $postEvent = new PostEvent($eventName . '.post', $this, $args, $result);
         $eventRs   = $this->getEventManager()->triggerEvent($postEvent);
@@ -238,7 +238,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @throws Exception\ExceptionInterface
      * @return mixed
      */
-    protected function triggerException($eventName, ArrayObject $args, & $result, \Exception $exception)
+    protected function triggerException($eventName, ArrayObject $args, $result, \Exception $exception)
     {
         $exceptionEvent = new ExceptionEvent($eventName . '.exception', $this, $args, $result, $exception);
         $eventRs        = $this->getEventManager()->triggerEvent($exceptionEvent);
@@ -344,7 +344,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
 
         $argn = func_num_args();
         $args = [
-            'key' => & $key,
+            'key' => $key,
         ];
         if ($argn > 1) {
             $args['success'] = & $success;
@@ -405,7 +405,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
 
         $keys = $this->normalizeKeys($keys);
         $args = new ArrayObject([
-            'keys' => & $keys,
+            'keys' => $keys,
         ]);
 
         try {
@@ -462,7 +462,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
 
         $key  = $this->normalizeKey($key);
         $args = new ArrayObject([
-            'key' => & $key,
+            'key' => $key,
         ]);
 
         try {
@@ -512,7 +512,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
 
         $keys = $this->normalizeKeys($keys);
         $args = new ArrayObject([
-            'keys' => & $keys,
+            'keys' => $keys,
         ]);
 
         try {
@@ -566,7 +566,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
 
         $key  = $this->normalizeKey($key);
         $args = new ArrayObject([
-            'key' => & $key,
+            'key' => $key,
         ]);
 
         try {
@@ -618,7 +618,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
 
         $keys = $this->normalizeKeys($keys);
         $args = new ArrayObject([
-            'keys' => & $keys,
+            'keys' => $keys,
         ]);
 
         try {
@@ -676,8 +676,8 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
 
         $key  = $this->normalizeKey($key);
         $args = new ArrayObject([
-            'key'   => & $key,
-            'value' => & $value,
+            'key'   => $key,
+            'value' => $value,
         ]);
 
         try {
@@ -723,7 +723,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
 
         $keyValuePairs = $this->normalizeKeyValuePairs($keyValuePairs);
         $args          = new ArrayObject([
-            'keyValuePairs' => & $keyValuePairs,
+            'keyValuePairs' => $keyValuePairs,
         ]);
 
         try {
@@ -778,8 +778,8 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
 
         $key  = $this->normalizeKey($key);
         $args = new ArrayObject([
-            'key'   => & $key,
-            'value' => & $value,
+            'key'   => $key,
+            'value' => $value,
         ]);
 
         try {
@@ -831,7 +831,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
 
         $keyValuePairs = $this->normalizeKeyValuePairs($keyValuePairs);
         $args          = new ArrayObject([
-            'keyValuePairs' => & $keyValuePairs,
+            'keyValuePairs' => $keyValuePairs,
         ]);
 
         try {
@@ -886,8 +886,8 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
 
         $key  = $this->normalizeKey($key);
         $args = new ArrayObject([
-            'key'   => & $key,
-            'value' => & $value,
+            'key'   => $key,
+            'value' => $value,
         ]);
 
         try {
@@ -940,7 +940,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
 
         $keyValuePairs = $this->normalizeKeyValuePairs($keyValuePairs);
         $args          = new ArrayObject([
-            'keyValuePairs' => & $keyValuePairs,
+            'keyValuePairs' => $keyValuePairs,
         ]);
 
         try {
@@ -997,9 +997,9 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
 
         $key  = $this->normalizeKey($key);
         $args = new ArrayObject([
-            'token' => & $token,
-            'key'   => & $key,
-            'value' => & $value,
+            'token' => $token,
+            'key'   => $key,
+            'value' => $value,
         ]);
 
         try {
@@ -1056,7 +1056,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
 
         $key  = $this->normalizeKey($key);
         $args = new ArrayObject([
-            'key' => & $key,
+            'key' => $key,
         ]);
 
         try {
@@ -1110,7 +1110,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
 
         $keys = $this->normalizeKeys($keys);
         $args = new ArrayObject([
-            'keys' => & $keys,
+            'keys' => $keys,
         ]);
 
         try {
@@ -1163,7 +1163,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
 
         $key  = $this->normalizeKey($key);
         $args = new ArrayObject([
-            'key' => & $key,
+            'key' => $key,
         ]);
 
         try {
@@ -1208,7 +1208,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
 
         $keys = $this->normalizeKeys($keys);
         $args = new ArrayObject([
-            'keys' => & $keys,
+            'keys' => $keys,
         ]);
 
         try {
@@ -1262,8 +1262,8 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
 
         $key  = $this->normalizeKey($key);
         $args = new ArrayObject([
-            'key'   => & $key,
-            'value' => & $value,
+            'key'   => $key,
+            'value' => $value,
         ]);
 
         try {
@@ -1323,7 +1323,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
 
         $keyValuePairs = $this->normalizeKeyValuePairs($keyValuePairs);
         $args          = new ArrayObject([
-            'keyValuePairs' => & $keyValuePairs,
+            'keyValuePairs' => $keyValuePairs,
         ]);
 
         try {
@@ -1379,8 +1379,8 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
 
         $key  = $this->normalizeKey($key);
         $args = new ArrayObject([
-            'key'   => & $key,
-            'value' => & $value,
+            'key'   => $key,
+            'value' => $value,
         ]);
 
         try {
@@ -1440,7 +1440,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
 
         $keyValuePairs = $this->normalizeKeyValuePairs($keyValuePairs);
         $args          = new ArrayObject([
-            'keyValuePairs' => & $keyValuePairs,
+            'keyValuePairs' => $keyValuePairs,
         ]);
 
         try {

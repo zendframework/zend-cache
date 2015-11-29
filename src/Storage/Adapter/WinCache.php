@@ -172,8 +172,8 @@ class WinCache extends AbstractAdapter implements
         // remove namespace prefix
         $prefixL = strlen($prefix);
         $result  = [];
-        foreach ($fetch as $internalKey => & $value) {
-            $result[substr($internalKey, $prefixL)] = & $value;
+        foreach ($fetch as $internalKey => $value) {
+            $result[substr($internalKey, $prefixL)] = $value;
         }
 
         return $result;
@@ -261,9 +261,9 @@ class WinCache extends AbstractAdapter implements
 
         $prefix                = $namespace . $options->getNamespaceSeparator();
         $internalKeyValuePairs = [];
-        foreach ($normalizedKeyValuePairs as $normalizedKey => & $value) {
+        foreach ($normalizedKeyValuePairs as $normalizedKey => $value) {
             $internalKey = $prefix . $normalizedKey;
-            $internalKeyValuePairs[$internalKey] = & $value;
+            $internalKeyValuePairs[$internalKey] = $value;
         }
 
         $result = wincache_ucache_set($internalKeyValuePairs, null, $options->getTtl());

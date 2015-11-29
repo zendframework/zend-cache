@@ -118,7 +118,7 @@ class Memory extends AbstractAdapter implements
         $keys = [];
 
         if (isset($this->data[$ns])) {
-            foreach ($this->data[$ns] as $key => & $tmp) {
+            foreach ($this->data[$ns] as $key => $tmp) {
                 if ($this->internalHasItem($key)) {
                     $keys[] = $key;
                 }
@@ -160,10 +160,9 @@ class Memory extends AbstractAdapter implements
             return true;
         }
 
-        $data = & $this->data[$ns];
-        foreach ($data as $key => & $item) {
-            if (microtime(true) >= $data[$key][1] + $ttl) {
-                unset($data[$key]);
+        foreach ($this->data[$ns] as $key => $item) {
+            if (microtime(true) >= $this->data[$ns][$key][1] + $ttl) {
+                unset($this->data[$ns][$key]);
             }
         }
 
@@ -204,10 +203,9 @@ class Memory extends AbstractAdapter implements
         }
 
         $prefixL = strlen($prefix);
-        $data    = & $this->data[$ns];
-        foreach ($data as $key => & $item) {
+        foreach ($this->data[$ns] as $key => $item) {
             if (substr($key, 0, $prefixL) === $prefix) {
-                unset($data[$key]);
+                unset($this->data[$ns][$key]);
             }
         }
 
@@ -269,12 +267,11 @@ class Memory extends AbstractAdapter implements
         }
 
         $tagCount = count($tags);
-        $data     = & $this->data[$ns];
-        foreach ($data as $key => & $item) {
+        foreach ($this->data[$ns] as $key => $item) {
             if (isset($item['tags'])) {
                 $diff = array_diff($tags, $item['tags']);
                 if (($disjunction && count($diff) < $tagCount) || (!$disjunction && !$diff)) {
-                    unset($data[$key]);
+                    unset($this->data[$ns][$key]);
                 }
             }
         }
@@ -299,7 +296,7 @@ class Memory extends AbstractAdapter implements
         $ns      = $options->getNamespace();
         $success = isset($this->data[$ns][$normalizedKey]);
         if ($success) {
-            $data = & $this->data[$ns][$normalizedKey];
+            $data = $this->data[$ns][$normalizedKey];
             $ttl  = $options->getTtl();
             if ($ttl && microtime(true) >= ($data[1] + $ttl)) {
                 $success = false;
@@ -329,7 +326,7 @@ class Memory extends AbstractAdapter implements
             return [];
         }
 
-        $data = & $this->data[$ns];
+        $data = $this->data[$ns];
         $ttl  = $options->getTtl();
         $now  = microtime(true);
 
@@ -382,7 +379,7 @@ class Memory extends AbstractAdapter implements
             return [];
         }
 
-        $data = & $this->data[$ns];
+        $data = $this->data[$ns];
         $ttl  = $options->getTtl();
         $now  = microtime(true);
 
@@ -471,10 +468,9 @@ class Memory extends AbstractAdapter implements
             $this->data[$ns] = [];
         }
 
-        $data = & $this->data[$ns];
-        $now  = microtime(true);
+        $now = microtime(true);
         foreach ($normalizedKeyValuePairs as $normalizedKey => $value) {
-            $data[$normalizedKey] = [$value, $now];
+            $this->data[$ns][$normalizedKey] = [$value, $now];
         }
 
         return [];
@@ -532,13 +528,12 @@ class Memory extends AbstractAdapter implements
         }
 
         $result = [];
-        $data   = & $this->data[$ns];
         $now    = microtime(true);
         foreach ($normalizedKeyValuePairs as $normalizedKey => $value) {
-            if (isset($data[$normalizedKey])) {
+            if (isset($this->data[$ns][$normalizedKey])) {
                 $result[] = $normalizedKey;
             } else {
-                $data[$normalizedKey] = [$value, $now];
+                $this->data[$ns][$normalizedKey] = [$value, $now];
             }
         }
 
@@ -579,12 +574,11 @@ class Memory extends AbstractAdapter implements
         }
 
         $result = [];
-        $data   = & $this->data[$ns];
         foreach ($normalizedKeyValuePairs as $normalizedKey => $value) {
-            if (!isset($data[$normalizedKey])) {
+            if (!isset($this->data[$ns][$normalizedKey])) {
                 $result[] = $normalizedKey;
             } else {
-                $data[$normalizedKey] = [$value, microtime(true)];
+                $this->data[$ns][$normalizedKey] = [$value, microtime(true)];
             }
         }
 
@@ -646,10 +640,9 @@ class Memory extends AbstractAdapter implements
     {
         $ns = $this->getOptions()->getNamespace();
         if (isset($this->data[$ns][$normalizedKey])) {
-            $data = & $this->data[$ns][$normalizedKey];
-            $data[0]+= $value;
-            $data[1] = microtime(true);
-            $newValue = $data[0];
+            $this->data[$ns][$normalizedKey][0] += $value;
+            $this->data[$ns][$normalizedKey][1]  = microtime(true);
+            $newValue = $this->data[$ns][$normalizedKey][0];
         } else {
             // initial value
             $newValue                        = $value;
@@ -671,10 +664,9 @@ class Memory extends AbstractAdapter implements
     {
         $ns = $this->getOptions()->getNamespace();
         if (isset($this->data[$ns][$normalizedKey])) {
-            $data = & $this->data[$ns][$normalizedKey];
-            $data[0]-= $value;
-            $data[1] = microtime(true);
-            $newValue = $data[0];
+            $this->data[$ns][$normalizedKey][0] -= $value;
+            $this->data[$ns][$normalizedKey][1]  = microtime(true);
+            $newValue = $this->data[$ns][$normalizedKey][0];
         } else {
             // initial value
             $newValue                        = -$value;

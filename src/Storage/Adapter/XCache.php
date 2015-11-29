@@ -230,7 +230,7 @@ class XCache extends AbstractAdapter implements
             $cnt = xcache_count(XC_TYPE_VAR);
             for ($i=0; $i < $cnt; $i++) {
                 $list = xcache_list(XC_TYPE_VAR, $i);
-                foreach ($list['cache_list'] as & $item) {
+                foreach ($list['cache_list'] as $item) {
                     $keys[] = $item['name'];
                 }
             }
@@ -241,7 +241,7 @@ class XCache extends AbstractAdapter implements
             $cnt = xcache_count(XC_TYPE_VAR);
             for ($i=0; $i < $cnt; $i++) {
                 $list = xcache_list(XC_TYPE_VAR, $i);
-                foreach ($list['cache_list'] as & $item) {
+                foreach ($list['cache_list'] as $item) {
                     $keys[] = substr($item['name'], $prefixL);
                 }
             }
@@ -314,7 +314,7 @@ class XCache extends AbstractAdapter implements
             $cnt = xcache_count(XC_TYPE_VAR);
             for ($i=0; $i < $cnt; $i++) {
                 $list = xcache_list(XC_TYPE_VAR, $i);
-                foreach ($list['cache_list'] as & $metadata) {
+                foreach ($list['cache_list'] as $metadata) {
                     if ($metadata['name'] === $internalKey) {
                         return $this->normalizeMetadata($metadata);
                     }

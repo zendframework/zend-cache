@@ -238,13 +238,12 @@ class MemcacheResourceManager
 
         $this->normalizeAutoCompressThreshold($threshold, $minSavings);
 
-        $resource = & $this->resources[$id];
-        if ($resource instanceof MemcacheResource) {
-            $this->setResourceAutoCompressThreshold($resource, $threshold, $minSavings);
+        if ($this->resources[$id] instanceof MemcacheResource) {
+            $this->setResourceAutoCompressThreshold($this->resources[$id], $threshold, $minSavings);
         } else {
-            $resource['auto_compress_threshold'] = $threshold;
+            $this->resources[$id]['auto_compress_threshold'] = $threshold;
             if ($minSavings !== false) {
-                $resource['auto_compress_min_savings'] = $minSavings;
+                $this->resources[$id]['auto_compress_min_savings'] = $minSavings;
             }
         }
         return $this;
@@ -283,19 +282,16 @@ class MemcacheResourceManager
     {
         if (!$this->hasResource($id)) {
             return $this->setResource($id, [
-                'auto_compress_min_savings' => $minSavings,
+                'auto_compress_min_savings' => (float) $minSavings,
             ]);
         }
 
-        $minSavings = (float) $minSavings;
-
-        $resource = & $this->resources[$id];
-        if ($resource instanceof MemcacheResource) {
+        if ($this->resources[$id] instanceof MemcacheResource) {
             throw new Exception\RuntimeException(
                 "Cannot set compress min savings without a threshold value once a resource is created"
             );
         } else {
-            $resource['auto_compress_min_savings'] = $minSavings;
+            $this->resources[$id]['auto_compress_min_savings'] = (float) $minSavings;
         }
         return $this;
     }
@@ -444,7 +440,7 @@ class MemcacheResourceManager
         }
 
         $servers  = $this->normalizeServers($servers);
-        $resource = & $this->resources[$id];
+        $resource = $this->resources[$id];
         if ($resource instanceof MemcacheResource) {
             foreach ($servers as $server) {
                 $this->addServerToResource(
@@ -456,7 +452,7 @@ class MemcacheResourceManager
             }
         } else {
             // don't add servers twice
-            $resource['servers'] = array_merge(
+            $this->resources[$id]['servers'] = array_merge(
                 $resource['servers'],
                 array_udiff($servers, $resource['servers'], [$this, 'compareServers'])
             );

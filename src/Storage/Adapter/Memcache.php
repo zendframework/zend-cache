@@ -138,7 +138,7 @@ class Memcache extends AbstractAdapter implements
      * @param  mixed $value
      * @return int
      */
-    protected function getWriteFlag(& $value)
+    protected function getWriteFlag($value)
     {
         if (!$this->getOptions()->getCompression()) {
             return 0;
@@ -251,8 +251,8 @@ class Memcache extends AbstractAdapter implements
         if ($this->namespacePrefix !== '') {
             $tmp            = [];
             $nsPrefixLength = strlen($this->namespacePrefix);
-            foreach ($result as $internalKey => & $value) {
-                $tmp[substr($internalKey, $nsPrefixLength)] = & $value;
+            foreach ($result as $internalKey => $value) {
+                $tmp[substr($internalKey, $nsPrefixLength)] = $value;
             }
             $result = $tmp;
         }

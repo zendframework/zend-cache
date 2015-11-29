@@ -73,7 +73,7 @@ abstract class AbstractZendServer extends AbstractAdapter
         $fetch   = $this->zdcFetchMulti($internalKeys);
         $result  = [];
         $prefixL = strlen($prefix);
-        foreach ($fetch as $k => & $v) {
+        foreach ($fetch as $k => $v) {
             $result[substr($k, $prefixL)] = $v;
         }
 
@@ -117,7 +117,7 @@ abstract class AbstractZendServer extends AbstractAdapter
         $fetch   = $this->zdcFetchMulti($internalKeys);
         $result  = [];
         $prefixL = strlen($prefix);
-        foreach ($fetch as $internalKey => & $value) {
+        foreach ($fetch as $internalKey => $value) {
             $result[] = substr($internalKey, $prefixL);
         }
 

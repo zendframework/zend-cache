@@ -9,9 +9,9 @@
 
 namespace Zend\Cache\Service;
 
+use Interop\Container\ContainerInterface;
 use Zend\Cache\StorageFactory;
 use Zend\ServiceManager\Factory\AbstractFactoryInterface;
-use Interop\Container\ContainerInterface;
 
 /**
  * Storage cache factory for multiple caches.
@@ -31,11 +31,13 @@ class StorageCacheAbstractServiceFactory implements AbstractFactoryInterface
     protected $configKey = 'caches';
 
     /**
-     * @param ContainerInterface $container
-     * @param string $requestedName
-     * @return boolean
+     * Can the factory create an instance for the service?
+     *
+     * @param  ContainerInterface $container
+     * @param  string             $requestedName
+     * @return bool
      */
-    public function canCreateServiceWithName(ContainerInterface $container, $requestedName)
+    public function canCreate(ContainerInterface $container, $requestedName)
     {
         $config = $this->getConfig($container);
         if (empty($config)) {

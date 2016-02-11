@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    <title>Plugins - zend-cache</title>
+
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/font-hack/2.018/css/hack.min.css">
+    <link href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700,700italic&subset=latin-ext,latin" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Libre+Baskerville:400,400italic,700&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link href="../../css/zf.css" rel="stylesheet">
+    <link href="../../css/prism-zf.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
+    <script>
+    WebFont.load({
+        google: {
+            families: ['Open Sans', 'PT Sans']
+        }
+    });
+    </script>
+
+    
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+            <span class="navbar-brand">
+              <a href="http://framework.zend.com"><img src="../../img/zf-logo-mark.png" height="28" alt="Zend Framework" /></a>
+              <a href="../..">zend-cache</a>
+            </span>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Storage <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../adapter/">Adapters</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../capabilities/">Capabilities</a>
+</li>
+
+                        
+                            
+<li class="active">
+    <a href="./">Plugins</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cache Patterns <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../pattern/intro/">Introduction</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../pattern/callback-cache/">CallbackCache</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../pattern/class-cache/">ClassCache</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../pattern/object-cache/">ObjectCache</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../pattern/output-cache/">OutputCache</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../pattern/capture-cache/">CaptureCache</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+            
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                
+                    <li >
+                        <a rel="prev" href="../capabilities/">
+                            <i class="fa fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="next" href="../../pattern/intro/">
+                            Next <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a href="https://github.com/zendframework/zend-cache">
+                            
+                                <i class="fa fa-github"></i>
+                            
+                            GitHub
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <!-- content:begin -->
+    <div class="container">
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#storage-plugins">Storage Plugins</a></li>
+        
+            <li><a href="#quick-start">Quick Start</a></li>
+        
+            <li><a href="#the-clearexpiredbyfactor-plugin">The ClearExpiredByFactor Plugin</a></li>
+        
+            <li><a href="#the-exceptionhandler-plugin">The ExceptionHandler Plugin</a></li>
+        
+            <li><a href="#the-ignoreuserabort-plugin">The IgnoreUserAbort Plugin</a></li>
+        
+            <li><a href="#the-optimizebyfactor-plugin">The OptimizeByFactor Plugin</a></li>
+        
+            <li><a href="#the-serializer-plugin">The Serializer Plugin</a></li>
+        
+            <li><a href="#available-methods">Available Methods</a></li>
+        
+            <li><a href="#examples">Examples</a></li>
+        
+    
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<ol class="breadcrumb" role="navigation" aria-label="breadcrumbs navigation">
+  <li><a href="../..">Docs</a> &raquo;</li>
+  
+    
+      
+        <li>Storage &raquo;</li>
+      
+    
+  
+  <li class="active">Plugins</li>
+</ol>
+
+<nav class="hidden-lg">
+  <ul class="pager">
+    <li class="previous">
+      <a rel="prev" href="../capabilities/"><i class="fa fa-arrow-left"></i> Previous</a>
+    </li>
+    <li class="next">
+      <a rel="next" href="../../pattern/intro/">Next <i class="fa fa-arrow-right"></i></a>
+    </li>
+  </ul>
+</nav>
+
+<h1 id="storage-plugins">Storage Plugins</h1>
+<p>Cache storage plugins are objects that provide additional functionality to or
+influence behavior of a storage adapter.</p>
+<p>The plugins listen to events the adapter triggers, and can:</p>
+<ul>
+<li>change the arguments provided to the method triggering the event (via <code>*.post</code> events)</li>
+<li>skip and directly return a result (by calling <code>stopPropagation</code>)</li>
+<li>change the result (by calling <code>setResult</code> on the provided <code>Zend\Cache\Storage\PostEvent</code>)</li>
+<li>catch exceptions (by reacting to <code>Zend\Cache\Storage\ExceptionEvent</code>)</li>
+</ul>
+<h2 id="quick-start">Quick Start</h2>
+<p>Storage plugins can either be created from
+<code>Zend\Cache\StorageFactory::pluginFactory()</code>, or by instantiating one of the
+<code>Zend\Cache\Storage\Plugin\*</code> classes.</p>
+<p>To make life easier, <code>Zend\Cache\StorageFactory::factory()</code> can create both the
+requested adapter and all specified plugins at once.</p>
+<pre class="codehilite"><code class="language-php">use Zend\Cache\StorageFactory;
+
+// All at once:
+$cache = StorageFactory::factory([
+    'adapter' =&gt; 'filesystem',
+    'plugins' =&gt; ['serializer'],
+]);
+
+// Alternately, via discrete factory methods:
+$cache  = StorageFactory::adapterFactory('filesystem');
+$plugin = StorageFactory::pluginFactory('serializer');
+$cache-&gt;addPlugin($plugin);
+
+// Or manually:
+$cache  = new Zend\Cache\Storage\Adapter\Filesystem();
+$plugin = new Zend\Cache\Storage\Plugin\Serializer();
+$cache-&gt;addPlugin($plugin);</code></pre>
+
+
+<h2 id="the-clearexpiredbyfactor-plugin">The ClearExpiredByFactor Plugin</h2>
+<p><code>Zend\Cache\Storage\Plugin\ClearExpiredByFactor</code> calls the storage method
+<code>clearExpired()</code> randomly (by factor) after every call of <code>setItem()</code>,
+<code>setItems()</code>, <code>addItem()</code>, and <code>addItems()</code>.</p>
+<h3 id="plugin-specific-options">Plugin specific options</h3>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Data Type</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>clearing_factor</code></td>
+<td><code>integer</code></td>
+<td><code>0</code></td>
+<td>The automatic clearing factor.</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<h3 id="adapter-must-implement-clearexpiredinterface">Adapter must implement ClearExpiredInterface</h3>
+<p>The storage adapter must implement <code>Zend\Cache\Storage\ClearExpiredInterface</code>
+to work with this plugin.</p>
+</blockquote>
+<h2 id="the-exceptionhandler-plugin">The ExceptionHandler Plugin</h2>
+<p><code>Zend\Cache\Storage\Plugin\ExceptionHandler</code> catches all exceptions thrown on
+reading from or writing to the cache, and sends the exception to a defined callback function.
+You may also configure the plugin to re-throw exceptions.</p>
+<h3 id="plugin-specific-options_1">Plugin specific options</h3>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Data Type</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>exception_callback</code></td>
+<td><code>callable|null</code></td>
+<td>null</td>
+<td>Callback to invoke on exception; receives the exception as the sole argument.</td>
+</tr>
+<tr>
+<td><code>throw_exceptions</code></td>
+<td><code>boolean</code></td>
+<td><code>true</code></td>
+<td>Re-throw caught exceptions.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="the-ignoreuserabort-plugin">The IgnoreUserAbort Plugin</h2>
+<p><code>Zend\Cache\Storage\Plugin\IgnoreUserAbort</code> ignores user-invoked script
+termination when, allowing cache write operations to complete first.</p>
+<h3 id="plugin-specific-options_2">Plugin specific options</h3>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Data Type</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>exit_on_abort</code></td>
+<td><code>boolean</code></td>
+<td><code>true</code></td>
+<td>Terminate script execution on user abort.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="the-optimizebyfactor-plugin">The OptimizeByFactor Plugin</h2>
+<p><code>Zend\Cache\Storage\Plugin\OptimizeByFactor</code> calls the storage method <code>optimize()</code>
+randomly (by factor) after removing items from the cache.</p>
+<h3 id="plugin-specific-options_3">Plugin specific options</h3>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Data Type</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>optimizing_factor</code></td>
+<td><code>integer</code></td>
+<td><code>0</code></td>
+<td>The automatic optimization factor.</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<h3 id="adapter-must-implement-optimizableinterface">Adapter must implement OptimizableInterface</h3>
+<p>The storage adapter must implement <code>Zend\Cache\Storage\OptimizableInterface</code>
+to work with this plugin.</p>
+</blockquote>
+<h2 id="the-serializer-plugin">The Serializer Plugin</h2>
+<p><code>Zend\Cache\Storage\Plugin\Serializer</code> will serialize data when writing to
+cache, and deserialize when reading. This allows storing datatypes not supported
+by the underlying storage adapter.</p>
+<h3 id="plugin-specific-options_4">Plugin specific options</h3>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Data Type</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>serializer</code></td>
+<td><code>null|string|Zend\Serializer\Adapter\AdapterInterface</code></td>
+<td><code>null</code></td>
+<td>The serializer to use; see below.</td>
+</tr>
+<tr>
+<td><code>serializer_options</code></td>
+<td><code>array</code></td>
+<td><code>[]</code></td>
+<td>Array of options to use when instantiating the specified serializer.</td>
+</tr>
+</tbody>
+</table></div>
+<p>The <code>serializer</code> value has two special cases:</p>
+<ul>
+<li>When <code>null</code>, the default serializer is used (JSON).</li>
+<li>When a <code>string</code>, the value will be pulled via
+  <code>Zend\Serializer\AdapterPluginManager</code>, with the provided
+  <code>serializer_options</code>.</li>
+</ul>
+<h2 id="available-methods">Available Methods</h2>
+<p>The following methods are available to all <code>Zend\Cache\Storage\Plugin\PluginInterface</code> implementations:</p>
+<pre class="codehilite"><code class="language-php">namespace Zend\Cache\Storage\Plugin;
+
+use Zend\EventManager\EventManagerInterface;
+use Zend\EventManager\ListenerAggregateInterface;
+
+interface PluginInterface extends ListenerAggregateInterface
+{
+    /**
+     * Set options
+     *
+     * @param  PluginOptions $options
+     * @return PluginInterface
+     */
+    public function setOptions(PluginOptions $options);
+
+    /**
+     * Get options
+     *
+     * @return PluginOptions
+     */
+    public function getOptions();
+
+    /**
+     * Attach listeners; inherited from ListenerAggregateInterface.
+     *
+     * @param EventManagerInterface $events
+     * @return void
+     */
+    public function attach(EventManagerInterface $events);
+
+    /**
+     * Detach listeners; inherited from ListenerAggregateInterface.
+     *
+     * @param EventManagerInterface $events
+     * @return void
+     */
+    public function attach(EventManagerInterface $events);
+}</code></pre>
+
+
+<h2 id="examples">Examples</h2>
+<h3 id="basic-plugin-implementation">Basic plugin implementation</h3>
+<pre class="codehilite"><code class="language-php">use Zend\Cache\Storage\Event;
+use Zend\Cache\Storage\Plugin\AbstractPlugin;
+use Zend\EventManager\EventManagerInterface;
+
+class MyPlugin extends AbstractPlugin
+{
+    protected $handles = [];
+
+    /**
+     * Attach to all events this plugin is interested in.
+     */
+    public function attach(EventManagerInterface $events)
+    {
+        $this-&gt;handles[] = $events-&gt;attach('getItem.pre', array($this, 'onGetItemPre'));
+        $this-&gt;handles[] = $events-&gt;attach('getItem.post', array($this, 'onGetItemPost'));
+    }
+
+    /**
+     * Detach all handlers this plugin previously attached.
+     */
+    public function detach(EventManagerInterface $events)
+    {
+        foreach ($this-&gt;handles as $handle) {
+           $events-&gt;detach($handle);
+        }
+        $this-&gt;handles = [];
+    }
+
+    public function onGetItemPre(Event $event)
+    {
+        $params = $event-&gt;getParams();
+        echo sprintf(&quot;Method 'getItem' with key '%s' started\n&quot;, $params['key']);
+    }
+
+    public function onGetItemPost(Event $event)
+    {
+        $params = $event-&gt;getParams();
+        echo sprintf(&quot;Method 'getItem' with key '%s' finished\n&quot;, $params['key']);
+    }
+}
+
+// After defining this plugin, we can instantiate and add it to an adapter
+// instance:
+$plugin = new MyPlugin();
+$cache-&gt;addPlugin($plugin);
+
+// Now when calling getItem(), our plugin should print the expected output:
+$cache-&gt;getItem('cache-key');
+// Method 'getItem' with key 'cache-key' started
+// Method 'getItem' with key 'cache-key' finished</code></pre>
+
+<hr />
+
+<nav>
+  <ul class="pager">
+    <li class="previous">
+      <a rel="prev" href="../capabilities/"><i class="fa fa-arrow-left"></i> Previous</a>
+    </li>
+    <li class="next">
+      <a rel="next" href="../../pattern/intro/">Next <i class="fa fa-arrow-right"></i></a>
+    </li>
+  </ul>
+</nav></div>
+        
+    </div>
+    <!-- content:end -->
+
+    <footer class="col-md-12 text-center">
+        <hr>
+        <p>
+        <small>Copyright (c) 2016 <a href="http://www.zend.com/">Zend Technologies USA Inc.</a><br></small>
+        </p>
+        <p><small><a href="http://framework.zend.com">Learn more about Zend Framework</a></small></p>
+    </footer>
+
+    <script src="../../js/jquery-1.10.2.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+    <script src="../../js/prism-zf.js"></script>
+
+    <script>var base_url = '../..';</script>
+    <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+    <script src="../../js/base.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        From here you can search these documents. Enter your search terms below.
+                    </p>
+                    <form role="form">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                        </div>
+                    </form>
+                    <div id="mkdocs-search-results"></div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </body>
+
+</html>

@@ -1,0 +1,8 @@
+{
+    "title": "Storage",
+    "content": [
+        {"Adapters": "adapter.md"},
+        {"Capabilities": "capabilities.md"},
+        {"Plugins": "plugin.md"}
+    ]
+}

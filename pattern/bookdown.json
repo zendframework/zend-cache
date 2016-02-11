@@ -1,0 +1,12 @@
+{
+    "title": "Cache Patterns",
+    "content": [
+        {"Introduction": "intro.md"},
+        {"CallbackCache": "callback-cache.md"},
+        {"ClassCache": "class-cache.md"},
+        {"ObjectCache": "object-cache.md"},
+        {"OutputCache": "output-cache.md"},
+        {"CaptureCache": "capture-cache.md"}
+    ]
+}
+

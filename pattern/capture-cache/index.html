@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    <title>CaptureCache - zend-cache</title>
+
+    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/font-hack/2.018/css/hack.min.css">
+    <link href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700,700italic&subset=latin-ext,latin" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Libre+Baskerville:400,400italic,700&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link href="../../css/zf.css" rel="stylesheet">
+    <link href="../../css/prism-zf.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
+    <script>
+    WebFont.load({
+        google: {
+            families: ['Open Sans', 'PT Sans']
+        }
+    });
+    </script>
+
+    
+</head>
+
+<body>
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+            <span class="navbar-brand">
+              <a href="http://framework.zend.com"><img src="../../img/zf-logo-mark.png" height="28" alt="Zend Framework" /></a>
+              <a href="../..">zend-cache</a>
+            </span>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Storage <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../storage/adapter/">Adapters</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../storage/capabilities/">Capabilities</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../storage/plugin/">Plugins</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cache Patterns <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../intro/">Introduction</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../callback-cache/">CallbackCache</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../class-cache/">ClassCache</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../object-cache/">ObjectCache</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../output-cache/">OutputCache</a>
+</li>
+
+                        
+                            
+<li class="active">
+    <a href="./">CaptureCache</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+            
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                
+                    <li >
+                        <a rel="prev" href="../output-cache/">
+                            <i class="fa fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li class="disabled">
+                        <a rel="next" >
+                            Next <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a href="https://github.com/zendframework/zend-cache">
+                            
+                                <i class="fa fa-github"></i>
+                            
+                            GitHub
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+    <!-- content:begin -->
+    <div class="container">
+        
+        <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#capturecache">CaptureCache</a></li>
+        
+            <li><a href="#quick-start">Quick Start</a></li>
+        
+            <li><a href="#configuration-options">Configuration Options</a></li>
+        
+            <li><a href="#available-methods">Available Methods</a></li>
+        
+            <li><a href="#examples">Examples</a></li>
+        
+    
+    </ul>
+</div></div>
+        <div class="col-md-9" role="main">
+
+<ol class="breadcrumb" role="navigation" aria-label="breadcrumbs navigation">
+  <li><a href="../..">Docs</a> &raquo;</li>
+  
+    
+      
+        <li>Cache Patterns &raquo;</li>
+      
+    
+  
+  <li class="active">CaptureCache</li>
+</ol>
+
+<nav class="hidden-lg">
+  <ul class="pager">
+    <li class="previous">
+      <a rel="prev" href="../output-cache/"><i class="fa fa-arrow-left"></i> Previous</a>
+    </li>
+    <li class="next disabled ">
+      <a rel="next" >Next <i class="fa fa-arrow-right"></i></a>
+    </li>
+  </ul>
+</nav>
+
+<h1 id="capturecache">CaptureCache</h1>
+<p>The <code>CaptureCache</code> pattern is useful for generating static resources to return
+via HTTP request. When used in such a fashion, the web server needs to be
+configured to run a PHP script generating the requested resource so that
+subsequent requests for the same resource can be shipped without calling PHP
+again.</p>
+<p>This pattern comes with basic logic for managing generated resources.</p>
+<h2 id="quick-start">Quick Start</h2>
+<p>For use with an Apache 404 handler:</p>
+<pre class="codehilite"><code class="language-apacheconf"># .htdocs
+ErrorDocument 404 /index.php</code></pre>
+
+
+<pre class="codehilite"><code class="language-php">// index.php
+use Zend\Cache\PatternFactory;
+$capture = Zend\Cache\PatternFactory::factory('capture', [
+    'public_dir' =&gt; __DIR__,
+]);
+
+// Start capturing all output, excluding headers, and write to the public
+// directory:
+$capture-&gt;start();
+
+// Don't forget to change the HTTP response code
+header('Status: 200', true, 200);
+
+// do stuff to dynamically generate output</code></pre>
+
+
+<h2 id="configuration-options">Configuration Options</h2>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Data Type</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>public_dir</code></td>
+<td><code>string</code></td>
+<td>none</td>
+<td>Location of the public web root directory in which to write output.</td>
+</tr>
+<tr>
+<td><code>index_filename</code></td>
+<td><code>string</code></td>
+<td>"index.html"</td>
+<td>The name of the index file if only a directory was requested.</td>
+</tr>
+<tr>
+<td><code>file_locking</code></td>
+<td><code>bool</code></td>
+<td><code>true</code></td>
+<td>Whether or not to lock output files when writing.</td>
+</tr>
+<tr>
+<td><code>file_permission</code></td>
+<td><code>int | bool</code></td>
+<td><code>0600</code> (<code>false</code> on Windows)</td>
+<td>Default permissions for generated output files.</td>
+</tr>
+<tr>
+<td><code>dir_permission</code></td>
+<td><code>int | bool</code></td>
+<td><code>0700</code> (<code>false</code> on Windows)</td>
+<td>Default permissions for generated output directories.</td>
+</tr>
+<tr>
+<td><code>umask</code></td>
+<td><code>int</code></td>
+<td><code>bool</code></td>
+<td><code>false</code></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="available-methods">Available Methods</h2>
+<p>In addition to the methods exposed in <code>PatternInterface</code>, this implementation
+exposes the following methods.</p>
+<pre class="codehilite"><code class="language-php">namespace Zend\Cache\Pattern;
+
+use Zend\Cache\Exception;
+use Zend\Stdlib\ErrorHandler;
+
+class CaptureCache extends AbstractPattern
+{
+    /**
+     * Start the cache.
+     *
+     * @param  string $pageId  Page identifier
+     * @return void
+     */
+    public function start($pageId = null);
+
+    /**
+     * Write a page to the requested path.
+     *
+     * @param string      $content
+     * @param null|string $pageId
+     * @throws Exception\LogicException
+     */
+    public function set($content, $pageId = null);
+
+    /**
+     * Retrieve a generated page from the cache.
+     *
+     * @param  null|string $pageId
+     * @return string|null
+     * @throws Exception\LogicException
+     * @throws Exception\RuntimeException
+     */
+    public function get($pageId = null);
+
+    /**
+     * Check if a cache exists for the given page.
+     *
+     * @param  null|string $pageId
+     * @throws Exception\LogicException
+     * @return bool
+     */
+    public function has($pageId = null);
+
+    /**
+     * Remove a page from the cache.
+     *
+     * @param  null|string $pageId
+     * @throws Exception\LogicException
+     * @throws Exception\RuntimeException
+     * @return bool
+     */
+    public function remove($pageId = null);
+
+    /**
+     * Clear cached pages that match the specified glob pattern.
+     *
+     * @param string $pattern
+     * @throws Exception\LogicException
+     */
+    public function clearByGlob($pattern = '**');
+
+    /**
+     * Returns the generated file name.
+     *
+     * @param null|string $pageId
+     * @return string
+     */
+    public function getFilename($pageId = null);
+}</code></pre>
+
+
+<h2 id="examples">Examples</h2>
+<h3 id="scaling-images-in-the-web-root">Scaling images in the web root</h3>
+<p>Using the following Apache 404 configuration:</p>
+<pre class="codehilite"><code class="language-apacheconf"># .htdocs
+ErrorDocument 404 /index.php</code></pre>
+
+
+<p>Use the following script:</p>
+<pre class="codehilite"><code class="language-php">// index.php
+$captureCache = Zend\Cache\PatternFactory::factory('capture', [
+    'public_dir' =&gt; __DIR__,
+]);
+
+// TODO</code></pre>
+
+<hr />
+
+<nav>
+  <ul class="pager">
+    <li class="previous">
+      <a rel="prev" href="../output-cache/"><i class="fa fa-arrow-left"></i> Previous</a>
+    </li>
+    <li class="next disabled ">
+      <a rel="next" >Next <i class="fa fa-arrow-right"></i></a>
+    </li>
+  </ul>
+</nav></div>
+        
+    </div>
+    <!-- content:end -->
+
+    <footer class="col-md-12 text-center">
+        <hr>
+        <p>
+        <small>Copyright (c) 2016 <a href="http://www.zend.com/">Zend Technologies USA Inc.</a><br></small>
+        </p>
+        <p><small><a href="http://framework.zend.com">Learn more about Zend Framework</a></small></p>
+    </footer>
+
+    <script src="../../js/jquery-1.10.2.min.js"></script>
+    <script src="../../js/bootstrap-3.0.3.min.js"></script>
+    <script src="../../js/prism-zf.js"></script>
+
+    <script>var base_url = '../..';</script>
+    <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+    <script src="../../js/base.js"></script>
+
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        From here you can search these documents. Enter your search terms below.
+                    </p>
+                    <form role="form">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                        </div>
+                    </form>
+                    <div id="mkdocs-search-results"></div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </body>
+
+</html>

@@ -328,4 +328,87 @@ class FilesystemTest extends CommonAdapterTest
         $prefix = substr(md5('a_key'), 2, 2);
         $this->_storage->clearByPrefix($prefix);
     }
+
+    /**
+     * @runInSeparateProcess
+     */
+    public function testClearByTagsWithoutLocking()
+    {
+        // create cache items
+        $this->_storage->getOptions()->setDirLevel(0);
+        $this->_storage->getOptions()->setFileLocking(false);
+        $this->_storage->setItem('a_key', 'a_value');
+        $this->_storage->setTags('a_key', ['a_tag']);
+        $this->_storage->setItem('b_key', 'b_value');
+        $this->_storage->setTags('b_key', ['a_tag', 'b_tag']);
+        $this->_storage->setItem('c_key', 'c_value');
+        $this->_storage->setTags('c_key', ['a_tag', 'c_tag']);
+        //$this->_storage->getTags('a_key');
+
+        //unlink($this->_tmpCacheDir.'/zfcache-a_key.tag');
+
+        //var_dump($this->_storage->getTags('a_key'));
+
+        // tempFile used for communication between parent and child.
+        $tempFile = tmpfile();
+        // Split into two..
+        $pid = pcntl_fork();
+        if ($pid == -1) {
+            $this->assertEquals('shit went down. [failed to fork]', 'no shit went down');
+        }
+        if ($pid) {
+            require 'FilesystemDelayedUnlink.php';
+
+            $this->_storage->clearByTags(['a_tag'], true);
+
+            fseek($tempFile, 0);
+            $messageFromChild = fread($tempFile, 1024);
+            $this->assertEquals($messageFromChild, 'deleted');
+            fclose($tempFile);
+        } else {
+            usleep(150000);
+            unlink($this->_tmpCacheDir.'/zfcache-c_key.tag');
+            fwrite($tempFile, 'deleted');
+            posix_kill(posix_getpid(), SIGTERM);
+        }
+    }
+
+    /**
+     * @runInSeparateProcess
+     */
+    public function testClearByTagsWithLocking()
+    {
+        // create cache items
+        $this->_storage->getOptions()->setDirLevel(0);
+        $this->_storage->getOptions()->setFileLocking(true);
+        $this->_storage->setItem('a_key', 'a_value');
+        $this->_storage->setTags('a_key', ['a_tag']);
+        $this->_storage->setItem('b_key', 'b_value');
+        $this->_storage->setTags('b_key', ['a_tag', 'b_tag']);
+        $this->_storage->setItem('c_key', 'c_value');
+        $this->_storage->setTags('c_key', ['a_tag', 'c_tag']);
+
+        $tempFile = tmpfile();
+
+        $pid = pcntl_fork();
+        if ($pid == -1) {
+            $this->assertEquals('shit went down. [failed to fork]', 'no shit went down');
+        }
+        if ($pid) {
+            require 'FilesystemDelayedUnlink.php';
+
+            $this->_storage->clearByTags(['a_tag'], true);
+
+            fseek($tempFile, 0);
+            $messageFromChild = fread($tempFile, 1024);
+            $this->assertEquals($messageFromChild, 'deleted');
+            fclose($tempFile);
+        } else {
+            usleep(150000);
+            unlink($this->_tmpCacheDir.'/zfcache-c_key.tag');
+            fwrite($tempFile, 'deleted');
+            posix_kill(posix_getpid(), SIGTERM);
+        }
+    }
 }
+

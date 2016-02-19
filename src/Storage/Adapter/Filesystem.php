@@ -328,7 +328,20 @@ class Filesystem extends AbstractAdapter implements
         $glob = new GlobIterator($path, $flags);
 
         foreach ($glob as $pathname) {
-            $diff = array_diff($tags, explode("\n", $this->getFileContent($pathname)));
+            try {
+                $diff = array_diff($tags, explode("\n", $this->getFileContent($pathname)));
+            } catch (Exception\RuntimeException $exception) {
+                if ($exception->getPrevious()
+                    && strpos(
+                        $exception->getPrevious()->getMessage(),
+                        'failed to open stream: No such file or directory'
+                    ) !== false
+                ) {
+                    continue;
+                }
+
+                throw $exception;
+            }
 
             $rem  = false;
             if ($disjunction && count($diff) < $tagCount) {

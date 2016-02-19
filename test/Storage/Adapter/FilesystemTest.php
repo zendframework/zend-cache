@@ -411,4 +411,3 @@ class FilesystemTest extends CommonAdapterTest
         }
     }
 }
-

@@ -195,6 +195,25 @@ class Redis extends AbstractAdapter implements
     }
 
     /**
+     * Add the specified values to the set stored at key.
+     *
+     * @param  string $normalizedKey
+     * @param  mixed  $value
+     * @return bool
+     * @throws Exception\RuntimeException
+     */
+    protected function internalSIsMember(& $normalizedKey, & $value)
+    {
+        $redis = $this->getRedisResource();
+        try {
+            $value = $redis->sIsMember($this->namespacePrefix . $normalizedKey, $value);
+            return $value;
+        } catch (RedisResourceException $e) {
+            throw new Exception\RuntimeException($redis->getLastError(), $e->getCode(), $e);
+        }
+    }
+
+    /**
      * Internal method to test if an item exists.
      *
      * @param string &$normalizedKey Normalized key which will be checked
@@ -284,6 +303,24 @@ class Redis extends AbstractAdapter implements
         }
 
         return [];
+    }
+
+    /**
+     * Add the specified values to the set stored at key.
+     *
+     * @param  string $normalizedKey
+     * @param  mixed  $value
+     * @return bool
+     * @throws Exception\RuntimeException
+     */
+    protected function internalSAdd(& $normalizedKey, & $value)
+    {
+        $redis = $this->getRedisResource();
+        try {
+            return $redis->sAdd($this->namespacePrefix . $normalizedKey, $value);
+        } catch (RedisResourceException $e) {
+            throw new Exception\RuntimeException($redis->getLastError(), $e->getCode(), $e);
+        }
     }
 
     /**

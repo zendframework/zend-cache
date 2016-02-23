@@ -206,8 +206,7 @@ class Redis extends AbstractAdapter implements
     {
         $redis = $this->getRedisResource();
         try {
-            $value = $redis->sIsMember($this->namespacePrefix . $normalizedKey, $value);
-            return $value;
+            return $redis->sIsMember($this->namespacePrefix . $normalizedKey, $value);
         } catch (RedisResourceException $e) {
             throw new Exception\RuntimeException($redis->getLastError(), $e->getCode(), $e);
         }

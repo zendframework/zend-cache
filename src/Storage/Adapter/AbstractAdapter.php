@@ -321,53 +321,6 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
     /* reading */
 
     /**
-     * Returns if value is a member of the set stored at key.
-     *
-     * @param  string  $key
-     * @param  string  $value
-     * @return int 1 if the element is a member of the set, 0 if not or key doesn't exist
-     * @throws Exception\ExceptionInterface
-     *
-     * @triggers sIsMember.pre(PreEvent)
-     * @triggers sIsMember.post(PostEvent)
-     * @triggers sIsMember.exception(ExceptionEvent)
-     */
-    public function sIsMember($key, $value)
-    {
-        if (!$this->getOptions()->getReadable()) {
-            return false;
-        }
-
-        $this->normalizeKey($key);
-        $args = new ArrayObject([
-            'key'   => & $key,
-            'value' => & $value
-        ]);
-
-        try {
-            $eventRs = $this->triggerPre(__FUNCTION__, $args);
-
-            $result = $eventRs->stopped()
-                ? $eventRs->last()
-                : $this->internalSIsMember($args['key'], $args['value']);
-
-            return $this->triggerPost(__FUNCTION__, $args, $result);
-        } catch (\Exception $e) {
-            $result = 0;
-            return $this->triggerException(__FUNCTION__, $args, $result, $e);
-        }
-    }
-
-    /**
-     * Internal method to check if value is a member of the set stored at key.
-     *
-     * @param  string $normalizedKey
-     * @param $value
-     * @return int 1 if the element is a member of the set, 0 if not or key doesn't exist
-     */
-    abstract protected function internalSIsMember(& $normalizedKey, & $value);
-
-    /**
      * Get an item.
      *
      * @param  string  $key
@@ -702,58 +655,6 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
     }
 
     /* writing */
-
-    /**
-     * Add the specified values to the set stored at key
-     *
-     * Specified members that are already a member of this set are ignored.
-     * If key does not exist, a new set is created before adding the specified members.
-     *
-     * @param $key
-     * @param $value
-     * @return int number of elements that were added to the set
-     * @throws Exception\ExceptionInterface
-     *
-     * @triggers sAdd.pre(PreEvent)
-     * @triggers sAdd.post(PostEvent)
-     * @triggers sAdd.exception(ExceptionEvent)
-     *
-     */
-    public function sAdd($key, $value)
-    {
-        if (!$this->getOptions()->getWritable()) {
-            return false;
-        }
-
-        $this->normalizeKey($key);
-        $args = new ArrayObject([
-            'key'   => & $key,
-            'value' => & $value,
-        ]);
-
-        try {
-            $eventRs = $this->triggerPre(__FUNCTION__, $args);
-
-            $result = $eventRs->stopped()
-                ? $eventRs->last()
-                : $this->internalSAdd($args['key'], $args['value']);
-
-            return $this->triggerPost(__FUNCTION__, $args, $result);
-        } catch (\Exception $e) {
-            $result = false;
-            return $this->triggerException(__FUNCTION__, $args, $result, $e);
-        }
-    }
-
-    /**
-     * Internal method to add the specified values to the set stored at key.
-     *
-     * @param  string $normalizedKey
-     * @param  mixed  $value
-     * @return bool
-     * @throws Exception\ExceptionInterface
-     */
-    abstract protected function internalSAdd(& $normalizedKey, & $value);
 
     /**
      * Store an item.

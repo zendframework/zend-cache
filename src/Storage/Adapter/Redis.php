@@ -19,12 +19,14 @@ use Zend\Cache\Exception;
 use Zend\Cache\Storage\Capabilities;
 use Zend\Cache\Storage\FlushableInterface;
 use Zend\Cache\Storage\TotalSpaceCapableInterface;
+use Zend\Cache\Storage\TaggableInterface;
 
 class Redis extends AbstractAdapter implements
     ClearByNamespaceInterface,
     ClearByPrefixInterface,
     FlushableInterface,
-    TotalSpaceCapableInterface
+    TotalSpaceCapableInterface,
+    TaggableInterface
 {
     /**
      * Has this instance be initialized
@@ -195,18 +197,34 @@ class Redis extends AbstractAdapter implements
     }
 
     /**
-     * Add the specified values to the set stored at key.
+     * Get tags of an item by given key
      *
-     * @param  string $normalizedKey
-     * @param  mixed  $value
-     * @return bool
-     * @throws Exception\RuntimeException
+     * @param string $key
+     * @return string[]|FALSE
      */
-    protected function internalSIsMember(& $normalizedKey, & $value)
+    public function getTags($key)
     {
         $redis = $this->getRedisResource();
         try {
-            return $redis->sIsMember($this->namespacePrefix . $normalizedKey, $value);
+            return $redis->sMembers($this->namespacePrefix . $key);
+        } catch (RedisResourceException $e) {
+            throw new Exception\RuntimeException($redis->getLastError(), $e->getCode(), $e);
+        }
+    }
+
+    /**
+     * Returns if value is a member of the set stored at key.
+     *
+     * @param $key
+     * @param $tag
+     * @return int 1|0
+     * @throws Exception\RuntimeException
+     */
+    public function isTag($key, $tag)
+    {
+        $redis = $this->getRedisResource();
+        try {
+            return $redis->sIsMember($this->namespacePrefix . $key, $tag);
         } catch (RedisResourceException $e) {
             throw new Exception\RuntimeException($redis->getLastError(), $e->getCode(), $e);
         }
@@ -307,19 +325,27 @@ class Redis extends AbstractAdapter implements
     /**
      * Add the specified values to the set stored at key.
      *
-     * @param  string $normalizedKey
-     * @param  mixed  $value
-     * @return bool
+     * @param string $key
+     * @param array  $tags
+     * @return int   $count number of elements that were added to the set
      * @throws Exception\RuntimeException
      */
-    protected function internalSAdd(& $normalizedKey, & $value)
+    public function setTags($key, array $tags = [])
     {
-        $redis = $this->getRedisResource();
-        try {
-            return $redis->sAdd($this->namespacePrefix . $normalizedKey, $value);
-        } catch (RedisResourceException $e) {
-            throw new Exception\RuntimeException($redis->getLastError(), $e->getCode(), $e);
+        if (empty($tags)) {
+            $this->clearByKey($key);
         }
+
+        $redis = $this->getRedisResource();
+        $count = 0;
+        foreach ($tags as $tag) {
+            try {
+                $count += $redis->sAdd($this->namespacePrefix . $key, $tag);
+            } catch (RedisResourceException $e) {
+                throw new Exception\RuntimeException($redis->getLastError(), $e->getCode(), $e);
+            }
+        }
+        return $count;
     }
 
     /**
@@ -377,6 +403,58 @@ class Redis extends AbstractAdapter implements
         } catch (RedisResourceException $e) {
             throw new Exception\RuntimeException($redis->getLastError(), $e->getCode(), $e);
         }
+    }
+
+    /**
+     * Removes the specified keys. A key is ignored if it does not exist.
+     *
+     * @param string      $key1
+     * @param string|null $key2
+     * @param string|null $key3
+     * @return int The number of keys that were removed.
+     * @throws Exception\RuntimeException
+     */
+    public function clearByKey($key1, $key2 = null, $key3 = null)
+    {
+        $redis = $this->getRedisResource();
+        try {
+            return $redis->del(
+                $this->namespacePrefix . $key1,
+                $key2 !== null ? $this->namespacePrefix . $key2 : null,
+                $key3 !== null ? $this->namespacePrefix . $key3 : null
+            );
+        } catch(RedisResourceException $e) {
+            throw new Exception\RuntimeException($redis->getLastError(), $e->getCode(), $e);
+        }
+    }
+
+    /**
+     * Remove items matching given tags within a key.
+     *
+     * ['key' => ['value1', 'value2', 'value3']]
+     *
+     * @param string[] $tags must have a key index for the tags key
+     * @param  bool  $disjunction
+     * @return int number of tags removed from key
+     * @throws Exception\RuntimeException
+     */
+    public function clearByTags(array $tags, $disjunction = false)
+    {
+        if (count($tags) !== 1 || key($tags) === 0) {
+            return false;
+        }
+
+        $key      = key($tags);
+        $redis    = $this->getRedisResource();
+        $remCount = 0;
+        foreach ($tags as $tag) {
+            try {
+                $remCount += $redis->sRem($this->namespacePrefix . $key, $tag);
+            } catch (RedisResourceException $e) {
+                throw new Exception\RuntimeException($redis->getLastError(), $e->getCode(), $e);
+            }
+        }
+        return $remCount;
     }
 
     /**

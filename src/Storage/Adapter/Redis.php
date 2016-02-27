@@ -423,7 +423,7 @@ class Redis extends AbstractAdapter implements
                 $key2 !== null ? $this->namespacePrefix . $key2 : null,
                 $key3 !== null ? $this->namespacePrefix . $key3 : null
             );
-        } catch(RedisResourceException $e) {
+        } catch (RedisResourceException $e) {
             throw new Exception\RuntimeException($redis->getLastError(), $e->getCode(), $e);
         }
     }
@@ -447,7 +447,8 @@ class Redis extends AbstractAdapter implements
         $key      = key($tags);
         $redis    = $this->getRedisResource();
         $remCount = 0;
-        foreach ($tags as $tag) {
+
+        foreach ($tags[$key] as $tag) {
             try {
                 $remCount += $redis->sRem($this->namespacePrefix . $key, $tag);
             } catch (RedisResourceException $e) {

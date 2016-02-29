@@ -331,15 +331,11 @@ class Filesystem extends AbstractAdapter implements
             try {
                 $diff = array_diff($tags, explode("\n", $this->getFileContent($pathname)));
             } catch (Exception\RuntimeException $exception) {
-                if ($exception->getPrevious()
-                    && strpos(
-                        $exception->getPrevious()->getMessage(),
-                        'failed to open stream: No such file or directory'
-                    ) !== false
-                ) {
+                // ignore missing files because of possible raise conditions
+                // e.g. another process already deleted that item
+                if (!file_exists($pathname)) {
                     continue;
                 }
-
                 throw $exception;
             }
 

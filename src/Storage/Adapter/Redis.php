@@ -206,7 +206,8 @@ class Redis extends AbstractAdapter implements
     {
         $redis = $this->getRedisResource();
         try {
-            return $redis->sMembers($this->namespacePrefix . $key);
+            $tags = $redis->sMembers($this->namespacePrefix . $key);
+            return !empty($tags) ? $tags : false;
         } catch (RedisResourceException $e) {
             throw new Exception\RuntimeException($redis->getLastError(), $e->getCode(), $e);
         }
@@ -217,14 +218,14 @@ class Redis extends AbstractAdapter implements
      *
      * @param $key
      * @param $tag
-     * @return int 1|0
+     * @return bool
      * @throws Exception\RuntimeException
      */
     public function isTag($key, $tag)
     {
         $redis = $this->getRedisResource();
         try {
-            return $redis->sIsMember($this->namespacePrefix . $key, $tag);
+            return (bool) $redis->sIsMember($this->namespacePrefix . $key, $tag);
         } catch (RedisResourceException $e) {
             throw new Exception\RuntimeException($redis->getLastError(), $e->getCode(), $e);
         }
@@ -420,26 +421,30 @@ class Redis extends AbstractAdapter implements
      *
      * @param string[] $tags must have a key index for the tags key
      * @param  bool  $disjunction
-     * @return int number of tags removed from key
+     * @return bool
      * @throws Exception\RuntimeException
      */
     public function clearByTags(array $tags, $disjunction = false)
     {
-        $remCount = 0;
         if (empty($tags)) {
-            return $remCount;
+            return false;
         }
 
         $redis     = $this->getRedisResource();
         $it        = null;
-        $foundKeys = [];
-
         try {
-            $arr_keys = $redis->scan($it);
-            foreach($arr_keys as $key) {
-                foreach ($tags as $tag) {
-                    if ($redis->sIsMember($key, $tag)) {
-                        $foundKeys[$key][] = $tag;
+            $arrKeys = $redis->scan($it);
+            foreach($arrKeys as $key) {
+                $redisKey = $redis->sMembers($key);
+                if (!$disjunction) {
+                    if (is_array($redisKey) && empty(array_diff($tags,  $redisKey))) {
+                        foreach ($tags as $tag) {
+                            $redis->sRem($key, $tag);
+                        }
+                    }
+                } else {
+                    foreach ($tags as $tag) {
+                        $redis->sRem($key, $tag);
                     }
                 }
             }
@@ -447,23 +452,7 @@ class Redis extends AbstractAdapter implements
             throw new Exception\RuntimeException($redis->getLastError(), $e->getCode(), $e);
         }
 
-        foreach($foundKeys as $key => $keyTags) {
-
-            $redisKey = $redis->sMembers($key);
-            if (! $disjunction) {
-                if (empty(array_diff($redisKey, $keyTags))) {
-                    foreach ($keyTags as $tag) {
-                        $remCount += $redis->sRem($key, $tag);
-                    }
-                }
-            } else {
-                foreach ($keyTags as $tag) {
-                    $remCount += $redis->sRem($key, $tag);
-                }
-            }
-        }
-
-        return $remCount;
+        return true;
     }
 
     /**

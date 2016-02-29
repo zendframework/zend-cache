@@ -430,21 +430,22 @@ class Redis extends AbstractAdapter implements
             return false;
         }
 
-        $redis     = $this->getRedisResource();
-        $it        = null;
+        $redis = $this->getRedisResource();
+        $it    = null;
         try {
             $arrKeys = $redis->scan($it);
-            foreach($arrKeys as $key) {
+            foreach ($arrKeys as $key) {
                 $redisKey = $redis->sMembers($key);
-                if (!$disjunction) {
+                if (! $disjunction) {
                     if (is_array($redisKey) && empty(array_diff($tags,  $redisKey))) {
-                        foreach ($tags as $tag) {
-                            $redis->sRem($key, $tag);
-                        }
+                        $redis->delete($key);
                     }
                 } else {
                     foreach ($tags as $tag) {
-                        $redis->sRem($key, $tag);
+                        if ($redis->sIsMember($key, $tag)) {
+                            $redis->delete($key);
+                            continue;
+                        }
                     }
                 }
             }

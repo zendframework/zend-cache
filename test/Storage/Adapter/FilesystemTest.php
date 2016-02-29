@@ -334,6 +334,10 @@ class FilesystemTest extends CommonAdapterTest
      */
     public function testClearByTagsWithoutLocking()
     {
+        if (!function_exists('pcntl_fork') || !function_exists('posix_kill')) {
+            $this->markTestSkipped('Missing pcntl_fork and/or posix_kill');
+        }
+
         // create cache items
         $this->_storage->getOptions()->setDirLevel(0);
         $this->_storage->getOptions()->setFileLocking(false);
@@ -378,6 +382,10 @@ class FilesystemTest extends CommonAdapterTest
      */
     public function testClearByTagsWithLocking()
     {
+        if (!function_exists('pcntl_fork') || !function_exists('posix_kill')) {
+            $this->markTestSkipped('Missing pcntl_fork and/or posix_kill');
+        }
+
         // create cache items
         $this->_storage->getOptions()->setDirLevel(0);
         $this->_storage->getOptions()->setFileLocking(true);

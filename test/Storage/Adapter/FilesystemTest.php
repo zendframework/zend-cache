@@ -371,7 +371,7 @@ class FilesystemTest extends CommonAdapterTest
             fclose($tempFile);
         } else {
             usleep(150000);
-            unlink($this->_tmpCacheDir.'/zfcache-c_key.tag');
+            $this->_storage->removeItem('c_key');
             fwrite($tempFile, 'deleted');
             posix_kill(posix_getpid(), SIGTERM);
         }
@@ -413,7 +413,7 @@ class FilesystemTest extends CommonAdapterTest
             fclose($tempFile);
         } else {
             usleep(150000);
-            unlink($this->_tmpCacheDir.'/zfcache-c_key.tag');
+            $this->_storage->removeItem('c_key');
             fwrite($tempFile, 'deleted');
             posix_kill(posix_getpid(), SIGTERM);
         }

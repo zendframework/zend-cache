@@ -457,6 +457,30 @@ class Redis extends AbstractAdapter implements
     }
 
     /**
+     * Unlike clearByTags this removes a single or more tags from a set
+     * keeping the existing item tags intact
+     *
+     * @param $key
+     * @param array $tags
+     * @return bool
+     * @throws Exception\RuntimeException
+     */
+    public function removeTags($key, array $tags)
+    {
+        $this->normalizeKey($key);
+        $redis = $this->getRedisResource();
+        try {
+            foreach ($tags as $tag) {
+                $redis->sRem($this->namespacePrefix . $key, $tag);
+            }
+        } catch (RedisResourceException $e) {
+            throw new Exception\RuntimeException($redis->getLastError(), $e->getCode(), $e);
+        }
+
+        return true;
+    }
+
+    /**
      * Internal method to remove an item.
      *
      * @param string &$normalizedKey Key which will be removed

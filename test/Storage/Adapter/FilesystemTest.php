@@ -330,6 +330,7 @@ class FilesystemTest extends CommonAdapterTest
     }
 
     /**
+     * @group d
      * @runInSeparateProcess
      */
     public function testClearByTagsWithoutLocking()
@@ -354,7 +355,7 @@ class FilesystemTest extends CommonAdapterTest
         // Split into two..
         $pid = pcntl_fork();
         if ($pid == -1) {
-            $this->assertEquals('shit went down. [failed to fork]', 'no shit went down');
+            $this->fail('pcntl_fork() failed');
         }
         if ($pid) {
             require 'FilesystemDelayedUnlink.php';
@@ -392,7 +393,7 @@ class FilesystemTest extends CommonAdapterTest
 
         $pid = pcntl_fork();
         if ($pid == -1) {
-            $this->assertEquals('shit went down. [failed to fork]', 'no shit went down');
+            $this->fail('pcntl_fork() failed');
         }
         if ($pid) {
             require 'FilesystemDelayedUnlink.php';

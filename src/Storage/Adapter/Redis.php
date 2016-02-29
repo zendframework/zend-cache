@@ -327,25 +327,33 @@ class Redis extends AbstractAdapter implements
      *
      * @param string $key
      * @param array  $tags
-     * @return int   $count number of elements that were added to the set
+     * @return bool
      * @throws Exception\RuntimeException
      */
     public function setTags($key, array $tags = [])
     {
+        $this->normalizeKey($key);
+        if (!$this->internalHasItem($key)) {
+            return false;
+        }
+
         if (empty($tags)) {
-            $this->clearByKey($key);
+            return $this->removeItem($key);
         }
 
         $redis = $this->getRedisResource();
-        $count = 0;
+        if ($redis->type($this->namespacePrefix . $key) !== $redis::REDIS_SET) {
+            $this->removeItem($key);
+        }
+
         foreach ($tags as $tag) {
             try {
-                $count += $redis->sAdd($this->namespacePrefix . $key, $tag);
+                $redis->sAdd($this->namespacePrefix . $key, $tag);
             } catch (RedisResourceException $e) {
                 throw new Exception\RuntimeException($redis->getLastError(), $e->getCode(), $e);
             }
         }
-        return $count;
+        return true;
     }
 
     /**
@@ -406,29 +414,6 @@ class Redis extends AbstractAdapter implements
     }
 
     /**
-     * Removes the specified keys. A key is ignored if it does not exist.
-     *
-     * @param string      $key1
-     * @param string|null $key2
-     * @param string|null $key3
-     * @return int The number of keys that were removed.
-     * @throws Exception\RuntimeException
-     */
-    public function clearByKey($key1, $key2 = null, $key3 = null)
-    {
-        $redis = $this->getRedisResource();
-        try {
-            return $redis->del(
-                $this->namespacePrefix . $key1,
-                $key2 !== null ? $this->namespacePrefix . $key2 : null,
-                $key3 !== null ? $this->namespacePrefix . $key3 : null
-            );
-        } catch (RedisResourceException $e) {
-            throw new Exception\RuntimeException($redis->getLastError(), $e->getCode(), $e);
-        }
-    }
-
-    /**
      * Remove items matching given tags within a key.
      *
      * ['key' => ['value1', 'value2', 'value3']]
@@ -440,21 +425,44 @@ class Redis extends AbstractAdapter implements
      */
     public function clearByTags(array $tags, $disjunction = false)
     {
-        if (count($tags) !== 1 || key($tags) === 0) {
-            return false;
+        $remCount = 0;
+        if (empty($tags)) {
+            return $remCount;
         }
 
-        $key      = key($tags);
-        $redis    = $this->getRedisResource();
-        $remCount = 0;
+        $redis     = $this->getRedisResource();
+        $it        = null;
+        $foundKeys = [];
 
-        foreach ($tags[$key] as $tag) {
-            try {
-                $remCount += $redis->sRem($this->namespacePrefix . $key, $tag);
-            } catch (RedisResourceException $e) {
-                throw new Exception\RuntimeException($redis->getLastError(), $e->getCode(), $e);
+        try {
+            $arr_keys = $redis->scan($it);
+            foreach($arr_keys as $key) {
+                foreach ($tags as $tag) {
+                    if ($redis->sIsMember($key, $tag)) {
+                        $foundKeys[$key][] = $tag;
+                    }
+                }
+            }
+        } catch (RedisResourceException $e) {
+            throw new Exception\RuntimeException($redis->getLastError(), $e->getCode(), $e);
+        }
+
+        foreach($foundKeys as $key => $keyTags) {
+
+            $redisKey = $redis->sMembers($key);
+            if (! $disjunction) {
+                if (empty(array_diff($redisKey, $keyTags))) {
+                    foreach ($keyTags as $tag) {
+                        $remCount += $redis->sRem($key, $tag);
+                    }
+                }
+            } else {
+                foreach ($keyTags as $tag) {
+                    $remCount += $redis->sRem($key, $tag);
+                }
             }
         }
+
         return $remCount;
     }
 

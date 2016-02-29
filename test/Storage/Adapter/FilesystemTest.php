@@ -349,7 +349,7 @@ class FilesystemTest extends CommonAdapterTest
         $this->_storage->setTags('c_key', ['a_tag', 'c_tag']);
 
         $tempFile = tmpfile();
-        
+
         $pid = pcntl_fork();
         if ($pid == -1) {
             $this->fail('pcntl_fork() failed');

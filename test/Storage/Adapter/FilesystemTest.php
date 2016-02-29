@@ -347,15 +347,9 @@ class FilesystemTest extends CommonAdapterTest
         $this->_storage->setTags('b_key', ['a_tag', 'b_tag']);
         $this->_storage->setItem('c_key', 'c_value');
         $this->_storage->setTags('c_key', ['a_tag', 'c_tag']);
-        //$this->_storage->getTags('a_key');
 
-        //unlink($this->_tmpCacheDir.'/zfcache-a_key.tag');
-
-        //var_dump($this->_storage->getTags('a_key'));
-
-        // tempFile used for communication between parent and child.
         $tempFile = tmpfile();
-        // Split into two..
+        
         $pid = pcntl_fork();
         if ($pid == -1) {
             $this->fail('pcntl_fork() failed');

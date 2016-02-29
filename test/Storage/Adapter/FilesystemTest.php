@@ -330,7 +330,6 @@ class FilesystemTest extends CommonAdapterTest
     }
 
     /**
-     * @group d
      * @runInSeparateProcess
      */
     public function testClearByTagsWithoutLocking()

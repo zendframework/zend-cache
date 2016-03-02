@@ -214,21 +214,39 @@ class Redis extends AbstractAdapter implements
     }
 
     /**
-     * Returns if value is a member of the set stored at key.
+     * Returns if the values are a member of the set stored at key.
      *
-     * @param $key
-     * @param $tag
+     * If $disjunction only one of the given tags must match
+     * else all given tags must match.
+     *
+     * @param string $key
+     * @param array  $tags
+     * @param bool   $disjunction
      * @return bool
      * @throws Exception\RuntimeException
      */
-    public function isTag($key, $tag)
+    public function hasTags($key, array $tags, $disjunction = false)
     {
-        $redis = $this->getRedisResource();
+        $foundTags = 0;
+        $redis     = $this->getRedisResource();
+
         try {
-            return (bool) $redis->sIsMember($this->namespacePrefix . $key, $tag);
+            foreach ($tags as $tag) {
+                if (! $disjunction) {
+                    if ($redis->sIsMember($this->namespacePrefix . $key, $tag)) {
+                        ++$foundTags;
+                    }
+                } else {
+                    if ($redis->sIsMember($this->namespacePrefix . $key, $tag)) {
+                        return true;
+                    }
+                }
+            }
         } catch (RedisResourceException $e) {
             throw new Exception\RuntimeException($redis->getLastError(), $e->getCode(), $e);
         }
+
+        return $foundTags == count($tags);
     }
 
     /**
@@ -417,7 +435,8 @@ class Redis extends AbstractAdapter implements
     /**
      * Remove items matching given tags within a key.
      *
-     * ['key' => ['value1', 'value2', 'value3']]
+     * If $disjunction only one of the given tags must match
+     * else all given tags must match.
      *
      * @param string[] $tags must have a key index for the tags key
      * @param  bool  $disjunction

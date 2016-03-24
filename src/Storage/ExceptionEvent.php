@@ -39,7 +39,7 @@ class ExceptionEvent extends PostEvent
      * @param  mixed $result
      * @param  Exception $exception
      */
-    public function __construct($name, StorageInterface $storage, ArrayObject $params, & $result, Exception $exception)
+    public function __construct($name, StorageInterface $storage, ArrayObject $params, $result, Exception $exception)
     {
         parent::__construct($name, $storage, $params, $result);
         $this->setException($exception);

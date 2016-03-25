@@ -190,7 +190,6 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
     {
         if ($this->events === null) {
             $this->events = new EventManager();
-            $this->events->setIdentifiers([__CLASS__, get_class($this)]);
         }
         return $this->events;
     }

@@ -11,7 +11,6 @@
 namespace ZendTest\Cache\Storage\Adapter;
 
 use PHPUnit_Framework_TestCase as TestCase;
-use Zend\Cache\Storage\Adapter\AbstractAdapter;
 use Zend\EventManager\EventManager;
 use ZendTest\Cache\Storage\TestAsset\MockAdapter;
 
@@ -32,11 +31,8 @@ class EventManagerCompatibilityTest extends TestCase
     /**
      * @depends testCanLazyLoadEventManager
      */
-    public function testLazyLoadedEventManagerIsInjectedProperlyWithDefaultIdentifiers(EventManager $events)
+    public function testLazyLoadedEventManagerWithoutDefaultIdentifiersForPerformanceReasons(EventManager $events)
     {
-        $this->assertEquals([
-            AbstractAdapter::class,
-            MockAdapter::class,
-        ], $events->getIdentifiers());
+        $this->assertEquals([], $events->getIdentifiers());
     }
 }

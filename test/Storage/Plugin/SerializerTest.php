@@ -9,7 +9,6 @@
 
 namespace ZendTest\Cache\Storage\Plugin;
 
-use ArrayObject;
 use stdClass;
 use Zend\Cache;
 use Zend\Cache\Storage\Capabilities;
@@ -103,7 +102,7 @@ class SerializerTest extends CommonPluginTest
         $value    = 123;
         $valueSer = serialize($value);
 
-        $args  = new ArrayObject(['key' => $key, 'value' => $value]);
+        $args  = ['key' => $key, 'value' => $value];
         $event = new Event('setItem.pre', $this->_adapter, $args);
         $this->_plugin->onWriteItemPre($event);
 
@@ -118,7 +117,7 @@ class SerializerTest extends CommonPluginTest
         $value    = 123;
         $valueSer = serialize($value);
         
-        $args  = new ArrayObject(['key' => $key, 'success'  => true, 'casToken' => null]);
+        $args  = ['key' => $key, 'success'  => true, 'casToken' => null];
         $event = new PostEvent('getItem.post', $this->_adapter, $args, $valueSer);
         $this->_plugin->onReadItemPost($event);
 
@@ -128,10 +127,10 @@ class SerializerTest extends CommonPluginTest
 
     public function testDontUnserializeOnReadMissingItemPost()
     {
-        $key      = 'testKey';
-        $value    = null;
+        $key   = 'testKey';
+        $value = null;
 
-        $args  = new ArrayObject(['key' => $key]);
+        $args  = ['key' => $key];
         $event = new PostEvent('getItem.post', $this->_adapter, $args, $value);
         $this->_plugin->onReadItemPost($event);
 
@@ -142,7 +141,7 @@ class SerializerTest extends CommonPluginTest
     public function testUnserializeOnReadItemsPost()
     {
         $values = ['key1' => serialize(123), 'key2' => serialize(456)];
-        $args   = new ArrayObject(['keys' => array_keys($values) + ['missing']]);
+        $args   = ['keys' => array_keys($values) + ['missing']];
         $event  = new PostEvent('getItems.post', $this->_adapter, $args, $values);
         $this->_plugin->onReadItemsPost($event);
 
@@ -169,7 +168,7 @@ class SerializerTest extends CommonPluginTest
             ]
         ]);
 
-        $event = new PostEvent('getCapabilities.post', $this->_adapter, new ArrayObject(), $baseCapabilities);
+        $event = new PostEvent('getCapabilities.post', $this->_adapter, [], $baseCapabilities);
         $this->_plugin->onGetCapabilitiesPost($event);
 
         $this->assertFalse($event->propagationIsStopped(), 'Event propagation has been stopped');

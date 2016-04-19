@@ -95,8 +95,7 @@ class Serializer extends AbstractPlugin
     public function onWriteItemPre(Event $event)
     {
         $serializer = $this->getOptions()->getSerializer();
-        $params     = $event->getParams();
-        $params['value'] = $serializer->serialize($params['value']);
+        $event->setParam('value', $serializer->serialize($event->getParam('value')));
     }
 
     /**
@@ -107,11 +106,9 @@ class Serializer extends AbstractPlugin
      */
     public function onWriteItemsPre(Event $event)
     {
-        $serializer = $this->getOptions()->getSerializer();
-        $params     = $event->getParams();
-        foreach ($params['keyValuePairs'] as &$value) {
-            $value = $serializer->serialize($value);
-        }
+        $serializer    = $this->getOptions()->getSerializer();
+        $keyValuePairs = array_map([$serializer, 'serialize'], $event->getParam('keyValuePairs'));
+        $event->setParam('keyValuePairs', $keyValuePairs);
     }
 
     /**

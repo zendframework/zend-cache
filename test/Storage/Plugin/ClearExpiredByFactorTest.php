@@ -9,7 +9,6 @@
 
 namespace ZendTest\Cache\Storage\Plugin;
 
-use ArrayObject;
 use Zend\Cache;
 use Zend\Cache\Storage\PostEvent;
 use Zend\EventManager\Test\EventListenerIntrospectionTrait;
@@ -89,9 +88,9 @@ class ClearExpiredByFactorTest extends CommonPluginTest
 
         // call event callback
         $result = true;
-        $event = new PostEvent('setItem.post', $adapter, new ArrayObject([
+        $event = new PostEvent('setItem.post', $adapter, [
             'options' => [],
-        ]), $result);
+        ], $result);
         $this->_plugin->clearExpiredByFactor($event);
 
         $this->assertTrue($event->getResult());

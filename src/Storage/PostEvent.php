@@ -9,8 +9,6 @@
 
 namespace Zend\Cache\Storage;
 
-use ArrayObject;
-
 class PostEvent extends Event
 {
     /**
@@ -27,10 +25,10 @@ class PostEvent extends Event
      *
      * @param  string           $name
      * @param  StorageInterface $storage
-     * @param  ArrayObject      $params
+     * @param  array            $params
      * @param  mixed            $result
      */
-    public function __construct($name, StorageInterface $storage, ArrayObject $params, $result)
+    public function __construct($name, StorageInterface $storage, array $params, $result)
     {
         parent::__construct($name, $storage, $params);
         $this->setResult($result);

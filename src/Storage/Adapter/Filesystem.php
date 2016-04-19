@@ -25,7 +25,6 @@ use Zend\Cache\Storage\OptimizableInterface;
 use Zend\Cache\Storage\TaggableInterface;
 use Zend\Cache\Storage\TotalSpaceCapableInterface;
 use Zend\Stdlib\ErrorHandler;
-use ArrayObject;
 
 class Filesystem extends AbstractAdapter implements
     AvailableSpaceCapableInterface,
@@ -166,7 +165,7 @@ class Filesystem extends AbstractAdapter implements
             $result = false;
             return $this->triggerException(
                 __FUNCTION__,
-                new ArrayObject(),
+                [],
                 $result,
                 new Exception\RuntimeException('Failed to clear expired items', 0, $error)
             );

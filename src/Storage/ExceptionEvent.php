@@ -9,7 +9,6 @@
 
 namespace Zend\Cache\Storage;
 
-use ArrayObject;
 use Exception;
 
 class ExceptionEvent extends PostEvent
@@ -33,13 +32,13 @@ class ExceptionEvent extends PostEvent
      *
      * Accept a target and its parameters.
      *
-     * @param  string $name
+     * @param  string           $name
      * @param  StorageInterface $storage
-     * @param  ArrayObject $params
-     * @param  mixed $result
+     * @param  array            $params
+     * @param  mixed            $result
      * @param  Exception $exception
      */
-    public function __construct($name, StorageInterface $storage, ArrayObject $params, $result, Exception $exception)
+    public function __construct($name, StorageInterface $storage, array $params, $result, Exception $exception)
     {
         parent::__construct($name, $storage, $params, $result);
         $this->setException($exception);

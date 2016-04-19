@@ -70,8 +70,7 @@ class Serializer extends AbstractPlugin
         $result = $event->getResult();
         if ($result !== null) {
             $serializer = $this->getOptions()->getSerializer();
-            $result     = $serializer->unserialize($result);
-            $event->setResult($result);
+            $event->setResult($serializer->unserialize($result));
         }
     }
 
@@ -84,11 +83,7 @@ class Serializer extends AbstractPlugin
     public function onReadItemsPost(PostEvent $event)
     {
         $serializer = $this->getOptions()->getSerializer();
-        $result     = $event->getResult();
-        foreach ($result as &$value) {
-            $value = $serializer->unserialize($value);
-        }
-        $event->setResult($result);
+        $event->setResult(array_map([$serializer, 'unserialize'], $event->getResult()));
     }
 
     /**

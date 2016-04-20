@@ -2,13 +2,18 @@
     "docs": [
         {
             "location": "/", 
-            "text": "zend-cache\n\n\n\n\n\n\nZend\\Cache\n provides a general cache system for PHP. The \nZend\\Cache\n component\nis able to cache different patterns (class, object, output, etc) using different\nstorage adapters (DB, File, Memcache, etc).\n\n\n\n\nFile issues at https://github.com/zendframework/zend-cache/issues\n\n\nDocumentation is at https://zendframework.github.io/zend-cache/", 
+            "text": "zend-cache\n\n\n\n\n\n\nZend\\Cache\n provides a general cache system for PHP. The \nZend\\Cache\n component\nis able to cache different patterns (class, object, output, etc) using different\nstorage adapters (DB, File, Memcache, etc).\n\n\n\n\nFile issues at https://github.com/zendframework/zend-cache/issues\n\n\nDocumentation is at https://zendframework.github.io/zend-cache/\n\n\n\n\nBenchmarks\n\n\nWe provide scripts for benchmarking zend-cache using the\n\nPHPBench\n framework; these can be\nfound in the \nbenchmark/\n directory.\n\n\nTo execute the benchmarks you can run the following command:\n\n\n$ vendor/bin/phpbench run --report=aggregate", 
             "title": "Home"
         }, 
         {
             "location": "/#zend-cache", 
             "text": "Zend\\Cache  provides a general cache system for PHP. The  Zend\\Cache  component\nis able to cache different patterns (class, object, output, etc) using different\nstorage adapters (DB, File, Memcache, etc).   File issues at https://github.com/zendframework/zend-cache/issues  Documentation is at https://zendframework.github.io/zend-cache/", 
             "title": "zend-cache"
+        }, 
+        {
+            "location": "/#benchmarks", 
+            "text": "We provide scripts for benchmarking zend-cache using the PHPBench  framework; these can be\nfound in the  benchmark/  directory.  To execute the benchmarks you can run the following command:  $ vendor/bin/phpbench run --report=aggregate", 
+            "title": "Benchmarks"
         }, 
         {
             "location": "/storage/adapter/", 

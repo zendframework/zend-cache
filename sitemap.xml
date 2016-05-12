@@ -4,7 +4,7 @@
     
     <url>
      <loc>None/</loc>
-     <lastmod>2016-04-20</lastmod>
+     <lastmod>2016-05-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -13,19 +13,19 @@
         
     <url>
      <loc>None/storage/adapter/</loc>
-     <lastmod>2016-04-20</lastmod>
+     <lastmod>2016-05-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/storage/capabilities/</loc>
-     <lastmod>2016-04-20</lastmod>
+     <lastmod>2016-05-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/storage/plugin/</loc>
-     <lastmod>2016-04-20</lastmod>
+     <lastmod>2016-05-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
@@ -35,37 +35,37 @@
         
     <url>
      <loc>None/pattern/intro/</loc>
-     <lastmod>2016-04-20</lastmod>
+     <lastmod>2016-05-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/pattern/callback-cache/</loc>
-     <lastmod>2016-04-20</lastmod>
+     <lastmod>2016-05-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/pattern/class-cache/</loc>
-     <lastmod>2016-04-20</lastmod>
+     <lastmod>2016-05-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/pattern/object-cache/</loc>
-     <lastmod>2016-04-20</lastmod>
+     <lastmod>2016-05-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/pattern/output-cache/</loc>
-     <lastmod>2016-04-20</lastmod>
+     <lastmod>2016-05-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>None/pattern/capture-cache/</loc>
-     <lastmod>2016-04-20</lastmod>
+     <lastmod>2016-05-12</lastmod>
      <changefreq>daily</changefreq>
     </url>
         

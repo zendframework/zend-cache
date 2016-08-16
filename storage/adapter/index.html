@@ -16,7 +16,6 @@
     <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin" rel="stylesheet" type="text/css">
     <link href="//fonts.googleapis.com/css?family=Libre+Baskerville:400,400italic,700&subset=latin,latin-ext" rel="stylesheet" type="text/css">
     <link href="../../css/base.css" rel="stylesheet">
-    <link href="../../css/zf-web.css" rel="stylesheet">
     <link href="../../css/zf.css" rel="stylesheet">
     <link href="../../css/prism-zf.css" rel="stylesheet">
 
@@ -57,7 +56,7 @@
 
             <!-- Main title -->
             <span class="navbar-brand">
-              <a class="logo-link" href="http://framework.zend.com" data-toggle="tooltip" data-placement="bottom" title="Zend Framework"><img src="../../img/zf-logo-mark.svg" height="28" alt="Zend Framework" /></a>
+              <a class="logo-link" href="http://framework.zend.com" data-toggle="tooltip" data-placement="bottom" title="Zend Framework"><img src="../../img/zf-logo-mark.png" height="28" alt="Zend Framework" /></a>
               <a href="../..">zend-cache</a>
             </span>
         </div>
@@ -177,7 +176,7 @@
 </div>
 
     <!-- content:begin -->
-    <div id="page-top" class="container docs">
+    <div class="container">
         
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
@@ -251,7 +250,7 @@
         <div class="col-md-9" role="main">
 
 <ol class="breadcrumb" role="navigation" aria-label="breadcrumbs navigation">
-  <li><a href="../..">zend-cache</a> &raquo;</li>
+  <li><a href="../..">Docs</a> &raquo;</li>
   
     
       
@@ -839,10 +838,6 @@ PHP extension <a href="http://pecl.php.net/package/APC">APC</a> (Alternative PHP
 <td><code>false</code></td>
 </tr>
 <tr>
-<td><code>lockOnExpire</code></td>
-<td>0</td>
-</tr>
-<tr>
 <td><code>maxKeyLength</code></td>
 <td>5182</td>
 </tr>
@@ -1024,10 +1019,6 @@ outdated items periodically!</p>
 <td><code>true</code></td>
 </tr>
 <tr>
-<td><code>lockOnExpire</code></td>
-<td>0</td>
-</tr>
-<tr>
 <td><code>maxKeyLength</code></td>
 <td>251</td>
 </tr>
@@ -1173,10 +1164,6 @@ based on <a href="http://libmemcached.org/">Libmemcached</a>.</p>
 <td><code>false</code></td>
 </tr>
 <tr>
-<td><code>lockOnExpire</code></td>
-<td>0</td>
-</tr>
-<tr>
 <td><code>maxKeyLength</code></td>
 <td>255</td>
 </tr>
@@ -1263,10 +1250,6 @@ using the PHP extension <a href="https://github.com/nicolasff/phpredis">redis</a
 <tr>
 <td><code>expiredRead</code></td>
 <td><code>false</code></td>
-</tr>
-<tr>
-<td><code>lockOnExpire</code></td>
-<td>0</td>
 </tr>
 <tr>
 <td><code>maxKeyLength</code></td>
@@ -1399,10 +1382,6 @@ process only.</p>
 <td><code>true</code></td>
 </tr>
 <tr>
-<td><code>lockOnExpire</code></td>
-<td>0</td>
-</tr>
-<tr>
 <td><code>maxKeyLength</code></td>
 <td>0</td>
 </tr>
@@ -1455,18 +1434,17 @@ PHP extension <a href="http://php.net/mongo">mongo</a>, or a MongoDB polyfill li
 </ul>
 <h3 id="capabilities_6">Capabilities</h3>
 <p>Capability  Value
-<code>supportedDatatypes</code> | <code>null</code>, <code>boolean</code>, <code>integer</code>, <code>double</code>, <code>string</code>, <code>array</code>
-<code>supportedMetadata</code> | _id
-<code>minTtl</code> | 0
-<code>maxTtl</code> | 0
-<code>staticTtl</code> | <code>true</code>
-<code>ttlPrecision</code> | 1
-<code>useRequestTime</code> | <code>false</code>
-<code>expiredRead</code> | <code>false</code>
-<code>lockOnExpire</code> | 0
-<code>maxKeyLength</code> | 255
-<code>namespaceIsPrefix</code> | <code>true</code>
-<code>namespaceSeparator</code> | <Option value of namespace_separator></p>
+supportedDatatypes  null, boolean, integer, double, string, array
+supportedMetadata   _id
+minTtl  0
+maxTtl  0
+staticTtl   true
+ttlPrecision    1
+useRequestTime  false
+expiredRead false
+maxKeyLength    255
+namespaceIsPrefix   true
+namespaceSeparator  <Option value of namespace_separator></p>
 <h3 id="adapter-specific-options_6">Adapter specific options</h3>
 <div class="table-responsive"><table>
 <thead>
@@ -1581,10 +1559,6 @@ through the PHP extension <a href="http://pecl.php.net/package/WinCache">WinCach
 <td><code>false</code></td>
 </tr>
 <tr>
-<td><code>lockOnExpire</code></td>
-<td>0</td>
-</tr>
-<tr>
 <td><code>namespaceIsPrefix</code></td>
 <td><code>true</code></td>
 </tr>
@@ -1666,10 +1640,6 @@ PHP extension <a href="http://xcache.lighttpd.net/">XCache</a>.</p>
 <tr>
 <td><code>expiredRead</code></td>
 <td><code>false</code></td>
-</tr>
-<tr>
-<td><code>lockOnExpire</code></td>
-<td>0</td>
 </tr>
 <tr>
 <td><code>maxKeyLength</code></td>
@@ -1779,10 +1749,6 @@ using the <a href="http://www.zend.com/en/products/server/">Zend Server Data Cac
 <td><code>false</code></td>
 </tr>
 <tr>
-<td><code>lockOnExpire</code></td>
-<td>if 'zend_datacache.lock_on_expire' is enabled 120 else 0</td>
-</tr>
-<tr>
 <td><code>namespaceIsPrefix</code></td>
 <td><code>true</code></td>
 </tr>
@@ -1848,10 +1814,6 @@ through the <a href="http://www.zend.com/en/products/server/">Zend Server Data C
 <td><code>false</code></td>
 </tr>
 <tr>
-<td><code>lockOnExpire</code></td>
-<td>if 'zend_datacache.lock_on_expire' is enabled 120 else 0</td>
-</tr>
-<tr>
 <td><code>namespaceIsPrefix</code></td>
 <td><code>true</code></td>
 </tr>
@@ -1889,9 +1851,9 @@ if (! $success) {
 <pre class="codehilite"><code class="language-php">use Zend\Cache\StorageFactory;
 
 // Instantiate the cache instance using a namespace for the same type of items
-$cache = StorageFactory::factory(array(
+$cache = StorageFactory::factory([
     'adapter' =&gt; [
-        'name'    =&gt; 'filesystem'
+        'name' =&gt; 'filesystem',
         // With a namespace, we can indicate the same type of items,
         // so we can simply use the database id as the cache key
         'options' =&gt; [
@@ -1901,8 +1863,8 @@ $cache = StorageFactory::factory(array(
     'plugins' =&gt; [
         // Don't throw exceptions on cache errors
         'exception_handler' =&gt; [
-            'throw_exceptions' =&gt; false
-        ),
+            'throw_exceptions' =&gt; false,
+        ],
         // We store database rows on filesystem so we need to serialize them
         'Serializer',
     ],
@@ -1945,49 +1907,13 @@ if (count($results) &lt; count($ids)) {
     </div>
     <!-- content:end -->
 
-    <div id="footerwrap">
-    <div class="container">
-        <div class="row site-map">
-            <div class="col-lg-3">
-              <p>
-                <strong>Zend Framework</strong><br />
-                <a href="http://framework.zend.com/">framework.zend.com</a><br />
-                <a href="https://docs.zendframework.com">docs.zendframework.com</a><br />
-                <a href="https://packages.zendframework.com">packages.zendframework.com</a><br />
-                <a href="https://apigility.org">apigility.org</a><br />
-              </p>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-lg-12 centered">
-                <a class="back-to-top" href="#page-top"><i class="fa fa-chevron-circle-up fa-4" aria-hidden="true"></i></a>
-            </div>
-        </div>
-
-        <div class="spacing"></div>
-
-        <div class="row">
-            <div class="col-lg-8">
-                <h4>Copyright</h4>
-                <div class="hline-w"></div>
-
-                <p>&copy; 2006-2016 by <a href="http://www.zend.com">Zend</a>, a <a href="http://www.roguewave.com/">Rogue Wave Company</a>.</p>
-            </div>
-
-            <div class="col-lg-4">
-                <h4>Contacts</h4>
-                <div class="hline-w"></div>
-                <p>
-                    <a href="irc://irc.freenode.net/zftalk" class="btn-social btn-outline" alt="IRC" title="IRC"><i class="fa fa-comment"></i></a>
-                    <a href="https://github.com/zendframework" class="btn-social btn-outline" alt="Github" title="Github"><i class="fa fa-github"></i></a>
-                    <a href="https://twitter.com/zfdevteam" class="btn-social btn-outline" alt="Twitter" title="Twitter"><i class="fa fa-twitter"></i></a>
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
-
+    <footer class="col-md-12 text-center">
+        <hr>
+        <p>
+        <small>Copyright (c) 2016 <a href="http://www.zend.com/">Zend Technologies USA Inc.</a><br></small>
+        </p>
+        <p><small><a href="http://framework.zend.com">Learn more about Zend Framework</a></small></p>
+    </footer>
 
     <script src="../../js/jquery-1.10.2.min.js"></script>
     <script src="../../js/bootstrap-3.0.3.min.js"></script>
@@ -2027,7 +1953,7 @@ if (count($results) &lt; count($ids)) {
     <div class="zf-components">
   <div class="zf-components-grid">
     <div class="zf-logo">
-      <a href="http://framework.zend.com" data-toggle="tooltip" data-placement="bottom" title="Go to the ZF homepage"><img src="../../img/zf-logo-mark.svg" alt="Zend Framework" width="250" /></a>
+      <a href="http://framework.zend.com" data-toggle="tooltip" data-placement="bottom" title="Go to the ZF homepage"><img src="http://framework.zend.com/images/logos/zf-logo-mark.png" alt="Zend Framework" width="250" /></a>
     </div>
 
     <div class="component-list"></div>
@@ -2132,7 +2058,7 @@ if (count($results) &lt; count($ids)) {
     // Fetch the component list and display it.
     function loadComponentList () {
       $.ajax({
-        url: "//docs.zendframework.com/zf-mkdoc-theme/scripts/zf-component-list.json",
+        url: "//zendframework.github.io/zf-mkdoc-theme/scripts/zf-component-list.json",
         dataType: "text json",
         success: parseComponentList,
         error: function (e) {

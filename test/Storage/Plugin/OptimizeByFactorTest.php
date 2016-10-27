@@ -9,7 +9,6 @@
 
 namespace ZendTest\Cache\Storage\Plugin;
 
-use ArrayObject;
 use Zend\Cache;
 use Zend\Cache\Storage\PostEvent;
 use Zend\EventManager\Test\EventListenerIntrospectionTrait;
@@ -93,9 +92,9 @@ class OptimizeByFactorTest extends CommonPluginTest
 
         // call event callback
         $result = true;
-        $event = new PostEvent('removeItem.post', $adapter, new ArrayObject([
+        $event = new PostEvent('removeItem.post', $adapter, [
             'options' => []
-        ]), $result);
+        ], $result);
 
         $this->_plugin->optimizeByFactor($event);
 

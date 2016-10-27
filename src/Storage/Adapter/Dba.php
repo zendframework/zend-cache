@@ -325,7 +325,7 @@ class Dba extends AbstractAdapter implements
      * @return mixed Data on success, null on failure
      * @throws Exception\ExceptionInterface
      */
-    protected function internalGetItem(& $normalizedKey, & $success = null, & $casToken = null)
+    protected function internalGetItem($normalizedKey, & $success = null, & $casToken = null)
     {
         $options   = $this->getOptions();
         $namespace = $options->getNamespace();
@@ -351,7 +351,7 @@ class Dba extends AbstractAdapter implements
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalHasItem(& $normalizedKey)
+    protected function internalHasItem($normalizedKey)
     {
         $options   = $this->getOptions();
         $namespace = $options->getNamespace();
@@ -371,7 +371,7 @@ class Dba extends AbstractAdapter implements
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalSetItem(& $normalizedKey, & $value)
+    protected function internalSetItem($normalizedKey, $value)
     {
         $options     = $this->getOptions();
         $namespace   = $options->getNamespace();
@@ -396,7 +396,7 @@ class Dba extends AbstractAdapter implements
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalAddItem(& $normalizedKey, & $value)
+    protected function internalAddItem($normalizedKey, $value)
     {
         $options     = $this->getOptions();
         $namespace   = $options->getNamespace();
@@ -429,7 +429,7 @@ class Dba extends AbstractAdapter implements
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalRemoveItem(& $normalizedKey)
+    protected function internalRemoveItem($normalizedKey)
     {
         $options     = $this->getOptions();
         $namespace   = $options->getNamespace();

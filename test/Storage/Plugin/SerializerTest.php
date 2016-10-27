@@ -9,8 +9,9 @@
 
 namespace ZendTest\Cache\Storage\Plugin;
 
-use ArrayObject;
+use stdClass;
 use Zend\Cache;
+use Zend\Cache\Storage\Capabilities;
 use Zend\Cache\Storage\Event;
 use Zend\Cache\Storage\PostEvent;
 use Zend\EventManager\Test\EventListenerIntrospectionTrait;
@@ -103,25 +104,41 @@ class SerializerTest extends CommonPluginTest
         $this->assertEquals(0, count($this->getEventsFromEventManager($this->_adapter->getEventManager())));
     }
 
-    public function testUnserializeOnReadItem()
+    public function testSerializeOnWriteItemPre()
     {
-        $args  = new ArrayObject([
-            'key'      => 'test',
-            'success'  => true,
-            'casToken' => null,
-        ]);
-        $value = serialize(123);
-        $event = new PostEvent('getItem.post', $this->_adapter, $args, $value);
+        $key      = 'testKey';
+        $value    = 123;
+        $valueSer = serialize($value);
+
+        $args  = ['key' => $key, 'value' => $value];
+        $event = new Event('setItem.pre', $this->_adapter, $args);
+        $this->_plugin->onWriteItemPre($event);
+
+        $this->assertFalse($event->propagationIsStopped(), 'Event propagation has been stopped');
+        $this->assertSame($valueSer, $event->getParam('value'), 'Value was not serialized');
+        $this->assertSame($key, $event->getParam('key'), 'Missing or changed key');
+    }
+
+    public function testUnserializeOnReadItemPost()
+    {
+        $key      = 'testKey';
+        $value    = 123;
+        $valueSer = serialize($value);
+        
+        $args  = ['key' => $key, 'success'  => true, 'casToken' => null];
+        $event = new PostEvent('getItem.post', $this->_adapter, $args, $valueSer);
         $this->_plugin->onReadItemPost($event);
 
         $this->assertFalse($event->propagationIsStopped(), 'Event propagation has been stopped');
-        $this->assertSame(123, $event->getResult(), 'Result was not unserialized');
+        $this->assertSame($value, $event->getResult(), 'Result was not unserialized');
     }
 
-    public function testDontUnserializeOnReadMissingItem()
+    public function testDontUnserializeOnReadMissingItemPost()
     {
-        $args  = new ArrayObject(['key' => 'test']);
+        $key   = 'testKey';
         $value = null;
+
+        $args  = ['key' => $key];
         $event = new PostEvent('getItem.post', $this->_adapter, $args, $value);
         $this->_plugin->onReadItemPost($event);
 
@@ -129,12 +146,11 @@ class SerializerTest extends CommonPluginTest
         $this->assertSame($value, $event->getResult(), 'Missing item was unserialized');
     }
 
-    public function testUnserializeOnReadItems()
+    public function testUnserializeOnReadItemsPost()
     {
         $values = ['key1' => serialize(123), 'key2' => serialize(456)];
-        $args   = new ArrayObject(['keys' => array_keys($values) + ['missing']]);
+        $args   = ['keys' => array_keys($values) + ['missing']];
         $event  = new PostEvent('getItems.post', $this->_adapter, $args, $values);
-
         $this->_plugin->onReadItemsPost($event);
 
         $this->assertFalse($event->propagationIsStopped(), 'Event propagation has been stopped');
@@ -143,5 +159,36 @@ class SerializerTest extends CommonPluginTest
         $this->assertSame(123, $values['key1'], "Item 'key1' was not unserialized");
         $this->assertSame(456, $values['key2'], "Item 'key2' was not unserialized");
         $this->assertArrayNotHasKey('missing', $values, 'Missing item should not be present in the result');
+    }
+
+    public function testOnGetCapabilitiesPostOverwritesSupportedDatatypes()
+    {
+        $baseCapabilities = new Capabilities($this->_adapter, new stdClass, [
+            'supportedDatatypes' => [
+                'NULL'     => false,
+                'boolean'  => false,
+                'integer'  => false,
+                'double'   => false,
+                'string'   => true,
+                'array'    => false,
+                'object'   => false,
+                'resource' => true,
+            ]
+        ]);
+
+        $event = new PostEvent('getCapabilities.post', $this->_adapter, [], $baseCapabilities);
+        $this->_plugin->onGetCapabilitiesPost($event);
+
+        $this->assertFalse($event->propagationIsStopped(), 'Event propagation has been stopped');
+        $this->assertSame([
+            'NULL'     => true,
+            'boolean'  => true,
+            'integer'  => true,
+            'double'   => true,
+            'string'   => true,
+            'array'    => true,
+            'object'   => 'object',
+            'resource' => false,
+        ], $event->getResult()->getSupportedDatatypes(), 'Unexpected supported datatypes');
     }
 }

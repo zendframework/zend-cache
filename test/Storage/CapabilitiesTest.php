@@ -88,7 +88,6 @@ class CapabilitiesTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($this->_adapter, $event->getTarget());
 
         $params = $event->getParams();
-        $this->assertInstanceOf('ArrayObject', $params);
         $this->assertTrue(isset($params ['maxTtl']));
         $this->assertEquals(100, $params['maxTtl']);
     }

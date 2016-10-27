@@ -70,8 +70,7 @@ class Serializer extends AbstractPlugin
         $result = $event->getResult();
         if ($result !== null) {
             $serializer = $this->getOptions()->getSerializer();
-            $result     = $serializer->unserialize($result);
-            $event->setResult($result);
+            $event->setResult($serializer->unserialize($result));
         }
     }
 
@@ -84,11 +83,7 @@ class Serializer extends AbstractPlugin
     public function onReadItemsPost(PostEvent $event)
     {
         $serializer = $this->getOptions()->getSerializer();
-        $result     = $event->getResult();
-        foreach ($result as &$value) {
-            $value = $serializer->unserialize($value);
-        }
-        $event->setResult($result);
+        $event->setResult(array_map([$serializer, 'unserialize'], $event->getResult()));
     }
 
     /**
@@ -100,8 +95,7 @@ class Serializer extends AbstractPlugin
     public function onWriteItemPre(Event $event)
     {
         $serializer = $this->getOptions()->getSerializer();
-        $params     = $event->getParams();
-        $params['value'] = $serializer->serialize($params['value']);
+        $event->setParam('value', $serializer->serialize($event->getParam('value')));
     }
 
     /**
@@ -112,11 +106,9 @@ class Serializer extends AbstractPlugin
      */
     public function onWriteItemsPre(Event $event)
     {
-        $serializer = $this->getOptions()->getSerializer();
-        $params     = $event->getParams();
-        foreach ($params['keyValuePairs'] as &$value) {
-            $value = $serializer->serialize($value);
-        }
+        $serializer    = $this->getOptions()->getSerializer();
+        $keyValuePairs = array_map([$serializer, 'serialize'], $event->getParam('keyValuePairs'));
+        $event->setParam('keyValuePairs', $keyValuePairs);
     }
 
     /**

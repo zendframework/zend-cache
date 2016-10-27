@@ -9,7 +9,6 @@
 
 namespace Zend\Cache\Storage;
 
-use ArrayObject;
 use Zend\EventManager\Event as BaseEvent;
 
 class Event extends BaseEvent
@@ -21,9 +20,9 @@ class Event extends BaseEvent
      *
      * @param  string           $name Event name
      * @param  StorageInterface $storage
-     * @param  ArrayObject      $params
+     * @param  array            $params
      */
-    public function __construct($name, StorageInterface $storage, ArrayObject $params)
+    public function __construct($name, StorageInterface $storage, array $params = null)
     {
         parent::__construct($name, $storage, $params);
     }
@@ -61,5 +60,38 @@ class Event extends BaseEvent
     public function getStorage()
     {
         return $this->getTarget();
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * Overwritten for performance reasons as the storage adapter events will handle
+     * params as plain arrays only.
+     *
+     * @param  string $name
+     * @param  mixed  $default
+     * @return mixed
+     */
+    public function getParam($name, $default = null)
+    {
+        if (array_key_exists($name, $this->params)) {
+            return $this->params[$name];
+        }
+
+        return $default;
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * Overwritten for performance reasons as the storage adapter events will handle
+     * params as plain arrays only.
+     *
+     * @param  string $name
+     * @param  mixed  $value
+     */
+    public function setParam($name, $value)
+    {
+        $this->params[$name] = $value;
     }
 }

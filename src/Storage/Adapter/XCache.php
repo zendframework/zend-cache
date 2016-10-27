@@ -230,7 +230,7 @@ class XCache extends AbstractAdapter implements
             $cnt = xcache_count(XC_TYPE_VAR);
             for ($i=0; $i < $cnt; $i++) {
                 $list = xcache_list(XC_TYPE_VAR, $i);
-                foreach ($list['cache_list'] as & $item) {
+                foreach ($list['cache_list'] as $item) {
                     $keys[] = $item['name'];
                 }
             }
@@ -241,7 +241,7 @@ class XCache extends AbstractAdapter implements
             $cnt = xcache_count(XC_TYPE_VAR);
             for ($i=0; $i < $cnt; $i++) {
                 $list = xcache_list(XC_TYPE_VAR, $i);
-                foreach ($list['cache_list'] as & $item) {
+                foreach ($list['cache_list'] as $item) {
                     $keys[] = substr($item['name'], $prefixL);
                 }
             }
@@ -263,7 +263,7 @@ class XCache extends AbstractAdapter implements
      * @return mixed Data on success, null on failure
      * @throws Exception\ExceptionInterface
      */
-    protected function internalGetItem(& $normalizedKey, & $success = null, & $casToken = null)
+    protected function internalGetItem($normalizedKey, & $success = null, & $casToken = null)
     {
         $options     = $this->getOptions();
         $namespace   = $options->getNamespace();
@@ -287,7 +287,7 @@ class XCache extends AbstractAdapter implements
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalHasItem(& $normalizedKey)
+    protected function internalHasItem($normalizedKey)
     {
         $options   = $this->getOptions();
         $namespace = $options->getNamespace();
@@ -302,7 +302,7 @@ class XCache extends AbstractAdapter implements
      * @return array|bool Metadata on success, false on failure
      * @throws Exception\ExceptionInterface
      */
-    protected function internalGetMetadata(& $normalizedKey)
+    protected function internalGetMetadata($normalizedKey)
     {
         $options     = $this->getOptions();
         $namespace   = $options->getNamespace();
@@ -314,10 +314,9 @@ class XCache extends AbstractAdapter implements
             $cnt = xcache_count(XC_TYPE_VAR);
             for ($i=0; $i < $cnt; $i++) {
                 $list = xcache_list(XC_TYPE_VAR, $i);
-                foreach ($list['cache_list'] as & $metadata) {
+                foreach ($list['cache_list'] as $metadata) {
                     if ($metadata['name'] === $internalKey) {
-                        $this->normalizeMetadata($metadata);
-                        return $metadata;
+                        return $this->normalizeMetadata($metadata);
                     }
                 }
             }
@@ -337,7 +336,7 @@ class XCache extends AbstractAdapter implements
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalSetItem(& $normalizedKey, & $value)
+    protected function internalSetItem($normalizedKey, $value)
     {
         $options     = $this->getOptions();
         $namespace   = $options->getNamespace();
@@ -369,7 +368,7 @@ class XCache extends AbstractAdapter implements
      * @return bool
      * @throws Exception\ExceptionInterface
      */
-    protected function internalRemoveItem(& $normalizedKey)
+    protected function internalRemoveItem($normalizedKey)
     {
         $options     = $this->getOptions();
         $namespace   = $options->getNamespace();
@@ -387,7 +386,7 @@ class XCache extends AbstractAdapter implements
      * @return int|bool The new value on success, false on failure
      * @throws Exception\ExceptionInterface
      */
-    protected function internalIncrementItem(& $normalizedKey, & $value)
+    protected function internalIncrementItem($normalizedKey, $value)
     {
         $options     = $this->getOptions();
         $namespace   = $options->getNamespace();
@@ -407,7 +406,7 @@ class XCache extends AbstractAdapter implements
      * @return int|bool The new value on success, false on failure
      * @throws Exception\ExceptionInterface
      */
-    protected function internalDecrementItem(& $normalizedKey, & $value)
+    protected function internalDecrementItem($normalizedKey, $value)
     {
         $options     = $this->getOptions();
         $namespace   = $options->getNamespace();
@@ -522,10 +521,18 @@ class XCache extends AbstractAdapter implements
      * Normalize metadata to work with XCache
      *
      * @param  array $metadata
+     * @return array
      */
-    protected function normalizeMetadata(array & $metadata)
+    protected function normalizeMetadata(array $metadata)
     {
-        $metadata['internal_key'] = &$metadata['name'];
-        unset($metadata['name']);
+        return [
+            'internal_key' => $metadata['name'],
+            'size'         => $metadata['size'],
+            'refcount'     => $metadata['refcount'],
+            'hits'         => $metadata['hits'],
+            'ctime'        => $metadata['ctime'],
+            'atime'        => $metadata['atime'],
+            'hvalue'       => $metadata['hvalue'],
+        ];
     }
 }

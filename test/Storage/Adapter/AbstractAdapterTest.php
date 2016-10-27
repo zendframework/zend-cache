@@ -145,7 +145,7 @@ class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(0, count($this->_storage->getPluginRegistry()));
         $this->assertEquals(0, count($plugin->getHandles()));
     }
-
+/*
     public function testInternalTriggerPre()
     {
         $this->_storage = $this->getMockForAbstractAdapter();
@@ -153,10 +153,10 @@ class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
         $plugin = new \ZendTest\Cache\Storage\TestAsset\MockPlugin();
         $this->_storage->addPlugin($plugin);
 
-        $params = new \ArrayObject([
+        $params = [
             'key'   => 'key1',
             'value' => 'value1'
-        ]);
+        ];
 
         // call protected method
         $method = new \ReflectionMethod(get_class($this->_storage), 'triggerPre');
@@ -174,7 +174,7 @@ class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertSame($this->_storage, $event->getTarget());
         $this->assertSame($params, $event->getParams());
     }
-
+*/
     public function testInternalTriggerPost()
     {
         $this->_storage = $this->getMockForAbstractAdapter();
@@ -182,10 +182,10 @@ class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
         $plugin = new \ZendTest\Cache\Storage\TestAsset\MockPlugin();
         $this->_storage->addPlugin($plugin);
 
-        $params = new \ArrayObject([
+        $params = [
             'key'   => 'key1',
             'value' => 'value1'
-        ]);
+        ];
         $result = true;
 
         // call protected method
@@ -216,10 +216,10 @@ class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
         $this->_storage->addPlugin($plugin);
 
         $result = null;
-        $params = new \ArrayObject([
+        $params = [
             'key'   => 'key1',
             'value' => 'value1'
-        ]);
+        ];
 
         // call protected method
         $method = new \ReflectionMethod(get_class($this->_storage), 'triggerException');
@@ -1053,10 +1053,7 @@ class AbstractAdapterTest extends \PHPUnit_Framework_TestCase
         // init mock
         $this->_storage = $this->getMockForAbstractAdapter([$internalMethod]);
         $this->_storage->getEventManager()->attach($eventName, function ($event) use ($expectedArgs) {
-            $params = $event->getParams();
-            foreach ($expectedArgs as $k => $v) {
-                $params[$k] = $v;
-            }
+            $event->setParams($expectedArgs);
         });
 
         // set expected arguments of internal method call

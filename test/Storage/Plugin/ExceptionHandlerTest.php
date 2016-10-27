@@ -9,7 +9,6 @@
 
 namespace ZendTest\Cache\Storage\Plugin;
 
-use ArrayObject;
 use Zend\Cache;
 use Zend\Cache\Storage\ExceptionEvent;
 use Zend\EventManager\Test\EventListenerIntrospectionTrait;
@@ -124,10 +123,10 @@ class ExceptionHandlerTest extends CommonPluginTest
 
         // run onException
         $result = null;
-        $event = new ExceptionEvent('getItem.exception', $this->_adapter, new ArrayObject([
+        $event = new ExceptionEvent('getItem.exception', $this->_adapter, [
             'key'     => 'key',
             'options' => []
-        ]), $result, $expectedException);
+        ], $result, $expectedException);
         $this->_plugin->onException($event);
 
         $this->assertTrue(
@@ -142,10 +141,10 @@ class ExceptionHandlerTest extends CommonPluginTest
 
         // run onException
         $result = 'test';
-        $event = new ExceptionEvent('getItem.exception', $this->_adapter, new ArrayObject([
+        $event = new ExceptionEvent('getItem.exception', $this->_adapter, [
             'key'     => 'key',
             'options' => []
-        ]), $result, new \Exception());
+        ], $result, new \Exception());
         $this->_plugin->onException($event);
 
         $this->assertFalse($event->getThrowException());

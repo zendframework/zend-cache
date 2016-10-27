@@ -14,15 +14,15 @@ use Zend\Cache\Storage\Adapter\AbstractAdapter;
 class MockAdapter extends AbstractAdapter
 {
 
-    protected function internalGetItem(& $normalizedKey, & $success = null, & $casToken = null)
+    protected function internalGetItem($normalizedKey, & $success = null, & $casToken = null)
     {
     }
 
-    protected function internalSetItem(& $normalizedKey, & $value)
+    protected function internalSetItem($normalizedKey, $value)
     {
     }
 
-    protected function internalRemoveItem(& $normalizedKey)
+    protected function internalRemoveItem($normalizedKey)
     {
     }
 }

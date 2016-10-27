@@ -9,7 +9,6 @@
 
 namespace Zend\Cache\Storage\Adapter;
 
-use ArrayObject;
 use Zend\Cache\Exception;
 use Zend\Cache\Storage\Event;
 use Zend\Cache\Storage\StorageInterface;
@@ -242,7 +241,7 @@ class AdapterOptions extends AbstractOptions
     protected function triggerOptionEvent($optionName, $optionValue)
     {
         if ($this->adapter instanceof EventsCapableInterface) {
-            $event = new Event('option', $this->adapter, new ArrayObject([$optionName => $optionValue]));
+            $event = new Event('option', $this->adapter, [$optionName => $optionValue]);
             $this->adapter->getEventManager()->triggerEvent($event);
         }
     }

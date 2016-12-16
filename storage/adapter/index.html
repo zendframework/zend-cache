@@ -834,10 +834,6 @@ PHP extension <a href="http://pecl.php.net/package/APC">APC</a> (Alternative PHP
 <td>value of <code>apc.use_request_time</code> from <code>php.ini</code></td>
 </tr>
 <tr>
-<td><code>expiredRead</code></td>
-<td><code>false</code></td>
-</tr>
-<tr>
 <td><code>maxKeyLength</code></td>
 <td>5182</td>
 </tr>
@@ -1015,10 +1011,6 @@ outdated items periodically!</p>
 <td><code>false</code></td>
 </tr>
 <tr>
-<td><code>expiredRead</code></td>
-<td><code>true</code></td>
-</tr>
-<tr>
 <td><code>maxKeyLength</code></td>
 <td>251</td>
 </tr>
@@ -1160,10 +1152,6 @@ based on <a href="http://libmemcached.org/">Libmemcached</a>.</p>
 <td><code>false</code></td>
 </tr>
 <tr>
-<td><code>expiredRead</code></td>
-<td><code>false</code></td>
-</tr>
-<tr>
 <td><code>maxKeyLength</code></td>
 <td>255</td>
 </tr>
@@ -1245,10 +1233,6 @@ using the PHP extension <a href="https://github.com/nicolasff/phpredis">redis</a
 </tr>
 <tr>
 <td><code>useRequestTime</code></td>
-<td><code>false</code></td>
-</tr>
-<tr>
-<td><code>expiredRead</code></td>
 <td><code>false</code></td>
 </tr>
 <tr>
@@ -1378,10 +1362,6 @@ process only.</p>
 <td><code>false</code></td>
 </tr>
 <tr>
-<td><code>expiredRead</code></td>
-<td><code>true</code></td>
-</tr>
-<tr>
 <td><code>maxKeyLength</code></td>
 <td>0</td>
 </tr>
@@ -1433,18 +1413,52 @@ PHP extension <a href="http://php.net/mongo">mongo</a>, or a MongoDB polyfill li
 <li><code>Zend\Cache\Storage\FlushableInterface</code></li>
 </ul>
 <h3 id="capabilities_6">Capabilities</h3>
-<p>Capability  Value
-supportedDatatypes  null, boolean, integer, double, string, array
-supportedMetadata   _id
-minTtl  0
-maxTtl  0
-staticTtl   true
-ttlPrecision    1
-useRequestTime  false
-expiredRead false
-maxKeyLength    255
-namespaceIsPrefix   true
-namespaceSeparator  <Option value of namespace_separator></p>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>supportedDatatypes</code></td>
+<td><code>string</code>, <code>null</code>, <code>boolean</code>, <code>integer</code>, <code>double</code>, <code>array</code></td>
+</tr>
+<tr>
+<td><code>supportedMetadata</code></td>
+<td>_id</td>
+</tr>
+<tr>
+<td><code>minTtl</code></td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>maxTtl</code></td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>staticTtl</code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>ttlPrecision</code></td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>useRequestTime</code></td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>maxKeyLength</code></td>
+<td>255</td>
+</tr>
+<tr>
+<td><code>namespaceIsPrefix</code></td>
+<td><Option value of namespace_separator></td>
+</tr>
+</tbody>
+</table></div>
 <h3 id="adapter-specific-options_6">Adapter specific options</h3>
 <div class="table-responsive"><table>
 <thead>
@@ -1555,10 +1569,6 @@ through the PHP extension <a href="http://pecl.php.net/package/WinCache">WinCach
 <td><code>apc.use_request_time</code> <code>php.ini</code> value.</td>
 </tr>
 <tr>
-<td><code>expiredRead</code></td>
-<td><code>false</code></td>
-</tr>
-<tr>
 <td><code>namespaceIsPrefix</code></td>
 <td><code>true</code></td>
 </tr>
@@ -1636,10 +1646,6 @@ PHP extension <a href="http://xcache.lighttpd.net/">XCache</a>.</p>
 <tr>
 <td><code>useRequestTime</code></td>
 <td><code>true</code></td>
-</tr>
-<tr>
-<td><code>expiredRead</code></td>
-<td><code>false</code></td>
 </tr>
 <tr>
 <td><code>maxKeyLength</code></td>
@@ -1745,10 +1751,6 @@ using the <a href="http://www.zend.com/en/products/server/">Zend Server Data Cac
 <td><code>false</code></td>
 </tr>
 <tr>
-<td><code>expiredRead</code></td>
-<td><code>false</code></td>
-</tr>
-<tr>
 <td><code>namespaceIsPrefix</code></td>
 <td><code>true</code></td>
 </tr>
@@ -1807,10 +1809,6 @@ through the <a href="http://www.zend.com/en/products/server/">Zend Server Data C
 </tr>
 <tr>
 <td><code>useRequestTime</code></td>
-<td><code>false</code></td>
-</tr>
-<tr>
-<td><code>expiredRead</code></td>
 <td><code>false</code></td>
 </tr>
 <tr>

@@ -3,8 +3,8 @@
 
     
     <url>
-     <loc>None/</loc>
-     <lastmod>2016-11-04</lastmod>
+     <loc>/</loc>
+     <lastmod>2016-12-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -12,20 +12,20 @@
     
         
     <url>
-     <loc>None/storage/adapter/</loc>
-     <lastmod>2016-11-04</lastmod>
+     <loc>/storage/adapter/</loc>
+     <lastmod>2016-12-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/storage/capabilities/</loc>
-     <lastmod>2016-11-04</lastmod>
+     <loc>/storage/capabilities/</loc>
+     <lastmod>2016-12-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/storage/plugin/</loc>
-     <lastmod>2016-11-04</lastmod>
+     <loc>/storage/plugin/</loc>
+     <lastmod>2016-12-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
@@ -34,38 +34,38 @@
     
         
     <url>
-     <loc>None/pattern/intro/</loc>
-     <lastmod>2016-11-04</lastmod>
+     <loc>/pattern/intro/</loc>
+     <lastmod>2016-12-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/pattern/callback-cache/</loc>
-     <lastmod>2016-11-04</lastmod>
+     <loc>/pattern/callback-cache/</loc>
+     <lastmod>2016-12-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/pattern/class-cache/</loc>
-     <lastmod>2016-11-04</lastmod>
+     <loc>/pattern/class-cache/</loc>
+     <lastmod>2016-12-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/pattern/object-cache/</loc>
-     <lastmod>2016-11-04</lastmod>
+     <loc>/pattern/object-cache/</loc>
+     <lastmod>2016-12-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/pattern/output-cache/</loc>
-     <lastmod>2016-11-04</lastmod>
+     <loc>/pattern/output-cache/</loc>
+     <lastmod>2016-12-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
-     <loc>None/pattern/capture-cache/</loc>
-     <lastmod>2016-11-04</lastmod>
+     <loc>/pattern/capture-cache/</loc>
+     <lastmod>2016-12-16</lastmod>
      <changefreq>daily</changefreq>
     </url>
         

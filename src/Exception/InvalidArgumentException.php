@@ -9,7 +9,10 @@
 
 namespace Zend\Cache\Exception;
 
+use Psr\SimpleCache\InvalidArgumentException as Psr16InvalidArgumentException;
+
 class InvalidArgumentException extends \InvalidArgumentException implements
-    ExceptionInterface
+    ExceptionInterface,
+    Psr16InvalidArgumentException
 {
 }

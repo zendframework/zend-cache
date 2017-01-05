@@ -9,6 +9,8 @@
 
 namespace Zend\Cache\Exception;
 
-interface ExceptionInterface
+use Psr\SimpleCache\CacheException as Psr16CacheException;
+
+interface ExceptionInterface extends Psr16CacheException
 {
 }

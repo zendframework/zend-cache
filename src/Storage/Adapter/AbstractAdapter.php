@@ -10,6 +10,7 @@
 namespace Zend\Cache\Storage\Adapter;
 
 use ArrayObject;
+use Psr\SimpleCache\CacheInterface as Psr16CacheInterface;
 use SplObjectStorage;
 use stdClass;
 use Traversable;
@@ -17,6 +18,7 @@ use Zend\Cache\Exception;
 use Zend\Cache\Storage\Capabilities;
 use Zend\Cache\Storage\Event;
 use Zend\Cache\Storage\ExceptionEvent;
+use Zend\Cache\Storage\FlushableInterface;
 use Zend\Cache\Storage\Plugin;
 use Zend\Cache\Storage\PostEvent;
 use Zend\Cache\Storage\StorageInterface;
@@ -24,7 +26,7 @@ use Zend\EventManager\EventManager;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\EventsCapableInterface;
 
-abstract class AbstractAdapter implements StorageInterface, EventsCapableInterface
+abstract class AbstractAdapter implements StorageInterface, EventsCapableInterface, Psr16CacheInterface
 {
     /**
      * The used EventManager if any
@@ -1576,5 +1578,75 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
             $normalizedKeyValuePairs[$key] = $value;
         }
         $keyValuePairs = $normalizedKeyValuePairs;
+    }
+
+    // PSR-16 Simple Cache Interface implementation
+
+    /**
+     * @inheritdoc
+     */
+    public function get($key, $default = null)
+    {
+        $result = $this->getItem($key);
+        return $result === null ? $default : $result;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function set($key, $value, $ttl = null)
+    {
+        return $this->setItem($key, $value);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function delete($key)
+    {
+        return $this->removeItem($key);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function clear()
+    {
+        if ($this instanceof FlushableInterface) {
+            return $this->flush();
+        }
+        return false;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getMultiple($keys, $default = null)
+    {
+        return $this->getItems($keys);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function setMultiple($values, $ttl = null)
+    {
+        return ! $this->setItems($values);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function deleteMultiple($keys)
+    {
+        return ! $this->removeItems($keys);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function has($key)
+    {
+        return $this->hasItem($key);
     }
 }

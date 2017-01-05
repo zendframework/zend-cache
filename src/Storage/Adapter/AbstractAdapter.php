@@ -1621,7 +1621,15 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      */
     public function getMultiple($keys, $default = null)
     {
-        return $this->getItems($keys);
+        $results = $this->getItems($keys);
+
+        foreach ($keys as $key) {
+            if (! isset($results[$key]) && null !== $default) {
+                $results[$key] = $default;
+            }
+        }
+
+        return $results;
     }
 
     /**

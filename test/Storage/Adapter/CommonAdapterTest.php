@@ -1282,7 +1282,7 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
 
     public function testPsr16ClearImplementation()
     {
-        if (!$this->_storage instanceof FlushableInterface) {
+        if (! $this->_storage instanceof FlushableInterface) {
             $this->markTestSkipped();
         }
         $this->_storage->set('key', 'value');
@@ -1300,6 +1300,21 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
         $expectedResult = [
             'key1' => 'value1',
             'key2' => 'value2',
+        ];
+
+        $this->assertInternalType('array', $result);
+        $this->assertEquals($expectedResult, $result);
+    }
+
+    public function testPsr16GetMultipleImplementationWithDefaults()
+    {
+        $this->_storage->set('key1', 'value1');
+
+        $result = $this->_storage->getMultiple(['key1', 'key2'], 'default');
+
+        $expectedResult = [
+            'key1' => 'value1',
+            'key2' => 'default',
         ];
 
         $this->assertInternalType('array', $result);

@@ -11,6 +11,8 @@ storage adapters (DB, File, Memcache, etc).
 - File issues at https://github.com/zendframework/zend-cache/issues
 - Documentation is at https://zendframework.github.io/zend-cache/
 
+`Zend\Cache` implements [PSR-16 Simple Cache](https://github.com/php-fig/simple-cache).
+
 ## Benchmarks
 
 We provide scripts for benchmarking zend-cache using the

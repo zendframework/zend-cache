@@ -1580,19 +1580,17 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
         $keyValuePairs = $normalizedKeyValuePairs;
     }
 
-    // PSR-16 Simple Cache Interface implementation
-
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     public function get($key, $default = null)
     {
         $result = $this->getItem($key);
-        return $result === null ? $default : $result;
+        return null === $result ? $default : $result;
     }
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     public function set($key, $value, $ttl = null)
     {
@@ -1600,7 +1598,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
     }
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     public function delete($key)
     {
@@ -1608,18 +1606,18 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
     }
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     public function clear()
     {
-        if ($this instanceof FlushableInterface) {
-            return $this->flush();
+        if (! $this instanceof FlushableInterface) {
+            return false;
         }
-        return false;
+        return $this->flush();
     }
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     public function getMultiple($keys, $default = null)
     {
@@ -1627,7 +1625,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
     }
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     public function setMultiple($values, $ttl = null)
     {
@@ -1635,7 +1633,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
     }
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     public function deleteMultiple($keys)
     {
@@ -1643,7 +1641,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
     }
 
     /**
-     * @inheritdoc
+     * {@inheritDoc}
      */
     public function has($key)
     {

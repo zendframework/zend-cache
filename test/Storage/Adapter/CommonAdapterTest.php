@@ -1254,8 +1254,6 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
         usleep((int) $interval);
     }
 
-    // PSR-16 Simple Cache Interface compliance tests
-
     public function testItIsAPsr16Adapter()
     {
         $this->assertInstanceOf(Psr16CacheInterface::class, $this->_storage);

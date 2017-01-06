@@ -17,11 +17,13 @@ use Zend\Cache\Storage\AvailableSpaceCapableInterface;
 use Zend\Cache\Storage\Capabilities;
 use Zend\Cache\Storage\FlushableInterface;
 use Zend\Cache\Storage\TotalSpaceCapableInterface;
+use Zend\Cache\Storage\TtlUsedAtWriteTimeInterface;
 
 class Memcache extends AbstractAdapter implements
     AvailableSpaceCapableInterface,
     FlushableInterface,
-    TotalSpaceCapableInterface
+    TotalSpaceCapableInterface,
+    TtlUsedAtWriteTimeInterface
 {
     /**
      * Has this instance been initialized

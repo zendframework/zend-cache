@@ -22,6 +22,7 @@ use Zend\Cache\Storage\FlushableInterface;
 use Zend\Cache\Storage\OptimizableInterface;
 use Zend\Cache\Storage\TaggableInterface;
 use Zend\Cache\Storage\TotalSpaceCapableInterface;
+use Zend\Cache\Storage\TtlUsedAtWriteTimeInterface;
 use Zend\ServiceManager\ServiceManager;
 use Zend\Stdlib\ErrorHandler;
 
@@ -1273,6 +1274,17 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('value', $this->_storage->get('key'));
     }
 
+    public function testPsr16SetImplementationWithTtl()
+    {
+        if (! $this->_storage instanceof TtlUsedAtWriteTimeInterface) {
+            $this->markTestSkipped('Adapter does not use TTL setting at write time');
+        }
+
+        $this->_storage->set('key', 'value', 1);
+        usleep(2000001);
+        $this->assertFalse($this->_storage->has('key'));
+    }
+
     public function testPsr16DeleteImplementation()
     {
         $this->_storage->set('key', 'value');
@@ -1332,6 +1344,17 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('value1', $this->_storage->get('key1'));
         $this->assertEquals('value2', $this->_storage->get('key2'));
+    }
+
+    public function testPsr16SetMultipleImplementationWithTtl()
+    {
+        if (! $this->_storage instanceof TtlUsedAtWriteTimeInterface) {
+            $this->markTestSkipped('Adapter does not use TTL setting at write time');
+        }
+
+        $this->_storage->setMultiple(['key' => 'value'], 1);
+        usleep(2000001);
+        $this->assertFalse($this->_storage->has('key'));
     }
 
     public function testPsr16DeleteMultipleImplementation()

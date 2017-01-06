@@ -15,6 +15,7 @@ use SplObjectStorage;
 use stdClass;
 use Traversable;
 use Zend\Cache\Exception;
+use Zend\Cache\Exception\BadMethodCallException;
 use Zend\Cache\Storage\Capabilities;
 use Zend\Cache\Storage\Event;
 use Zend\Cache\Storage\ExceptionEvent;
@@ -22,6 +23,7 @@ use Zend\Cache\Storage\FlushableInterface;
 use Zend\Cache\Storage\Plugin;
 use Zend\Cache\Storage\PostEvent;
 use Zend\Cache\Storage\StorageInterface;
+use Zend\Cache\Storage\TtlUsedAtWriteTimeInterface;
 use Zend\EventManager\EventManager;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\EventsCapableInterface;
@@ -1594,6 +1596,16 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      */
     public function set($key, $value, $ttl = null)
     {
+        if ($ttl && ! $this instanceof TtlUsedAtWriteTimeInterface) {
+            throw new BadMethodCallException('TTL not supported by cache adapter');
+        }
+        if (null !== $ttl) {
+            $previousTtl = $this->getOptions()->getTtl();
+            $this->getOptions()->setTtl($ttl);
+            $result = $this->setItem($key, $value);
+            $this->getOptions()->setTtl($previousTtl);
+            return $result;
+        }
         return $this->setItem($key, $value);
     }
 
@@ -1637,6 +1649,16 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      */
     public function setMultiple($values, $ttl = null)
     {
+        if ($ttl && ! $this instanceof TtlUsedAtWriteTimeInterface) {
+            throw new BadMethodCallException('TTL not supported by cache adapter');
+        }
+        if (null !== $ttl) {
+            $previousTtl = $this->getOptions()->getTtl();
+            $this->getOptions()->setTtl($ttl);
+            $result = $this->setItems($values);
+            $this->getOptions()->setTtl($previousTtl);
+            return $result;
+        }
         return ! $this->setItems($values);
     }
 

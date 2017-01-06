@@ -20,6 +20,7 @@ use Zend\Cache\Storage\ClearByPrefixInterface;
 use Zend\Cache\Storage\FlushableInterface;
 use Zend\Cache\Storage\IterableInterface;
 use Zend\Cache\Storage\TotalSpaceCapableInterface;
+use Zend\Cache\Storage\TtlUsedAtWriteTimeInterface;
 
 class Apcu extends AbstractAdapter implements
     AvailableSpaceCapableInterface,
@@ -27,7 +28,8 @@ class Apcu extends AbstractAdapter implements
     ClearByPrefixInterface,
     FlushableInterface,
     IterableInterface,
-    TotalSpaceCapableInterface
+    TotalSpaceCapableInterface,
+    TtlUsedAtWriteTimeInterface
 {
     /**
      * Buffered total space in bytes

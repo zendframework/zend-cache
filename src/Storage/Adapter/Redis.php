@@ -19,12 +19,14 @@ use Zend\Cache\Exception;
 use Zend\Cache\Storage\Capabilities;
 use Zend\Cache\Storage\FlushableInterface;
 use Zend\Cache\Storage\TotalSpaceCapableInterface;
+use Zend\Cache\Storage\TtlUsedAtWriteTimeInterface;
 
 class Redis extends AbstractAdapter implements
     ClearByNamespaceInterface,
     ClearByPrefixInterface,
     FlushableInterface,
-    TotalSpaceCapableInterface
+    TotalSpaceCapableInterface,
+    TtlUsedAtWriteTimeInterface
 {
     /**
      * Has this instance be initialized

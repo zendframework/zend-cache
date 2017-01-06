@@ -16,8 +16,9 @@ use stdClass;
 use Zend\Cache\Exception;
 use Zend\Cache\Storage\Capabilities;
 use Zend\Cache\Storage\FlushableInterface;
+use Zend\Cache\Storage\TtlUsedAtWriteTimeInterface;
 
-class MongoDb extends AbstractAdapter implements FlushableInterface
+class MongoDb extends AbstractAdapter implements FlushableInterface, TtlUsedAtWriteTimeInterface
 {
     /**
      * Has this instance be initialized

@@ -16,13 +16,11 @@ use Zend\Cache\Storage\AvailableSpaceCapableInterface;
 use Zend\Cache\Storage\Capabilities;
 use Zend\Cache\Storage\FlushableInterface;
 use Zend\Cache\Storage\TotalSpaceCapableInterface;
-use Zend\Cache\Storage\TtlUsedAtWriteTimeInterface;
 
 class WinCache extends AbstractAdapter implements
     AvailableSpaceCapableInterface,
     FlushableInterface,
-    TotalSpaceCapableInterface,
-    TtlUsedAtWriteTimeInterface
+    TotalSpaceCapableInterface
 {
     /**
      * Constructor

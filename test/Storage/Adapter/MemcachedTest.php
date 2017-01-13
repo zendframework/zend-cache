@@ -209,4 +209,18 @@ class MemcachedTest extends CommonAdapterTest
 
         parent::tearDown();
     }
+
+    public function testPsr16SetMultipleImplementationWithTtl()
+    {
+        $this->_storage->setMultiple(['key' => 'value'], 1);
+        usleep(2000001);
+        $this->assertFalse($this->_storage->has('key'));
+    }
+
+    public function testPsr16SetImplementationWithTtl()
+    {
+        $this->_storage->set('key', 'value', 1);
+        usleep(2000001);
+        $this->assertFalse($this->_storage->has('key'));
+    }
 }

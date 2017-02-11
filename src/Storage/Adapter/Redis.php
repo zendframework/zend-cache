@@ -19,12 +19,14 @@ use Zend\Cache\Exception;
 use Zend\Cache\Storage\Capabilities;
 use Zend\Cache\Storage\FlushableInterface;
 use Zend\Cache\Storage\TotalSpaceCapableInterface;
+use Zend\Cache\Storage\TaggableInterface;
 
 class Redis extends AbstractAdapter implements
     ClearByNamespaceInterface,
     ClearByPrefixInterface,
     FlushableInterface,
-    TotalSpaceCapableInterface
+    TotalSpaceCapableInterface,
+    TaggableInterface
 {
     /**
      * Has this instance be initialized
@@ -195,6 +197,59 @@ class Redis extends AbstractAdapter implements
     }
 
     /**
+     * Get tags of an item by given key
+     *
+     * @param string $key
+     * @return string[]|FALSE
+     */
+    public function getTags($key)
+    {
+        $redis = $this->getRedisResource();
+        try {
+            $tags = $redis->sMembers($this->namespacePrefix . $key);
+            return !empty($tags) ? $tags : false;
+        } catch (RedisResourceException $e) {
+            throw new Exception\RuntimeException($redis->getLastError(), $e->getCode(), $e);
+        }
+    }
+
+    /**
+     * Returns if the values are a member of the set stored at key.
+     *
+     * If $disjunction only one of the given tags must match
+     * else all given tags must match.
+     *
+     * @param string $key
+     * @param array  $tags
+     * @param bool   $disjunction
+     * @return bool
+     * @throws Exception\RuntimeException
+     */
+    public function hasTags($key, array $tags, $disjunction = false)
+    {
+        $foundTags = 0;
+        $redis     = $this->getRedisResource();
+
+        try {
+            foreach ($tags as $tag) {
+                if (! $disjunction) {
+                    if ($redis->sIsMember($this->namespacePrefix . $key, $tag)) {
+                        ++$foundTags;
+                    }
+                } else {
+                    if ($redis->sIsMember($this->namespacePrefix . $key, $tag)) {
+                        return true;
+                    }
+                }
+            }
+        } catch (RedisResourceException $e) {
+            throw new Exception\RuntimeException($redis->getLastError(), $e->getCode(), $e);
+        }
+
+        return $foundTags == count($tags);
+    }
+
+    /**
      * Internal method to test if an item exists.
      *
      * @param string &$normalizedKey Normalized key which will be checked
@@ -288,6 +343,40 @@ class Redis extends AbstractAdapter implements
     }
 
     /**
+     * Add the specified values to the set stored at key.
+     *
+     * @param string $key
+     * @param array  $tags
+     * @return bool
+     * @throws Exception\RuntimeException
+     */
+    public function setTags($key, array $tags = [])
+    {
+        $this->normalizeKey($key);
+        if (!$this->internalHasItem($key)) {
+            return false;
+        }
+
+        if (empty($tags)) {
+            return $this->removeItem($key);
+        }
+
+        $redis = $this->getRedisResource();
+        if ($redis->type($this->namespacePrefix . $key) !== $redis::REDIS_SET) {
+            $this->removeItem($key);
+        }
+
+        foreach ($tags as $tag) {
+            try {
+                $redis->sAdd($this->namespacePrefix . $key, $tag);
+            } catch (RedisResourceException $e) {
+                throw new Exception\RuntimeException($redis->getLastError(), $e->getCode(), $e);
+            }
+        }
+        return true;
+    }
+
+    /**
      * Add an item.
      *
      * @param  string $normalizedKey
@@ -342,6 +431,73 @@ class Redis extends AbstractAdapter implements
         } catch (RedisResourceException $e) {
             throw new Exception\RuntimeException($redis->getLastError(), $e->getCode(), $e);
         }
+    }
+
+    /**
+     * Remove items matching given tags within a key.
+     *
+     * If $disjunction only one of the given tags must match
+     * else all given tags must match.
+     *
+     * @param string[] $tags must have a key index for the tags key
+     * @param  bool  $disjunction
+     * @return bool
+     * @throws Exception\RuntimeException
+     */
+    public function clearByTags(array $tags, $disjunction = false)
+    {
+        if (empty($tags)) {
+            return false;
+        }
+
+        $redis = $this->getRedisResource();
+        $it    = null;
+        try {
+            $arrKeys = $redis->scan($it);
+            foreach ($arrKeys as $key) {
+                $redisKey = $redis->sMembers($key);
+                if (! $disjunction) {
+                    if (is_array($redisKey) && empty(array_diff($tags,  $redisKey))) {
+                        $redis->delete($key);
+                    }
+                } else {
+                    foreach ($tags as $tag) {
+                        if ($redis->sIsMember($key, $tag)) {
+                            $redis->delete($key);
+                            continue;
+                        }
+                    }
+                }
+            }
+        } catch (RedisResourceException $e) {
+            throw new Exception\RuntimeException($redis->getLastError(), $e->getCode(), $e);
+        }
+
+        return true;
+    }
+
+    /**
+     * Unlike clearByTags this removes a single or more tags from a set
+     * keeping the existing item tags intact
+     *
+     * @param $key
+     * @param array $tags
+     * @return bool
+     * @throws Exception\RuntimeException
+     */
+    public function removeTags($key, array $tags)
+    {
+        $this->normalizeKey($key);
+        $redis = $this->getRedisResource();
+        try {
+            foreach ($tags as $tag) {
+                $redis->sRem($this->namespacePrefix . $key, $tag);
+            }
+        } catch (RedisResourceException $e) {
+            throw new Exception\RuntimeException($redis->getLastError(), $e->getCode(), $e);
+        }
+
+        return true;
     }
 
     /**

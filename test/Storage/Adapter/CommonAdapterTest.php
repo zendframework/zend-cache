@@ -1194,15 +1194,15 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
 
         // this should remove nothing
         $this->assertTrue($this->_storage->clearByTags(['tag1a', 'tag2a']));
-        $this->assertTrue($this->_storage->hasItem('key1'));
-        $this->assertTrue($this->_storage->hasItem('key2'));
-        $this->assertTrue($this->_storage->hasItem('key3'));
+        $this->assertSame('value1', $this->_storage->getItem('key1'));
+        $this->assertSame('value2', $this->_storage->getItem('key2'));
+        $this->assertSame('value3', $this->_storage->getItem('key3'));
 
         // this should remove key1 and key2
         $this->assertTrue($this->_storage->clearByTags(['tag1a', 'tag2b'], true));
         $this->assertFalse($this->_storage->hasItem('key1'));
         $this->assertFalse($this->_storage->hasItem('key2'));
-        $this->assertTrue($this->_storage->hasItem('key3'));
+        $this->assertSame('value3', $this->_storage->getItem('key3'));
 
         // this should remove key3
         $this->assertTrue($this->_storage->clearByTags(['tag3a', 'tag3b'], true));

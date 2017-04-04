@@ -93,16 +93,12 @@ class MongoDbResourceManager
                             isset($resource['driver_options']) ? $resource['driver_options'] : []
                         );
                     }
-/*
-                    $resource['db_instance'] = $resource['client_instance']->selectDB(
-                        isset($resource['db']) ? $resource['db'] : ''
-                    );
-*/                }
+                }
                 $collection = $resource['client_instance']->selectCollection(
                     isset($resource['db']) ? $resource['db'] : 'zend',
-					isset($resource['collection']) ? $resource['collection'] : 'cache'
+                    isset($resource['collection']) ? $resource['collection'] : 'cache'
                 );
-				$collection->createIndex(['key' => 1]);
+		$collection->createIndex(['key' => 1]);
 
                 $this->resources[$id]['collection_instance'] = $collection;
             } catch (MongoException $e) {

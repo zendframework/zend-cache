@@ -55,12 +55,6 @@ class MongoDb extends AbstractAdapter implements FlushableInterface
      */
     public function __construct($options = null)
     {
-		if (! class_exists('MongoDB\Client')) {
-            throw new Exception\ExtensionNotLoadedException(
-                'MongoDb extension not loaded.'
-            );
-        }
-
         parent::__construct($options);
 
         $initialized = & $this->initialized;
@@ -137,7 +131,7 @@ class MongoDb extends AbstractAdapter implements FlushableInterface
                 ));
             }
 
-            if ($result['expires']->toDateTime() < (new \DateTime())) {
+            if ($result['expires'] < (new MongoDate())) {
                 $this->internalRemoveItem($normalizedKey);
                 return;
             }
@@ -172,13 +166,12 @@ class MongoDb extends AbstractAdapter implements FlushableInterface
             'value' => $value,
         ];
         if ($ttl > 0) {
-			$d = new \DateTime();
-			$d->add(new \DateInterval('PT' . $ttl . 'S'));
+            $d = round((microtime(true) + $ttl) * 1000);
             $cacheItem['expires'] = new MongoDate($d);
         }
 
         try {
-			$mongo->deleteOne(['key' => $key]);
+            $mongo->deleteOne(['key' => $key]);
             $result = $mongo->insertOne($cacheItem);
         } catch (MongoResourceException $e) {
             throw new Exception\RuntimeException($e->getMessage(), $e->getCode(), $e);

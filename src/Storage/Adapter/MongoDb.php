@@ -261,7 +261,7 @@ class MongoDb extends AbstractAdapter implements FlushableInterface
      */
     private function fetchFromCollection(& $normalizedKey)
     {
-		try {
+	try {
             return $this->getMongoDbResource()->findOne(['key' => $this->namespacePrefix . $normalizedKey]);
         } catch (MongoResourceException $e) {
             throw new Exception\RuntimeException($e->getMessage(), $e->getCode(), $e);

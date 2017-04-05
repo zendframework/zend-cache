@@ -217,6 +217,7 @@ abstract class AbstractZendServer extends AbstractAdapter
                         'resource' => false,
                     ],
                     'supportedMetadata'  => [],
+                    'minTtl'             => 1,
                     'maxTtl'             => 0,
                     'staticTtl'          => true,
                     'ttlPrecision'       => 1,

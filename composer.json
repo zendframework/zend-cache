@@ -26,7 +26,6 @@
         "zendframework/zend-coding-standard": "~1.0.0"
     },
     "suggest": {
-        "zendframework/zend-serializer": "Zend\\Serializer component",
         "zendframework/zend-session": "Zend\\Session component",
         "ext-apc": "APC or compatible extension, to use the APC storage adapter",
         "ext-apcu": "APCU >= 5.1.0, to use the APCu storage adapter",

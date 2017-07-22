@@ -971,6 +971,10 @@ class Filesystem extends AbstractAdapter implements
             $this->putFileContent($filespec . '.dat', $value);
         }
 
+        if (file_exists($swpFile = dirname($filespec. '.dat') . DIRECTORY_SEPARATOR . '.swp')) {
+            $this->unlink($swpFile);
+        }
+
         return true;
     }
 
@@ -1005,6 +1009,9 @@ class Filesystem extends AbstractAdapter implements
                 $this->putFileContent($file, $content, $nonBlocking, $wouldblock);
                 if (! $nonBlocking || ! $wouldblock) {
                     unset($contents[$file]);
+                }
+                if (file_exists($swpFile = dirname($file) . DIRECTORY_SEPARATOR . '.swp')) {
+                    $this->unlink($swpFile);
                 }
             }
         }

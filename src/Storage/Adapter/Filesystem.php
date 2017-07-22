@@ -971,6 +971,10 @@ class Filesystem extends AbstractAdapter implements
             $this->putFileContent($filespec . '.dat', $value);
         }
 
+        if (file_exists( $dirname = dirname($filespec. '.dat') . '.swp')) {
+            $this->unlink($dirname . '.swp');
+        }
+
         return true;
     }
 

@@ -1,7 +1,6 @@
 {
     "name": "zendframework/zend-cache",
     "description": "provides a generic way to cache any data",
-    "type": "library",
     "license": "BSD-3-Clause",
     "keywords": [
         "zf",
@@ -12,6 +11,7 @@
         "docs": "https://docs.zendframework.com/zend-cache/",
         "issues": "https://github.com/zendframework/zend-cache/issues",
         "source": "https://github.com/zendframework/zend-cache",
+        "rss": "https://github.com/zendframework/zend-cache/releases.atom",
         "slack": "https://zendframework-slack.herokuapp.com",
         "forum": "https://discourse.zendframework.com/c/questions/components"
     },
@@ -54,10 +54,7 @@
         "psr-4": {
             "ZendTest\\Cache\\": "test/",
             "ZendBench\\Cache\\": "benchmark/"
-        },
-        "files": [
-            "test/_autoload.php"
-        ]
+        }
     },
     "config": {
         "sort-packages": true

@@ -9,7 +9,7 @@ storage adapters (DB, File, Memcache, etc).
 
 
 - File issues at https://github.com/zendframework/zend-cache/issues
-- Documentation is at https://zendframework.github.io/zend-cache/
+- Documentation is at https://docs.zendframework.com/zend-cache/
 
 ## Benchmarks
 

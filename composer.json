@@ -1,31 +1,35 @@
 {
     "name": "zendframework/zend-cache",
     "description": "provides a generic way to cache any data",
+    "type": "library",
     "license": "BSD-3-Clause",
     "keywords": [
-        "zf2",
+        "zf",
+        "zendframework",
         "cache"
     ],
-    "homepage": "https://github.com/zendframework/zend-cache",
-    "autoload": {
-        "psr-4": {
-            "Zend\\Cache\\": "src/"
-        }
+    "support": {
+        "docs": "https://docs.zendframework.com/zend-cache/",
+        "issues": "https://github.com/zendframework/zend-cache/issues",
+        "source": "https://github.com/zendframework/zend-cache",
+        "slack": "https://zendframework-slack.herokuapp.com",
+        "forum": "https://discourse.zendframework.com/c/questions/components"
     },
+
     "require": {
         "php": "^5.6 || ^7.0",
-        "zendframework/zend-stdlib": "^2.7 || ^3.0",
-        "zendframework/zend-servicemanager": "^2.7.5 || ^3.0.3",
-        "zendframework/zend-eventmanager": "^2.6.2 || ^3.0",
-        "psr/cache": "^1.0"
+        "psr/cache": "^1.0",
+        "zendframework/zend-servicemanager": "^2.7.8 || ^3.3",
+        "zendframework/zend-stdlib": "^2.7.7 || ^3.1",
+        "zendframework/zend-eventmanager": "^2.6.3 || ^3.2"
     },
     "require-dev": {
-        "zendframework/zend-serializer": "^2.6",
-        "zendframework/zend-session": "^2.6.2",
-        "cache/integration-tests": "^0.10.0",
-        "phpunit/phpunit": "^6.0.8 || ^5.7.15",
-        "phpbench/phpbench": "^0.10.0",
-        "zendframework/zend-coding-standard": "~1.0.0"
+        "cache/integration-tests": "^0.16",
+        "phpbench/phpbench": "^0.13",
+        "phpunit/phpunit": "^5.7.23 || ^6.4.3",
+        "zendframework/zend-coding-standard": "~1.0.0",
+        "zendframework/zend-serializer": "^2.8",
+        "zendframework/zend-session": "^2.8"
     },
     "suggest": {
         "zendframework/zend-serializer": "Zend\\Serializer component",
@@ -41,16 +45,9 @@
         "ext-xcache": "XCache, to use the XCache storage adapter",
         "mongofill/mongofill": "Alternative to ext-mongo - a pure PHP implementation designed as a drop in replacement"
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    "extra": {
-        "branch-alias": {
-            "dev-master": "2.7-dev",
-            "dev-develop": "2.8-dev"
-        },
-        "zf": {
-            "component": "Zend\\Cache",
-            "config-provider": "Zend\\Cache\\ConfigProvider"
+    "autoload": {
+        "psr-4": {
+            "Zend\\Cache\\": "src/"
         }
     },
     "autoload-dev": {
@@ -61,6 +58,19 @@
         "files": [
             "test/_autoload.php"
         ]
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.7-dev",
+            "dev-develop": "2.8-dev"
+        },
+        "zf": {
+            "component": "Zend\\Cache",
+            "config-provider": "Zend\\Cache\\ConfigProvider"
+        }
     },
     "scripts": {
         "check": [

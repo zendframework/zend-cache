@@ -1,5 +1,5 @@
 /.ci export-ignore
-/doc export-ignore
+/docs export-ignore
 /test export-ignore
 /.coveralls.yml export-ignore
 /.gitattributes export-ignore

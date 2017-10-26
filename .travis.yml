@@ -154,7 +154,7 @@ before_script:
         phpenv config-add .ci/memcached.ini ;
     fi ;
     if [[ $TESTS_ZEND_CACHE_MONGODB_ENABLED == 'true' ]]; then
-        phpenv config-add .ci/mongo.ini ;
+        phpenv config-add .ci/mongodb.ini ;
     fi ;
     if [[ $TESTS_ZEND_CACHE_XCACHE_ENABLED == 'true' ]]; then
         phpenv config-add .ci/xcache.ini ;

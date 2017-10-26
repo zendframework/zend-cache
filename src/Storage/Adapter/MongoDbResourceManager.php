@@ -98,7 +98,7 @@ class MongoDbResourceManager
                     isset($resource['db']) ? $resource['db'] : 'zend',
                     isset($resource['collection']) ? $resource['collection'] : 'cache'
                 );
-		$collection->createIndex(['key' => 1]);
+                $collection->createIndex(['key' => 1]);
 
                 $this->resources[$id]['collection_instance'] = $collection;
             } catch (MongoException $e) {

@@ -202,7 +202,7 @@ class MongoDb extends AbstractAdapter implements FlushableInterface
     public function flush()
     {
         $result = $this->getMongoDbResource()->drop();
-        return ((float) 1) === $result['ok'];
+        return ((float) 1) === $result->ok;
     }
 
     /**

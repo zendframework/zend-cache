@@ -49,8 +49,7 @@ class MongoDbResourceManager
     {
         if ($resource instanceof MongoCollection) {
             $this->resources[$id] = [
-                'db'                  => (string) $resource->db,
-                'db_instance'         => $resource->db,
+                'db'                  => $resource->getDatabaseName(),
                 'collection'          => (string) $resource,
                 'collection_instance' => $resource,
             ];
@@ -85,14 +84,12 @@ class MongoDbResourceManager
         $resource = $this->resources[$id];
         if (! isset($resource['collection_instance'])) {
             try {
-                if (! isset($resource['db_instance'])) {
-                    if (! isset($resource['client_instance'])) {
-                        $resource['client_instance'] = new MongoClient(
-                            isset($resource['server']) ? $resource['server'] : null,
-                            isset($resource['connection_options']) ? $resource['connection_options'] : [],
-                            isset($resource['driver_options']) ? $resource['driver_options'] : []
-                        );
-                    }
+                if (! isset($resource['client_instance'])) {
+                    $resource['client_instance'] = new MongoClient(
+                        isset($resource['server']) ? $resource['server'] : null,
+                        isset($resource['connection_options']) ? $resource['connection_options'] : [],
+                        isset($resource['driver_options']) ? $resource['driver_options'] : []
+                    );
                 }
                 $collection = $resource['client_instance']->selectCollection(
                     isset($resource['db']) ? $resource['db'] : 'zend',
@@ -114,7 +111,6 @@ class MongoDbResourceManager
         $this->resources[$id]['server'] = (string)$server;
 
         unset($this->resources[$id]['client_instance']);
-        unset($this->resources[$id]['db_instance']);
         unset($this->resources[$id]['collection_instance']);
     }
 
@@ -132,7 +128,6 @@ class MongoDbResourceManager
         $this->resources[$id]['connection_options'] = $connectionOptions;
 
         unset($this->resources[$id]['client_instance']);
-        unset($this->resources[$id]['db_instance']);
         unset($this->resources[$id]['collection_instance']);
     }
 
@@ -152,7 +147,6 @@ class MongoDbResourceManager
         $this->resources[$id]['driver_options'] = $driverOptions;
 
         unset($this->resources[$id]['client_instance']);
-        unset($this->resources[$id]['db_instance']);
         unset($this->resources[$id]['collection_instance']);
     }
 
@@ -169,7 +163,6 @@ class MongoDbResourceManager
     {
         $this->resources[$id]['db'] = (string)$database;
 
-        unset($this->resources[$id]['db_instance']);
         unset($this->resources[$id]['collection_instance']);
     }
 

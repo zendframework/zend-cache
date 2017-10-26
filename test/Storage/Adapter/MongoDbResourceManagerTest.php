@@ -9,6 +9,8 @@
 
 namespace ZendTest\Cache\Storage\Adapter;
 
+use MongoDB\Client as MongoClient;
+use MongoDB\Collection as MongoCollection;
 use PHPUnit\Framework\TestCase;
 use Zend\Cache\Storage\Adapter\MongoDbResourceManager;
 
@@ -43,8 +45,7 @@ class MongoDbResourceManagerTest extends TestCase
 
         $id = 'foo';
 
-        $clientClass = (version_compare(phpversion('mongo'), '1.3.0', '<')) ? '\Mongo' : '\MongoClient';
-        $client = new $clientClass(getenv('TESTS_ZEND_CACHE_MONGODB_CONNECTSTRING'));
+        $client = new MongoClient(getenv('TESTS_ZEND_CACHE_MONGODB_CONNECTSTRING'));
         $resource = $client->selectCollection(
             getenv('TESTS_ZEND_CACHE_MONGODB_DATABASE'),
             getenv('TESTS_ZEND_CACHE_MONGODB_COLLECTION')
@@ -106,8 +107,7 @@ class MongoDbResourceManagerTest extends TestCase
     {
         $id = 'foo';
 
-        $clientClass = (version_compare(phpversion('mongo'), '1.3.0', '<')) ? '\Mongo' : '\MongoClient';
-        $client = new $clientClass(getenv('TESTS_ZEND_CACHE_MONGODB_CONNECTSTRING'));
+        $client = new MongoClient(getenv('TESTS_ZEND_CACHE_MONGODB_CONNECTSTRING'));
         $resource = $client->selectCollection(
             getenv('TESTS_ZEND_CACHE_MONGODB_DATABASE'),
             getenv('TESTS_ZEND_CACHE_MONGODB_COLLECTION')
@@ -131,7 +131,7 @@ class MongoDbResourceManagerTest extends TestCase
         $this->object->setDatabase($id, $database);
         $this->object->setCollection($id, $collection);
 
-        $this->assertInstanceOf('\MongoCollection', $this->object->getResource($id));
+        $this->assertInstanceOf(MongoCollection::class, $this->object->getResource($id));
     }
 
     public function testGetResourceUnknownServerThrowsException()

@@ -132,6 +132,27 @@ install:
         );
     fi
 
+  - if [[ $APCU_PECL_VERSION != '' && $APCU_BC_PECL_VERSION == '' ]]; then
+        phpenv config-add .ci/apcu.ini ;
+    elif [[ $APCU_BC_PECL_VERSION != '' ]]; then
+        phpenv config-add .ci/apcu_bc.ini ;
+    fi ;
+  - if [[ $TESTS_ZEND_CACHE_REDIS_ENABLED == 'true' ]]; then
+        phpenv config-add .ci/redis.ini ;
+    fi ;
+  - if [[ $TESTS_ZEND_CACHE_MEMCACHE_ENABLED == 'true' ]]; then
+        phpenv config-add .ci/memcache.ini ;
+    fi ;
+  - if [[ $TESTS_ZEND_CACHE_MEMCACHED_ENABLED == 'true' ]]; then
+        phpenv config-add .ci/memcached.ini ;
+    fi ;
+  - if [[ $TESTS_ZEND_CACHE_MONGODB_ENABLED == 'true' ]]; then
+        phpenv config-add .ci/mongodb.ini ;
+    fi ;
+  - if [[ $TESTS_ZEND_CACHE_XCACHE_ENABLED == 'true' ]]; then
+        phpenv config-add .ci/xcache.ini ;
+    fi ;
+
   - travis_retry composer install $COMPOSER_ARGS --ignore-platform-reqs
   - if [[ $LEGACY_DEPS != '' ]]; then travis_retry composer update $COMPOSER_ARGS --with-dependencies $LEGACY_DEPS ; fi
   - if [[ $DEPS == 'latest' ]]; then travis_retry composer update $COMPOSER_ARGS ; fi
@@ -139,28 +160,6 @@ install:
   - if [[ $TEST_COVERAGE == 'true' ]]; then travis_retry composer require --dev $COMPOSER_ARGS $COVERAGE_DEPS ; fi
   - if [[ $TESTS_ZEND_CACHE_MONGODB_ENABLED == 'true' ]]; then travis_retry composer require --dev $COMPOSER_ARGS $MONGODB_DEPS ; fi
   - stty cols 120 && composer show
-
-before_script:
-  - if [[ $APCU_PECL_VERSION != '' && $APCU_BC_PECL_VERSION == '' ]]; then
-        phpenv config-add .ci/apcu.ini ;
-    elif [[ $APCU_BC_PECL_VERSION != '' ]]; then
-        phpenv config-add .ci/apcu_bc.ini ;
-    fi ;
-    if [[ $TESTS_ZEND_CACHE_REDIS_ENABLED == 'true' ]]; then
-        phpenv config-add .ci/redis.ini ;
-    fi ;
-    if [[ $TESTS_ZEND_CACHE_MEMCACHE_ENABLED == 'true' ]]; then
-        phpenv config-add .ci/memcache.ini ;
-    fi ;
-    if [[ $TESTS_ZEND_CACHE_MEMCACHED_ENABLED == 'true' ]]; then
-        phpenv config-add .ci/memcached.ini ;
-    fi ;
-    if [[ $TESTS_ZEND_CACHE_MONGODB_ENABLED == 'true' ]]; then
-        phpenv config-add .ci/mongodb.ini ;
-    fi ;
-    if [[ $TESTS_ZEND_CACHE_XCACHE_ENABLED == 'true' ]]; then
-        phpenv config-add .ci/xcache.ini ;
-    fi ;
 
 script:
   - if [[ $TEST_COVERAGE == 'true' ]]; then composer run-script test-coverage --timeout=400 -- --verbose ; else composer run-script test --timeout=300 -- --verbose ; fi

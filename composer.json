@@ -51,6 +51,9 @@
         }
     },
     "autoload-dev": {
+        "files": [
+            "test/autoload.php"
+        ],
         "psr-4": {
             "ZendTest\\Cache\\": "test/",
             "ZendBench\\Cache\\": "benchmark/"

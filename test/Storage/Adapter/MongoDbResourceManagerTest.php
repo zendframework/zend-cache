@@ -2,7 +2,7 @@
 /**
  * Zend Framework (http://framework.zend.com/)
  *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @link      https://github.com/zendframework/zend-cache for the canonical source repository
  * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
@@ -29,7 +29,7 @@ class MongoDbResourceManagerTest extends TestCase
             $this->markTestSkipped('Enable TESTS_ZEND_CACHE_MONGODB_ENABLED to run this test');
         }
 
-        if (! extension_loaded('mongo') || ! class_exists('\Mongo') || ! class_exists('\MongoClient')) {
+        if (! class_exists('MongoDB\Client')) {
             // Allow tests to run if Mongo extension is loaded, or we have a polyfill in place
             $this->markTestSkipped("Mongo extension is not loaded");
         }

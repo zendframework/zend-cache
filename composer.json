@@ -1,6 +1,6 @@
 {
     "name": "zendframework/zend-cache",
-    "description": "provides a generic way to cache any data",
+    "description": "Caching implementation with a variety of storage options, as well as codified caching strategies for callbacks, classes, and output",
     "license": "BSD-3-Clause",
     "keywords": [
         "zf",
@@ -15,7 +15,6 @@
         "slack": "https://zendframework-slack.herokuapp.com",
         "forum": "https://discourse.zendframework.com/c/questions/components"
     },
-
     "require": {
         "php": "^5.6 || ^7.0",
         "psr/cache": "^1.0",

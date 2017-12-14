@@ -14,7 +14,7 @@ services:
 env:
   global:
     - COMPOSER_ARGS="--no-interaction"
-    - COVERAGE_DEPS="satooshi/php-coveralls"
+    - COVERAGE_DEPS="php-coveralls/php-coveralls"
     - MONGODB_DEPS="mongodb/mongodb"
     - TESTS_ZEND_CACHE_APC_ENABLED=true
     - TESTS_ZEND_CACHE_APCU_ENABLED=true
@@ -168,7 +168,7 @@ script:
   - if [[ $CS_CHECK == 'true' ]]; then composer cs-check ; fi
 
 after_script:
-  - if [[ $TEST_COVERAGE == 'true' ]]; then composer upload-coverage ; fi
+  - if [[ $TEST_COVERAGE == 'true' ]]; then vendor/bin/php-coveralls -v ; fi
 
 notifications:
   email: false

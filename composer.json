@@ -25,7 +25,7 @@
     "require-dev": {
         "cache/integration-tests": "^0.16",
         "phpbench/phpbench": "^0.13",
-        "phpunit/phpunit": "^5.7.23 || ^6.4.3",
+        "phpunit/phpunit": "^5.7.27 || ^6.5.8",
         "zendframework/zend-coding-standard": "~1.0.0",
         "zendframework/zend-serializer": "^2.8",
         "zendframework/zend-session": "^2.8"
@@ -66,8 +66,8 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "2.7-dev",
-            "dev-develop": "2.8-dev"
+            "dev-master": "2.7.x-dev",
+            "dev-develop": "2.8.x-dev"
         },
         "zf": {
             "component": "Zend\\Cache",

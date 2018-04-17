@@ -9,6 +9,7 @@
 
 namespace ZendTest\Cache\Storage\Adapter;
 
+use Psr\SimpleCache\CacheInterface as Psr16CacheInterface;
 use Zend\Cache\Storage\AdapterPluginManager;
 use Zend\Cache\Storage\AvailableSpaceCapableInterface;
 use Zend\Cache\Storage\IterableInterface;
@@ -42,7 +43,7 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
     /**
      * The storage adapter
      *
-     * @var StorageInterface
+     * @var StorageInterface|Psr16CacheInterface
      */
     protected $_storage;
 
@@ -1251,5 +1252,108 @@ abstract class CommonAdapterTest extends \PHPUnit_Framework_TestCase
     {
         $interval = (microtime(true) - time()) * 1000000;
         usleep((int) $interval);
+    }
+
+    public function testItIsAPsr16Adapter()
+    {
+        $this->assertInstanceOf(Psr16CacheInterface::class, $this->_storage);
+    }
+
+    public function testPsr16GetImplementation()
+    {
+        $this->_storage->set('key', 'value');
+        $this->assertEquals('value', $this->_storage->get('key'));
+        $this->assertEquals('defaultValue', $this->_storage->get('keyThatDoesntExist', 'defaultValue'));
+    }
+
+    public function testPsr16SetImplementation()
+    {
+        $this->_storage->set('key', 'value');
+        $this->assertTrue($this->_storage->has('key'));
+        $this->assertEquals('value', $this->_storage->get('key'));
+    }
+
+    public function testPsr16DeleteImplementation()
+    {
+        $this->_storage->set('key', 'value');
+        $this->_storage->delete('key');
+        $this->assertFalse($this->_storage->has('key'));
+    }
+
+    public function testPsr16ClearImplementation()
+    {
+        if (! $this->_storage instanceof FlushableInterface) {
+            $this->markTestSkipped();
+        }
+        $this->_storage->set('key', 'value');
+        $this->_storage->clear();
+        $this->assertFalse($this->_storage->has('key'));
+    }
+
+    public function testPsr16GetMultipleImplementation()
+    {
+        $this->_storage->set('key1', 'value1');
+        $this->_storage->set('key2', 'value2');
+
+        $result = $this->_storage->getMultiple(['key1', 'key2']);
+
+        $expectedResult = [
+            'key1' => 'value1',
+            'key2' => 'value2',
+        ];
+
+        $this->assertInternalType('array', $result);
+        $this->assertEquals($expectedResult, $result);
+    }
+
+    public function testPsr16GetMultipleImplementationWithDefaults()
+    {
+        $this->_storage->set('key1', 'value1');
+
+        $result = $this->_storage->getMultiple(['key1', 'key2'], 'default');
+
+        $expectedResult = [
+            'key1' => 'value1',
+            'key2' => 'default',
+        ];
+
+        $this->assertInternalType('array', $result);
+        $this->assertEquals($expectedResult, $result);
+    }
+
+    public function testPsr16SetMultipleImplementation()
+    {
+        $cachableValuesToSet = [
+            'key1' => 'value1',
+            'key2' => 'value2',
+        ];
+
+        $this->_storage->setMultiple($cachableValuesToSet);
+
+        $this->assertEquals('value1', $this->_storage->get('key1'));
+        $this->assertEquals('value2', $this->_storage->get('key2'));
+    }
+
+    public function testPsr16DeleteMultipleImplementation()
+    {
+        $cachableValuesToSet = [
+            'key1' => 'value1',
+            'key2' => 'value2',
+            'key3' => 'value3',
+        ];
+
+        $this->_storage->setMultiple($cachableValuesToSet);
+        $this->_storage->deleteMultiple(['key1', 'key2']);
+
+        $this->assertFalse($this->_storage->has('key1'));
+        $this->assertFalse($this->_storage->has('key2'));
+        $this->assertTrue($this->_storage->has('key3'));
+    }
+
+    public function testPsr16HasImplementation()
+    {
+        $this->_storage->setItem('keyThatExists', 'value');
+        $this->assertTrue($this->_storage->has('keyThatExists'));
+        $this->assertFalse($this->_storage->has('keyThatDoesntExist'));
     }
 }

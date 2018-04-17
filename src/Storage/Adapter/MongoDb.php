@@ -2,16 +2,17 @@
 /**
  * Zend Framework (http://framework.zend.com/)
  *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @link      https://github.com/zendframework/zend-cache for the canonical source repository
  * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
 namespace Zend\Cache\Storage\Adapter;
 
-use MongoCollection as MongoResource;
-use MongoDate;
-use MongoException as MongoResourceException;
+use MongoDB\Client as MongoClient;
+use MongoDB\Collection as MongoResource;
+use MongoDB\BSON\UTCDateTime as MongoDate;
+use MongoDB\Driver\Exception\Exception as MongoResourceException;
 use stdClass;
 use Zend\Cache\Exception;
 use Zend\Cache\Storage\Capabilities;
@@ -54,12 +55,6 @@ class MongoDb extends AbstractAdapter implements FlushableInterface
      */
     public function __construct($options = null)
     {
-        if (! class_exists('Mongo') || ! class_exists('MongoClient')) {
-            throw new Exception\ExtensionNotLoadedException(
-                'MongoDb extension not loaded or Mongo polyfill not included'
-            );
-        }
-
         parent::__construct($options);
 
         $initialized = & $this->initialized;
@@ -136,7 +131,7 @@ class MongoDb extends AbstractAdapter implements FlushableInterface
                 ));
             }
 
-            if ($result['expires']->sec < time()) {
+            if ($result['expires'] < (new MongoDate())) {
                 $this->internalRemoveItem($normalizedKey);
                 return;
             }
@@ -170,22 +165,19 @@ class MongoDb extends AbstractAdapter implements FlushableInterface
             'key' => $key,
             'value' => $value,
         ];
-
         if ($ttl > 0) {
-            $expiresMicro         = microtime(true) + $ttl;
-            $expiresSecs          = (int) $expiresMicro;
-            $cacheItem['expires'] = new MongoDate($expiresSecs, $expiresMicro - $expiresSecs);
+            $d = round((microtime(true) + $ttl) * 1000);
+            $cacheItem['expires'] = new MongoDate($d);
         }
 
         try {
-            $mongo->remove(['key' => $key]);
-
-            $result = $mongo->insert($cacheItem);
+            $mongo->deleteOne(['key' => $key]);
+            $result = $mongo->insertOne($cacheItem);
         } catch (MongoResourceException $e) {
             throw new Exception\RuntimeException($e->getMessage(), $e->getCode(), $e);
         }
 
-        return null !== $result && ((double) 1) === $result['ok'];
+        return null !== $result && $result->isAcknowledged();
     }
 
     /**
@@ -196,14 +188,12 @@ class MongoDb extends AbstractAdapter implements FlushableInterface
     protected function internalRemoveItem(& $normalizedKey)
     {
         try {
-            $result = $this->getMongoDbResource()->remove(['key' => $this->namespacePrefix . $normalizedKey]);
+            $result = $this->getMongoDbResource()->deleteOne(['key' => $this->namespacePrefix . $normalizedKey]);
         } catch (MongoResourceException $e) {
             throw new Exception\RuntimeException($e->getMessage(), $e->getCode(), $e);
         }
 
-        return false !== $result
-            && ((double) 1) === $result['ok']
-            && $result['n'] > 0;
+        return null !== $result && ($result->getDeletedCount() > 0);
     }
 
     /**
@@ -212,8 +202,7 @@ class MongoDb extends AbstractAdapter implements FlushableInterface
     public function flush()
     {
         $result = $this->getMongoDbResource()->drop();
-
-        return ((double) 1) === $result['ok'];
+        return ((float) 1) === $result['ok'];
     }
 
     /**
@@ -258,7 +247,6 @@ class MongoDb extends AbstractAdapter implements FlushableInterface
     protected function internalGetMetadata(& $normalizedKey)
     {
         $result = $this->fetchFromCollection($normalizedKey);
-
         return null !== $result ? ['_id' => $result['_id']] : false;
     }
 
@@ -273,7 +261,7 @@ class MongoDb extends AbstractAdapter implements FlushableInterface
      */
     private function fetchFromCollection(& $normalizedKey)
     {
-        try {
+	try {
             return $this->getMongoDbResource()->findOne(['key' => $this->namespacePrefix . $normalizedKey]);
         } catch (MongoResourceException $e) {
             throw new Exception\RuntimeException($e->getMessage(), $e->getCode(), $e);

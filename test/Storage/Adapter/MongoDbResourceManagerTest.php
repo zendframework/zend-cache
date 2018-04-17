@@ -2,20 +2,23 @@
 /**
  * Zend Framework (http://framework.zend.com/)
  *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @link      https://github.com/zendframework/zend-cache for the canonical source repository
  * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
 namespace ZendTest\Cache\Storage\Adapter;
 
+use MongoDB\Client as MongoClient;
+use MongoDB\Collection as MongoCollection;
+use PHPUnit\Framework\TestCase;
 use Zend\Cache\Storage\Adapter\MongoDbResourceManager;
 
 /**
  * @group      Zend_Cache
  * @covers Zend\Cache\Storage\Adapter\MongoDbResourceManager
  */
-class MongoDbResourceManagerTest extends \PHPUnit_Framework_TestCase
+class MongoDbResourceManagerTest extends TestCase
 {
     /**
      * @var MongoDbResourceManager
@@ -28,7 +31,7 @@ class MongoDbResourceManagerTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('Enable TESTS_ZEND_CACHE_MONGODB_ENABLED to run this test');
         }
 
-        if (! extension_loaded('mongo') || ! class_exists('\Mongo') || ! class_exists('\MongoClient')) {
+        if (! class_exists('MongoDB\Client')) {
             // Allow tests to run if Mongo extension is loaded, or we have a polyfill in place
             $this->markTestSkipped("Mongo extension is not loaded");
         }
@@ -42,8 +45,7 @@ class MongoDbResourceManagerTest extends \PHPUnit_Framework_TestCase
 
         $id = 'foo';
 
-        $clientClass = (version_compare(phpversion('mongo'), '1.3.0', '<')) ? '\Mongo' : '\MongoClient';
-        $client = new $clientClass(getenv('TESTS_ZEND_CACHE_MONGODB_CONNECTSTRING'));
+        $client = new MongoClient(getenv('TESTS_ZEND_CACHE_MONGODB_CONNECTSTRING'));
         $resource = $client->selectCollection(
             getenv('TESTS_ZEND_CACHE_MONGODB_DATABASE'),
             getenv('TESTS_ZEND_CACHE_MONGODB_COLLECTION')
@@ -71,7 +73,7 @@ class MongoDbResourceManagerTest extends \PHPUnit_Framework_TestCase
         $id = 'foo';
         $resource = new \stdClass();
 
-        $this->setExpectedException('Zend\Cache\Exception\InvalidArgumentException');
+        $this->expectException('Zend\Cache\Exception\InvalidArgumentException');
         $this->object->setResource($id, $resource);
     }
 
@@ -97,7 +99,7 @@ class MongoDbResourceManagerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFalse($this->object->hasResource($id));
 
-        $this->setExpectedException('Zend\Cache\Exception\RuntimeException');
+        $this->expectException('Zend\Cache\Exception\RuntimeException');
         $this->object->getResource($id);
     }
 
@@ -105,8 +107,7 @@ class MongoDbResourceManagerTest extends \PHPUnit_Framework_TestCase
     {
         $id = 'foo';
 
-        $clientClass = (version_compare(phpversion('mongo'), '1.3.0', '<')) ? '\Mongo' : '\MongoClient';
-        $client = new $clientClass(getenv('TESTS_ZEND_CACHE_MONGODB_CONNECTSTRING'));
+        $client = new MongoClient(getenv('TESTS_ZEND_CACHE_MONGODB_CONNECTSTRING'));
         $resource = $client->selectCollection(
             getenv('TESTS_ZEND_CACHE_MONGODB_DATABASE'),
             getenv('TESTS_ZEND_CACHE_MONGODB_COLLECTION')
@@ -130,7 +131,7 @@ class MongoDbResourceManagerTest extends \PHPUnit_Framework_TestCase
         $this->object->setDatabase($id, $database);
         $this->object->setCollection($id, $collection);
 
-        $this->assertInstanceOf('\MongoCollection', $this->object->getResource($id));
+        $this->assertInstanceOf(MongoCollection::class, $this->object->getResource($id));
     }
 
     public function testGetResourceUnknownServerThrowsException()
@@ -146,7 +147,7 @@ class MongoDbResourceManagerTest extends \PHPUnit_Framework_TestCase
         $this->object->setDatabase($id, $database);
         $this->object->setCollection($id, $collection);
 
-        $this->setExpectedException('Zend\Cache\Exception\RuntimeException');
+        $this->expectException('Zend\Cache\Exception\RuntimeException');
         $this->object->getResource($id);
     }
 

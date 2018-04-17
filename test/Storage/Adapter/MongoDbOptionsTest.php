@@ -2,13 +2,14 @@
 /**
  * Zend Framework (http://framework.zend.com/)
  *
- * @link      http://github.com/zendframework/zf2 for the canonical source repository
+ * @link      https://github.com/zendframework/zend-cache for the canonical source repository
  * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
 namespace ZendTest\Cache\Storage\Adapter;
 
+use PHPUnit\Framework\TestCase;
 use Zend\Cache\Storage\Adapter\MongoDbOptions;
 use Zend\Cache\Storage\Adapter\MongoDbResourceManager;
 
@@ -16,7 +17,7 @@ use Zend\Cache\Storage\Adapter\MongoDbResourceManager;
  * @group      Zend_Cache
  * @covers Zend\Cache\Storage\Adapter\MongoDbOptions<extended>
  */
-class MongoDbOptionsTest extends \PHPUnit_Framework_TestCase
+class MongoDbOptionsTest extends TestCase
 {
     protected $object;
 
@@ -26,7 +27,7 @@ class MongoDbOptionsTest extends \PHPUnit_Framework_TestCase
             $this->markTestSkipped('Enable TESTS_ZEND_CACHE_MONGODB_ENABLED to run this test');
         }
 
-        if (! extension_loaded('mongo') || ! class_exists('\Mongo') || ! class_exists('\MongoClient')) {
+        if (! class_exists('MongoDB\Client')) {
             // Allow tests to run if Mongo extension is loaded, or we have a polyfill in place
             $this->markTestSkipped("Mongo extension is not loaded");
         }

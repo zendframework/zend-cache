@@ -379,22 +379,19 @@ class SimpleCacheDecoratorTest extends TestCase
 
     public function testDeleteShouldProxyToStorage()
     {
-        $this->storage->hasItem('key')->willReturn(true);
-        $this->storage->removeItem('key')->willReturn(true);
+        $this->storage->removeItem('key')->shouldBeCalled();
         $this->assertTrue($this->cache->delete('key'));
     }
 
     public function testDeleteShouldReturnTrueWhenItemDoesNotExist()
     {
-        $this->storage->hasItem('key')->willReturn(false);
-        $this->storage->removeItem('key')->shouldNotBeCalled();
+        $this->storage->removeItem('key')->shouldBeCalled();
         $this->assertTrue($this->cache->delete('key'));
     }
 
     public function testDeleteShouldReRaiseExceptionThrownByStorage()
     {
         $exception = new Exception\ExtensionNotLoadedException('failure', 500);
-        $this->storage->hasItem('key')->willReturn(true);
         $this->storage->removeItem('key')->willThrow($exception);
 
         try {
@@ -761,19 +758,10 @@ class SimpleCacheDecoratorTest extends TestCase
         $this->assertTrue($this->cache->deleteMultiple([]));
     }
 
-    public function testDeleteMultipleProxiesToStorageAndReturnsFalseIfStorageReturnsNonEmptyArray()
-    {
-        $keys = ['one', 'two', 'three'];
-        $this->storage->removeItems($keys)->willReturn(['two']);
-        $this->storage->hasItem('two')->willReturn(true);
-        $this->assertFalse($this->cache->deleteMultiple($keys));
-    }
-
     public function testDeleteMultipleReturnsTrueIfKeyReturnedByStorageDoesNotExist()
     {
         $keys = ['one', 'two', 'three'];
-        $this->storage->removeItems($keys)->willReturn(['two']);
-        $this->storage->hasItem('two')->willReturn(false);
+        $this->storage->removeItems($keys)->shouldBeCalled();
         $this->assertTrue($this->cache->deleteMultiple($keys));
     }
 

@@ -57,7 +57,7 @@ class SimpleCacheDecorator implements SimpleCacheInterface
 
     public function __construct(StorageInterface $storage)
     {
-        $this->attachExceptionHandlers();
+        $this->attachExceptionHandlers($storage);
         $this->memoizeSerializationCapabilities($storage);
         $this->memoizeTtlCapabilities($storage);
         $this->storage = $storage;
@@ -73,9 +73,9 @@ class SimpleCacheDecorator implements SimpleCacheInterface
      *
      * Listeners are attached with the lower priority so the ExceptionHandler plugin is able to throw every exception.
      */
-    private function attachExceptionHandlers()
+    private function attachExceptionHandlers(StorageInterface $storage)
     {
-        if (! $this->storage instanceof EventsCapableInterface) {
+        if (! $storage instanceof EventsCapableInterface) {
             return;
         }
 
@@ -85,7 +85,7 @@ class SimpleCacheDecorator implements SimpleCacheInterface
         ];
 
         foreach ($events as $event) {
-            $this->storage->getEventManager()->attach(
+            $storage->getEventManager()->attach(
                 $event,
                 function ($e) {
                     throw new StorageException('A storage exception occurred', 0, $e);

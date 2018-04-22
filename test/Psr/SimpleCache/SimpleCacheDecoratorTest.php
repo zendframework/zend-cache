@@ -17,10 +17,13 @@ use Zend\Cache\Exception;
 use Zend\Cache\Psr\SimpleCache\SimpleCacheDecorator;
 use Zend\Cache\Psr\SimpleCache\SimpleCacheInvalidArgumentException;
 use Zend\Cache\Psr\SimpleCache\SimpleCacheException;
+use Zend\Cache\Psr\SimpleCache\StorageException;
 use Zend\Cache\Storage\Adapter\AdapterOptions;
 use Zend\Cache\Storage\Capabilities;
 use Zend\Cache\Storage\FlushableInterface;
 use Zend\Cache\Storage\StorageInterface;
+use Zend\EventManager\EventManagerInterface;
+use Zend\EventManager\EventsCapableInterface;
 
 /**
  * Test the PSR-16 decorator.
@@ -132,6 +135,22 @@ class SimpleCacheDecoratorTest extends TestCase
     public function testItIsASimpleCacheImplementation()
     {
         $this->assertInstanceOf(SimpleCacheInterface::class, $this->cache);
+    }
+
+    public function testAttachDeleteExceptionListeners()
+    {
+        $eventManager = $this->prophesize(EventManagerInterface::class);
+        $storage = $this->prophesize(StorageInterface::class);
+        $storage->willImplement(EventsCapableInterface::class);
+        $this->mockCapabilities($storage, null, false);
+
+        $storage->getEventManager()->willReturn($eventManager->reveal());
+        $eventManager->attach('removeItem.exception', Argument::type('callable'), \PHP_INT_MAX)
+            ->shouldBeCalled();
+        $eventManager->attach('removeItems.exception', Argument::type('callable'), \PHP_INT_MAX)
+            ->shouldBeCalled();
+
+        $cache = new SimpleCacheDecorator($storage->reveal());
     }
 
     public function testGetReturnsDefaultValueWhenUnderlyingStorageDoesNotContainItem()
@@ -402,6 +421,22 @@ class SimpleCacheDecoratorTest extends TestCase
             $this->assertSame($exception->getCode(), $e->getCode());
             $this->assertSame($exception, $e->getPrevious());
         }
+    }
+
+    public function testDeleteShouldReturnFalseOnStorageException()
+    {
+        $exception = new StorageException();
+        $this->storage->removeItem('key')->willThrow($exception);
+
+        $this->assertFalse($this->cache->delete('key'));
+    }
+
+    public function testDeleteMultipleShouldReturnFalseOnStorageException()
+    {
+        $exception = new StorageException();
+        $this->storage->removeItems(['key'])->willThrow($exception);
+
+        $this->assertFalse($this->cache->deleteMultiple(['key']));
     }
 
     public function testClearReturnsFalseIfStorageIsNotFlushable()

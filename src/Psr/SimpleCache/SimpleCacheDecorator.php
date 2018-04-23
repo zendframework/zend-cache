@@ -19,6 +19,7 @@ use Zend\Cache\Psr\SerializationTrait;
 use Zend\Cache\Storage\ClearByNamespaceInterface;
 use Zend\Cache\Storage\FlushableInterface;
 use Zend\Cache\Storage\StorageInterface;
+use Zend\EventManager\EventsCapableInterface;
 
 /**
  * Decorate a zend-cache storage adapter for usage as a PSR-16 implementation.
@@ -57,10 +58,42 @@ class SimpleCacheDecorator implements SimpleCacheInterface
 
     public function __construct(StorageInterface $storage)
     {
+        $this->attachExceptionHandlers($storage);
         $this->memoizeSerializationCapabilities($storage);
         $this->memoizeTtlCapabilities($storage);
         $this->storage = $storage;
         $this->utc = new DateTimeZone('UTC');
+    }
+
+    /**
+     * Attach exception handlers.
+     *
+     * We want to return true deleting keys even if a key doesn't exist.
+     * Zend cache storage adapters return false trying to delete a key when it doesn't exist.
+     * We need to know if an exception occurred when possible, and return false instead of true.
+     *
+     * Listeners are attached with the lower priority so the ExceptionHandler plugin is able to throw every exception.
+     */
+    private function attachExceptionHandlers(StorageInterface $storage)
+    {
+        if (! $storage instanceof EventsCapableInterface) {
+            return;
+        }
+
+        $events = [
+            'removeItem.exception',
+            'removeItems.exception',
+        ];
+
+        foreach ($events as $event) {
+            $storage->getEventManager()->attach(
+                $event,
+                function ($e) {
+                    throw new StorageException('A storage exception occurred', 0, $e);
+                },
+                \PHP_INT_MAX
+            );
+        }
     }
 
     /**
@@ -133,12 +166,11 @@ class SimpleCacheDecorator implements SimpleCacheInterface
     {
         $this->validateKey($key);
 
-        if (! $this->storage->hasItem($key)) {
-            return true;
-        }
-
         try {
-            return $this->storage->removeItem($key);
+            $this->storage->removeItem($key);
+            return true;
+        } catch (StorageException $e) {
+            return false;
         } catch (Throwable $e) {
             throw static::translateException($e);
         } catch (Exception $e) {
@@ -263,24 +295,15 @@ class SimpleCacheDecorator implements SimpleCacheInterface
         array_walk($keys, [$this, 'validateKey']);
 
         try {
-            $result = $this->storage->removeItems($keys);
+            $this->storage->removeItems($keys);
+            return true;
+        } catch (StorageException $e) {
+            return false;
         } catch (Throwable $e) {
             throw static::translateException($e);
         } catch (Exception $e) {
             throw static::translateException($e);
         }
-
-        if (empty($result)) {
-            return true;
-        }
-
-        foreach ($result as $index => $key) {
-            if (! $this->storage->hasItem($key)) {
-                unset($result[$index]);
-            }
-        }
-
-        return empty($result);
     }
 
     /**

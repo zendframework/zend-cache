@@ -1,38 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Zend\Cache">  
     <link rel="shortcut icon" href="../../img/favicon.ico">
 
     <title>Adapters - zend-cache</title>
 
-    <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/font-hack/2.018/css/hack.min.css">
-    <link href="//fonts.googleapis.com/css?family=PT+Sans:400,400italic,700,700italic&subset=latin-ext,latin" rel="stylesheet" type="text/css">
-    <link href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,600,700&subset=latin-ext,latin" rel="stylesheet" type="text/css">
-    <link href="//fonts.googleapis.com/css?family=Libre+Baskerville:400,400italic,700&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-    <link href="../../css/base.css" rel="stylesheet">
-    <link href="../../css/zf.css" rel="stylesheet">
-    <link href="../../css/prism-zf.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-        <![endif]-->
-
-    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
-    <script>
-    WebFont.load({
-        google: {
-            families: ['Open Sans', 'PT Sans']
-        }
-    });
-    </script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/styles-288837cc22.css">
 
     
 </head>
@@ -56,8 +37,8 @@
 
             <!-- Main title -->
             <span class="navbar-brand">
-              <a class="logo-link" href="http://framework.zend.com" data-toggle="tooltip" data-placement="bottom" title="Zend Framework"><img src="../../img/zf-logo-mark.png" height="28" alt="Zend Framework" /></a>
-              <a href="../..">zend-cache</a>
+                <a class="logo-link" href="https://framework.zend.com/" data-toggle="tooltip" data-placement="bottom" title="Go to the ZF homepage"><img src="../../img/zf-logo-mark.svg" height="28" alt="Zend Framework" /></a>
+                <a href="../..">zend-cache</a>
             </span>
         </div>
 
@@ -68,9 +49,12 @@
                 <ul class="nav navbar-nav">
                 
                 
+                
                     <li >
-                        <a href="../..">Home</a>
+                        <a href="../..">zend-cache</a>
                     </li>
+                
+                
                 
                 
                 
@@ -79,25 +63,33 @@
                         <ul class="dropdown-menu">
                         
                             
+
 <li class="active">
     <a href="./">Adapters</a>
 </li>
 
+
                         
                             
+
 <li >
     <a href="../capabilities/">Capabilities</a>
 </li>
 
+
                         
                             
+
 <li >
     <a href="../plugin/">Plugins</a>
 </li>
 
+
                         
                         </ul>
                     </li>
+                
+                
                 
                 
                 
@@ -106,43 +98,83 @@
                         <ul class="dropdown-menu">
                         
                             
+
 <li >
     <a href="../../pattern/intro/">Introduction</a>
 </li>
 
+
                         
                             
+
 <li >
     <a href="../../pattern/callback-cache/">CallbackCache</a>
 </li>
 
+
                         
                             
+
 <li >
     <a href="../../pattern/class-cache/">ClassCache</a>
 </li>
 
+
                         
                             
+
 <li >
     <a href="../../pattern/object-cache/">ObjectCache</a>
 </li>
 
+
                         
                             
+
 <li >
     <a href="../../pattern/output-cache/">OutputCache</a>
 </li>
 
+
                         
                             
+
 <li >
     <a href="../../pattern/capture-cache/">CaptureCache</a>
 </li>
 
+
                         
                         </ul>
                     </li>
+                
+                
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Standards Support <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+
+<li >
+    <a href="../../psr6/">PSR-6</a>
+</li>
+
+
+                        
+                            
+
+<li >
+    <a href="../../psr16/">PSR-16</a>
+</li>
+
+
+                        
+                        </ul>
+                    </li>
+                
                 
                 
                 </ul>
@@ -162,7 +194,7 @@
                 </li>
                 
                     <li>
-                        <a href="https://github.com/zendframework/zend-cache">
+                        <a href="https://github.com/zendframework/zend-cache/">
                             
                                 <i class="fa fa-github"></i>
                             
@@ -176,7 +208,7 @@
 </div>
 
     <!-- content:begin -->
-    <div class="container">
+    <div id="page-top" class="container docs">
         
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
@@ -223,6 +255,8 @@
         
             <li><a href="#the-mongodb-adapter">The MongoDB Adapter</a></li>
         
+            <li><a href="#the-extmongodb-adapter">The ExtMongoDB Adapter</a></li>
+        
             <li><a href="#the-wincache-adapter">The WinCache Adapter</a></li>
         
             <li><a href="#the-xcache-adapter">The XCache Adapter</a></li>
@@ -250,11 +284,11 @@
         <div class="col-md-9" role="main">
 
 <ol class="breadcrumb" role="navigation" aria-label="breadcrumbs navigation">
-  <li><a href="../..">Docs</a> &raquo;</li>
+  <li><a href="../..">zend-cache</a></li>
   
     
       
-        <li>Storage &raquo;</li>
+        <li>Storage</li>
       
     
   
@@ -317,7 +351,6 @@ $cache-&gt;getOptions()-&gt;setTtl(3600);
 $plugin = new Zend\Cache\Storage\Plugin\ExceptionHandler();
 $plugin-&gt;getOptions()-&gt;setThrowExceptions(false);
 $cache-&gt;addPlugin($plugin);</code></pre>
-
 
 <h2 id="basic-configuration-options">Basic Configuration Options</h2>
 <p>The following configuration options are defined by <code>Zend\Cache\Storage\Adapter\AdapterOptions</code> and
@@ -606,7 +639,6 @@ interface StorageInterface
     public function getCapabilities();
 }</code></pre>
 
-
 <h2 id="the-availablespacecapableinterface">The AvailableSpaceCapableInterface</h2>
 <p><code>Zend\Cache\Storage\AvailableSpaceCapableInterface</code> implements a method to allow
 retrieving the current available space remaining in storage.</p>
@@ -621,7 +653,6 @@ interface AvailableSpaceCapableInterface
      */
     public function getAvailableSpace();
 }</code></pre>
-
 
 <h2 id="the-totalspacecapableinterface">The TotalSpaceCapableInterface</h2>
 <p><code>Zend\Cache\Storage\TotalSpaceCapableInterface</code> implements a method to allow
@@ -638,7 +669,6 @@ interface TotalSpaceCapableInterface
     public function getTotalSpace();
 }</code></pre>
 
-
 <h2 id="the-clearbynamespaceinterface">The ClearByNamespaceInterface</h2>
 <p><code>Zend\Cache\Storage\ClearByNamespaceInterface</code> implements a method to allow
 clearing all cached items within a given namespace.</p>
@@ -654,7 +684,6 @@ interface ClearByNamespaceInterface
      */
     public function clearByNamespace($namespace);
 }</code></pre>
-
 
 <h2 id="the-clearbyprefixinterface">The ClearByPrefixInterface</h2>
 <p><code>Zend\Cache\Storage\ClearByPrefixInterface</code> implements a method to allow
@@ -673,7 +702,6 @@ interface ClearByPrefixInterface
     public function clearByPrefix($prefix);
 }</code></pre>
 
-
 <h2 id="the-clearexpiredinterface">The ClearExpiredInterface</h2>
 <p><code>Zend\Cache\Storage\ClearExpiredInterface</code> implements a method to allow clearing
 all expired items (within the current configured namespace).</p>
@@ -689,7 +717,6 @@ interface ClearExpiredInterface
     public function clearExpired();
 }</code></pre>
 
-
 <h2 id="the-flushableinterface">The FlushableInterface</h2>
 <p><code>Zend\Cache\Storage\FlushableInterface</code> implements a method for flushing the
 entire cache storage.</p>
@@ -704,7 +731,6 @@ interface FlushableInterface
      */
     public function flush();
 }</code></pre>
-
 
 <h2 id="the-iterableinterface">The IterableInterface</h2>
 <p><code>Zend\Cache\Storage\IterableInterface</code> implements a method for retrieving an
@@ -727,7 +753,6 @@ interface IterableInterface extends IteratorAggregate
     public function getIterator();
 }</code></pre>
 
-
 <h2 id="the-optimizableinterface">The OptimizableInterface</h2>
 <p><code>Zend\Cache\Storage\OptimizableInterface</code> implements a method for running
 optimization processes on the storage adapter.</p>
@@ -742,7 +767,6 @@ interface OptimizableInterface
      */
     public function optimize();
 }</code></pre>
-
 
 <h2 id="the-taggableinterface">The TaggableInterface</h2>
 <p><code>Zend\Cache\Storage\TaggableInterface</code> implements methods for tagging items, and
@@ -781,7 +805,6 @@ interface TaggableInterface
      */
     public function clearByTags(array $tags, $disjunction = false);
 }</code></pre>
-
 
 <h2 id="the-apc-adapter">The Apc Adapter</h2>
 <p><code>Zend\Cache\Storage\Adapter\Apc</code> stores cache items in shared memory through the
@@ -832,6 +855,10 @@ PHP extension <a href="http://pecl.php.net/package/APC">APC</a> (Alternative PHP
 <tr>
 <td><code>useRequestTime</code></td>
 <td>value of <code>apc.use_request_time</code> from <code>php.ini</code></td>
+</tr>
+<tr>
+<td><code>lockOnExpire</code></td>
+<td>0</td>
 </tr>
 <tr>
 <td><code>maxKeyLength</code></td>
@@ -1011,6 +1038,10 @@ outdated items periodically!</p>
 <td><code>false</code></td>
 </tr>
 <tr>
+<td><code>lockOnExpire</code></td>
+<td>0</td>
+</tr>
+<tr>
 <td><code>maxKeyLength</code></td>
 <td>251</td>
 </tr>
@@ -1101,8 +1132,22 @@ outdated items periodically!</p>
 <td><code>false</code></td>
 <td>Use <a href="http://wikipedia.org/wiki/Umask">umask</a> to set file and directory permissions.</td>
 </tr>
+<tr>
+<td><code>suffix</code></td>
+<td><code>string</code></td>
+<td><code>dat</code></td>
+<td>Suffix for cache files</td>
+</tr>
+<tr>
+<td><code>tag_suffix</code></td>
+<td><code>string</code></td>
+<td><code>tag</code></td>
+<td>Suffix for tag files</td>
+</tr>
 </tbody>
 </table></div>
+<p>Note: the <code>suffix</code> and <code>tag_suffix</code> options will be escaped in order to be safe
+for glob operations.</p>
 <h2 id="the-memcached-adapter">The Memcached Adapter</h2>
 <p><code>Zend\Cache\Storage\Adapter\Memcached</code> stores cache items over the memcached
 protocol, using the PHP extension <a href="http://pecl.php.net/package/memcached">memcached</a>,
@@ -1150,6 +1195,10 @@ based on <a href="http://libmemcached.org/">Libmemcached</a>.</p>
 <tr>
 <td><code>useRequestTime</code></td>
 <td><code>false</code></td>
+</tr>
+<tr>
+<td><code>lockOnExpire</code></td>
+<td>0</td>
 </tr>
 <tr>
 <td><code>maxKeyLength</code></td>
@@ -1234,6 +1283,10 @@ using the PHP extension <a href="https://github.com/nicolasff/phpredis">redis</a
 <tr>
 <td><code>useRequestTime</code></td>
 <td><code>false</code></td>
+</tr>
+<tr>
+<td><code>lockOnExpire</code></td>
+<td>0</td>
 </tr>
 <tr>
 <td><code>maxKeyLength</code></td>
@@ -1362,6 +1415,10 @@ process only.</p>
 <td><code>false</code></td>
 </tr>
 <tr>
+<td><code>lockOnExpire</code></td>
+<td>0</td>
+</tr>
+<tr>
 <td><code>maxKeyLength</code></td>
 <td>0</td>
 </tr>
@@ -1408,6 +1465,11 @@ requests, this typically means the cache is volatile.</p>
 <p><code>Zend\Cache\Storage\Adapter\MongoDB</code> stores cache items using MongoDB, via either the
 PHP extension <a href="http://php.net/mongo">mongo</a>, or a MongoDB polyfill library, such as
 <a href="https://github.com/mongofill/mongofill">Mongofill</a>.</p>
+<blockquote>
+<h4 id="ext-mongodb">ext-mongodb</h4>
+<p>If you are using the mongodb extension (vs the mongo extension), you will need
+to use the <a href="#the-extmongodb-adapter">ExtMongoDb adapter</a> instead.</p>
+</blockquote>
 <p>This adapter implements the following interfaces:</p>
 <ul>
 <li><code>Zend\Cache\Storage\FlushableInterface</code></li>
@@ -1450,11 +1512,19 @@ PHP extension <a href="http://php.net/mongo">mongo</a>, or a MongoDB polyfill li
 <td><code>false</code></td>
 </tr>
 <tr>
+<td><code>lockOnExpire</code></td>
+<td>0</td>
+</tr>
+<tr>
 <td><code>maxKeyLength</code></td>
 <td>255</td>
 </tr>
 <tr>
 <td><code>namespaceIsPrefix</code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>namespaceSeparator</code></td>
 <td><Option value of namespace_separator></td>
 </tr>
 </tbody>
@@ -1521,6 +1591,141 @@ PHP extension <a href="http://php.net/mongo">mongo</a>, or a MongoDB polyfill li
 </tr>
 </tbody>
 </table></div>
+<h2 id="the-extmongodb-adapter">The ExtMongoDB Adapter</h2>
+<ul>
+<li>Since 2.8.0</li>
+</ul>
+<p><code>Zend\Cache\Storage\Adapter\ExtMongoDB</code> stores cache items using the mongodb extension, and
+requires that the MongoDB PHP Client library is also installed. You can install the client
+library using the following:</p>
+<pre class="codehilite"><code class="language-bash">$ composer require mongodb/mongodb</code></pre>
+
+<blockquote>
+<h4 id="ext-mongo">ext-mongo</h4>
+<p>If you are using the mongo extension (vs the mongodb extension), you will need
+to use the <a href="#the-mongodb-adapter">MongoDb adapter</a> instead.</p>
+</blockquote>
+<p>This adapter implements the following interfaces:</p>
+<ul>
+<li><code>Zend\Cache\Storage\FlushableInterface</code></li>
+</ul>
+<h3 id="capabilities_7">Capabilities</h3>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>supportedDatatypes</code></td>
+<td><code>string</code>, <code>null</code>, <code>boolean</code>, <code>integer</code>, <code>double</code>, <code>array</code></td>
+</tr>
+<tr>
+<td><code>supportedMetadata</code></td>
+<td>_id</td>
+</tr>
+<tr>
+<td><code>minTtl</code></td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>maxTtl</code></td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>staticTtl</code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>ttlPrecision</code></td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>useRequestTime</code></td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>lockOnExpire</code></td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>maxKeyLength</code></td>
+<td>255</td>
+</tr>
+<tr>
+<td><code>namespaceIsPrefix</code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>namespaceSeparator</code></td>
+<td><Option value of namespace_separator></td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="adapter-specific-options_7">Adapter specific options</h3>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Data Type</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>lib_option</code></td>
+<td><code>array</code></td>
+<td></td>
+<td>Associative array of options where the array key is the option name.</td>
+</tr>
+<tr>
+<td><code>namespace_separator</code></td>
+<td><code>string</code></td>
+<td>":"</td>
+<td>A separator for the namespace and prefix.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Available keys for <code>lib_option</code> include:</p>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>server</code></td>
+<td><code>mongodb://localhost:27017</code></td>
+<td>The MongoDB server connection string (see the <a href="https://docs.mongodb.com/php-library/current/reference/method/MongoDBClient__construct/">MongoDB\Client docs</a>).</td>
+</tr>
+<tr>
+<td><code>database</code></td>
+<td><code>zend</code></td>
+<td>Name of the database to use; MongoDB will create this database if it does not exist.</td>
+</tr>
+<tr>
+<td><code>collection</code></td>
+<td><code>cache</code></td>
+<td>Name of the collection to use; MongoDB will create this collection if it does not exist.</td>
+</tr>
+<tr>
+<td><code>connectionOptions</code></td>
+<td><code>['fsync' =&gt; false, 'journal' =&gt; true]</code></td>
+<td>Associative array of URI options (such as authentication credentials or query string parameters) to pass to <code>MongoDB\\Client</code> (see the <a href="https://docs.mongodb.com/php-library/current/reference/method/MongoDBClient__construct/">MongoDB\Client docs</a>).</td>
+</tr>
+<tr>
+<td><code>driverOptions</code></td>
+<td><code>[]</code></td>
+<td>Associative array of driver options to pass to <code>MongoDB\\Client</code> (see the <a href="https://docs.mongodb.com/php-library/current/reference/method/MongoDBClient__construct/">MongoDB\Client docs</a>).</td>
+</tr>
+</tbody>
+</table></div>
 <h2 id="the-wincache-adapter">The WinCache Adapter</h2>
 <p><code>Zend\Cache\Storage\Adapter\WinCache</code> stores cache items into shared memory
 through the PHP extension <a href="http://pecl.php.net/package/WinCache">WinCache</a>.</p>
@@ -1531,7 +1736,7 @@ through the PHP extension <a href="http://pecl.php.net/package/WinCache">WinCach
 <li><code>Zend\Cache\Storage\FlushableInterface</code></li>
 <li><code>Zend\Cache\Storage\TotalSpaceCapableInterface</code></li>
 </ul>
-<h3 id="capabilities_7">Capabilities</h3>
+<h3 id="capabilities_8">Capabilities</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -1569,6 +1774,10 @@ through the PHP extension <a href="http://pecl.php.net/package/WinCache">WinCach
 <td><code>apc.use_request_time</code> <code>php.ini</code> value.</td>
 </tr>
 <tr>
+<td><code>lockOnExpire</code></td>
+<td>0</td>
+</tr>
+<tr>
 <td><code>namespaceIsPrefix</code></td>
 <td><code>true</code></td>
 </tr>
@@ -1578,7 +1787,7 @@ through the PHP extension <a href="http://pecl.php.net/package/WinCache">WinCach
 </tr>
 </tbody>
 </table></div>
-<h3 id="adapter-specific-options_7">Adapter specific options</h3>
+<h3 id="adapter-specific-options_8">Adapter specific options</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -1610,7 +1819,7 @@ PHP extension <a href="http://xcache.lighttpd.net/">XCache</a>.</p>
 <li><code>Zend\Cache\Storage\IterableInterface</code></li>
 <li><code>Zend\Cache\Storage\TotalSpaceCapableInterface</code></li>
 </ul>
-<h3 id="capabilities_8">Capabilities</h3>
+<h3 id="capabilities_9">Capabilities</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -1648,6 +1857,10 @@ PHP extension <a href="http://xcache.lighttpd.net/">XCache</a>.</p>
 <td><code>true</code></td>
 </tr>
 <tr>
+<td><code>lockOnExpire</code></td>
+<td>0</td>
+</tr>
+<tr>
 <td><code>maxKeyLength</code></td>
 <td>5182</td>
 </tr>
@@ -1661,7 +1874,7 @@ PHP extension <a href="http://xcache.lighttpd.net/">XCache</a>.</p>
 </tr>
 </tbody>
 </table></div>
-<h3 id="adapter-specific-options_8">Adapter specific options</h3>
+<h3 id="adapter-specific-options_9">Adapter specific options</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -1709,67 +1922,6 @@ using the <a href="http://www.zend.com/en/products/server/">Zend Server Data Cac
 <li><code>Zend\Cache\Storage\FlushableInterface</code></li>
 <li><code>Zend\Cache\Storage\TotalSpaceCapableInterface</code></li>
 </ul>
-<h3 id="capabilities_9">Capabilities</h3>
-<div class="table-responsive"><table>
-<thead>
-<tr>
-<th>Capability</th>
-<th>Value</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>supportedDatatypes</code></td>
-<td><code>null</code>, <code>boolean</code>, <code>integer</code>, <code>double</code>, <code>string</code>, <code>array</code> (serialized), <code>object</code> (serialized)</td>
-</tr>
-<tr>
-<td><code>supportedMetadata</code></td>
-<td>none</td>
-</tr>
-<tr>
-<td><code>minTtl</code></td>
-<td>1</td>
-</tr>
-<tr>
-<td><code>maxTtl</code></td>
-<td>0</td>
-</tr>
-<tr>
-<td><code>maxKeyLength</code></td>
-<td>0</td>
-</tr>
-<tr>
-<td><code>staticTtl</code></td>
-<td><code>true</code></td>
-</tr>
-<tr>
-<td><code>ttlPrecision</code></td>
-<td>1</td>
-</tr>
-<tr>
-<td><code>useRequestTime</code></td>
-<td><code>false</code></td>
-</tr>
-<tr>
-<td><code>namespaceIsPrefix</code></td>
-<td><code>true</code></td>
-</tr>
-<tr>
-<td><code>namespaceSeparator</code></td>
-<td><code>::</code></td>
-</tr>
-</tbody>
-</table></div>
-<h2 id="the-zendservershm-adapter">The ZendServerShm Adapter</h2>
-<p><code>Zend\Cache\Storage\Adapter\ZendServerShm</code> stores cache items in shared memory
-through the <a href="http://www.zend.com/en/products/server/">Zend Server Data Caching API</a>.</p>
-<p>This adapter implements the following interfaces:</p>
-<ul>
-<li><code>Zend\Cache\Storage\StorageInterface</code></li>
-<li><code>Zend\Cache\Storage\ClearByNamespaceInterface</code></li>
-<li><code>Zend\Cache\Storage\FlushableInterface</code></li>
-<li><code>Zend\Cache\Storage\TotalSpaceCapableInterface</code></li>
-</ul>
 <h3 id="capabilities_10">Capabilities</h3>
 <div class="table-responsive"><table>
 <thead>
@@ -1812,6 +1964,75 @@ through the <a href="http://www.zend.com/en/products/server/">Zend Server Data C
 <td><code>false</code></td>
 </tr>
 <tr>
+<td><code>lockOnExpire</code></td>
+<td>if 'zend_datacache.lock_on_expire' is enabled 120 else 0</td>
+</tr>
+<tr>
+<td><code>namespaceIsPrefix</code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>namespaceSeparator</code></td>
+<td><code>::</code></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="the-zendservershm-adapter">The ZendServerShm Adapter</h2>
+<p><code>Zend\Cache\Storage\Adapter\ZendServerShm</code> stores cache items in shared memory
+through the <a href="http://www.zend.com/en/products/server/">Zend Server Data Caching API</a>.</p>
+<p>This adapter implements the following interfaces:</p>
+<ul>
+<li><code>Zend\Cache\Storage\StorageInterface</code></li>
+<li><code>Zend\Cache\Storage\ClearByNamespaceInterface</code></li>
+<li><code>Zend\Cache\Storage\FlushableInterface</code></li>
+<li><code>Zend\Cache\Storage\TotalSpaceCapableInterface</code></li>
+</ul>
+<h3 id="capabilities_11">Capabilities</h3>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>supportedDatatypes</code></td>
+<td><code>null</code>, <code>boolean</code>, <code>integer</code>, <code>double</code>, <code>string</code>, <code>array</code> (serialized), <code>object</code> (serialized)</td>
+</tr>
+<tr>
+<td><code>supportedMetadata</code></td>
+<td>none</td>
+</tr>
+<tr>
+<td><code>minTtl</code></td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>maxTtl</code></td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>maxKeyLength</code></td>
+<td>0</td>
+</tr>
+<tr>
+<td><code>staticTtl</code></td>
+<td><code>true</code></td>
+</tr>
+<tr>
+<td><code>ttlPrecision</code></td>
+<td>1</td>
+</tr>
+<tr>
+<td><code>useRequestTime</code></td>
+<td><code>false</code></td>
+</tr>
+<tr>
+<td><code>lockOnExpire</code></td>
+<td>if 'zend_datacache.lock_on_expire' is enabled 120 else 0</td>
+</tr>
+<tr>
 <td><code>namespaceIsPrefix</code></td>
 <td><code>true</code></td>
 </tr>
@@ -1843,7 +2064,6 @@ if (! $success) {
     $result = doExpensiveStuff();
     $cache-&gt;setItem($key, $result);
 }</code></pre>
-
 
 <h3 id="get-multiple-rows-from-a-database">Get multiple rows from a database</h3>
 <pre class="codehilite"><code class="language-php">use Zend\Cache\StorageFactory;
@@ -1905,21 +2125,57 @@ if (count($results) &lt; count($ids)) {
     </div>
     <!-- content:end -->
 
-    <footer class="col-md-12 text-center">
-        <hr>
-        <p>
-        <small>Copyright (c) 2016 <a href="http://www.zend.com/">Zend Technologies USA Inc.</a><br></small>
-        </p>
-        <p><small><a href="http://framework.zend.com">Learn more about Zend Framework</a></small></p>
-    </footer>
+    <div id="footerwrap">
+    <div class="container">
+        <div class="row site-map">
+            <div class="col-lg-3">
+              <p>
+                <strong>Zend Framework</strong><br />
+                <a href="https://framework.zend.com/">framework.zend.com</a><br />
+                <a href="https://docs.zendframework.com">docs.zendframework.com</a><br />
+                <a href="https://packages.zendframework.com">packages.zendframework.com</a><br />
+                <a href="https://apigility.org">apigility.org</a><br />
+              </p>
+            </div>
+        </div>
 
-    <script src="../../js/jquery-1.10.2.min.js"></script>
-    <script src="../../js/bootstrap-3.0.3.min.js"></script>
-    <script src="../../js/prism-zf.js"></script>
+        <div class="row">
+            <div class="col-lg-12 centered">
+                <a class="back-to-top" href="#page-top"><i class="fa fa-chevron-circle-up fa-4" aria-hidden="true"></i></a>
+            </div>
+        </div>
 
+        <div class="spacing"></div>
+
+        <div class="row">
+            <div class="col-lg-8">
+                <h4>Copyright</h4>
+                <div class="hline-w"></div>
+
+                <p>&copy; 2006-2017 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+
+            <div class="col-lg-4">
+                <h4>Contacts</h4>
+                <div class="hline-w"></div>
+                <p>
+                    <a href="https://discourse.zendframework.com" class="btn-social btn-outline" alt="Forum" title="Forum"><i class="fa fa-comments"></i></a>
+                    <a href="https://zendframework-slack.herokuapp.com" class="btn-social btn-outline" alt="Slack" title="Slack"><i class="fa fa-slack"></i></a>
+                    <a href="https://github.com/zendframework" class="btn-social btn-outline" alt="Github" title="Github"><i class="fa fa-github"></i></a>
+                    <a href="https://twitter.com/zfdevteam" class="btn-social btn-outline" alt="Twitter" title="Twitter"><i class="fa fa-twitter"></i></a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
     <script>var base_url = '../..';</script>
+    <script src="../../js/scripts-0b6185f4a5.js"></script>
     <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
-    <script src="../../js/base.js"></script>
+        <script src="../../search/require.js"></script>
+        <script src="../../search/search.js"></script>
 
     <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
         <div class="modal-dialog">
@@ -1951,7 +2207,7 @@ if (count($results) &lt; count($ids)) {
     <div class="zf-components">
   <div class="zf-components-grid">
     <div class="zf-logo">
-      <a href="http://framework.zend.com" data-toggle="tooltip" data-placement="bottom" title="Go to the ZF homepage"><img src="http://framework.zend.com/images/logos/zf-logo-mark.png" alt="Zend Framework" width="250" /></a>
+      <a href="https://framework.zend.com" data-toggle="tooltip" data-placement="bottom" title="Go to the ZF homepage"><img src="../../img/zf-logo-mark.svg" alt="Zend Framework" width="250" /></a>
     </div>
 
     <div class="component-list"></div>
@@ -1960,112 +2216,7 @@ if (count($results) &lt; count($ids)) {
   </div>
 </div>
 
-    <script>
-  // Prepare the component list dropdown for display
-  $(function () {
-    var components = $(".zf-components"),
-        componentList = components.find(".component-list"),
-        sidebar = $(".bs-sidebar.affix"),
-        sidebarInitialPos = sidebar.css("position"),
-        hidden,
-        componentToggle = $(".component-toggle"),
-        navbar = $(".navbar-fixed-top"),
-        rollUpLink = $(".zf-components-rollup a");
+</body>
 
-    // Initial setup on document load
-    components.insertBefore(navbar);
-    $(".zf-logo a").tooltip();
-    componentToggle.tooltip();
-    rollUpLink.attr({ href: "#", alt: "Hide component list" });
-
-    // Cast initial sidebar position value
-    if (undefined === sidebarInitialPos) {
-      sidebarInitialPos = "fixed";
-    }
-
-    // Setup onclick events to toggle list
-    componentToggle.click(toggleComponentList);
-    rollUpLink.click(toggleComponentList);
-
-    // Toggle the component list display
-    function toggleComponentList(event) {
-      event.preventDefault();
-
-      if (hidden === undefined) {
-        // Not loaded yet; load and display.
-        loadComponentList();
-        return;
-      }
-
-      if (hidden) {
-        // Hidden; display.
-        showComponentList();
-        return;
-      }
-
-      // Currently visible; hide
-      hideComponentList();
-    }
-
-    // Show the component list
-    function showComponentList() {
-      navbar.css({position: "relative"});
-      sidebar.css({position: "relative"});
-      components
-        .css({"margin-top": "-" + components.outerHeight() + "px"})
-        .show()
-        .animate({"margin-top": 0}, {
-          complete: function () {
-            componentToggle
-              .data("placement", "top")
-              .attr("data-original-title", "Hide component list");
-            hidden = false;
-          },
-          queue: false
-        });
-    }
-
-    // Hide the component list
-    function hideComponentList() {
-      components.animate({"margin-top": "-" + components.outerHeight() + "px"}, {
-        complete: function () {
-          navbar.css({position: "fixed"});
-          sidebar.css({position: sidebarInitialPos});
-          componentToggle
-            .data("placement", "bottom")
-            .attr("data-original-title", "Show component list");
-          components.hide();
-          hidden = true;
-        },
-        queue: false
-      });
-      sidebar.animate({ top: sidebarInitialTop + "px" }, { queue: false});
-    }
-
-    // Inject a component into the componet list DOM.
-    function injectComponent(index, component) {
-      componentList.append('<div class="component"><h4><a href="' + component.url + '">' + component.name + '</a></h4><p>' + component.description + '</p></div>');
-    }
-
-    // Parse the component list, build the DOM, and display it.
-    function parseComponentList(components) {
-      $.each(components, injectComponent);
-      showComponentList();
-    }
-
-    // Fetch the component list and display it.
-    function loadComponentList () {
-      $.ajax({
-        url: "//zendframework.github.io/zf-mkdoc-theme/scripts/zf-component-list.json",
-        dataType: "text json",
-        success: parseComponentList,
-        error: function (e) {
-          console.log("Error occurred with XHR call", e);
-        }
-      });
-    }
-  });
-</script>
-    </body>
 
 </html>

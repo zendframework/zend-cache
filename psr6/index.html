@@ -7,13 +7,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Zend\Cache">  
-    <link rel="shortcut icon" href="../../img/favicon.ico">
+    <link rel="shortcut icon" href="../img/favicon.ico">
 
-    <title>OutputCache - zend-cache</title>
+    <title>PSR-6 - zend-cache</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../../css/styles-288837cc22.css">
+    <link rel="stylesheet" href="../css/styles-288837cc22.css">
 
     
 </head>
@@ -37,8 +37,8 @@
 
             <!-- Main title -->
             <span class="navbar-brand">
-                <a class="logo-link" href="https://framework.zend.com/" data-toggle="tooltip" data-placement="bottom" title="Go to the ZF homepage"><img src="../../img/zf-logo-mark.svg" height="28" alt="Zend Framework" /></a>
-                <a href="../..">zend-cache</a>
+                <a class="logo-link" href="https://framework.zend.com/" data-toggle="tooltip" data-placement="bottom" title="Go to the ZF homepage"><img src="../img/zf-logo-mark.svg" height="28" alt="Zend Framework" /></a>
+                <a href="..">zend-cache</a>
             </span>
         </div>
 
@@ -51,7 +51,7 @@
                 
                 
                     <li >
-                        <a href="../..">zend-cache</a>
+                        <a href="..">zend-cache</a>
                     </li>
                 
                 
@@ -65,7 +65,7 @@
                             
 
 <li >
-    <a href="../../storage/adapter/">Adapters</a>
+    <a href="../storage/adapter/">Adapters</a>
 </li>
 
 
@@ -73,7 +73,7 @@
                             
 
 <li >
-    <a href="../../storage/capabilities/">Capabilities</a>
+    <a href="../storage/capabilities/">Capabilities</a>
 </li>
 
 
@@ -81,66 +81,7 @@
                             
 
 <li >
-    <a href="../../storage/plugin/">Plugins</a>
-</li>
-
-
-                        
-                        </ul>
-                    </li>
-                
-                
-                
-                
-                
-                    <li class="dropdown active">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cache Patterns <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                        
-                            
-
-<li >
-    <a href="../intro/">Introduction</a>
-</li>
-
-
-                        
-                            
-
-<li >
-    <a href="../callback-cache/">CallbackCache</a>
-</li>
-
-
-                        
-                            
-
-<li >
-    <a href="../class-cache/">ClassCache</a>
-</li>
-
-
-                        
-                            
-
-<li >
-    <a href="../object-cache/">ObjectCache</a>
-</li>
-
-
-                        
-                            
-
-<li class="active">
-    <a href="./">OutputCache</a>
-</li>
-
-
-                        
-                            
-
-<li >
-    <a href="../capture-cache/">CaptureCache</a>
+    <a href="../storage/plugin/">Plugins</a>
 </li>
 
 
@@ -153,13 +94,13 @@
                 
                 
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Standards Support <b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cache Patterns <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                         
                             
 
 <li >
-    <a href="../../psr6/">PSR-6</a>
+    <a href="../pattern/intro/">Introduction</a>
 </li>
 
 
@@ -167,7 +108,66 @@
                             
 
 <li >
-    <a href="../../psr16/">PSR-16</a>
+    <a href="../pattern/callback-cache/">CallbackCache</a>
+</li>
+
+
+                        
+                            
+
+<li >
+    <a href="../pattern/class-cache/">ClassCache</a>
+</li>
+
+
+                        
+                            
+
+<li >
+    <a href="../pattern/object-cache/">ObjectCache</a>
+</li>
+
+
+                        
+                            
+
+<li >
+    <a href="../pattern/output-cache/">OutputCache</a>
+</li>
+
+
+                        
+                            
+
+<li >
+    <a href="../pattern/capture-cache/">CaptureCache</a>
+</li>
+
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Standards Support <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+
+<li class="active">
+    <a href="./">PSR-6</a>
+</li>
+
+
+                        
+                            
+
+<li >
+    <a href="../psr16/">PSR-16</a>
 </li>
 
 
@@ -213,15 +213,17 @@
         <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
     
-        <li class="main active"><a href="#outputcache">OutputCache</a></li>
+        <li class="main active"><a href="#psr-6-support">PSR-6 Support</a></li>
+        
+            <li><a href="#overview">Overview</a></li>
         
             <li><a href="#quick-start">Quick Start</a></li>
         
-            <li><a href="#configuration-options">Configuration Options</a></li>
+            <li><a href="#supported-adapters">Supported adapters</a></li>
         
-            <li><a href="#available-methods">Available Methods</a></li>
+            <li><a href="#logging-errors">Logging errors</a></li>
         
-            <li><a href="#examples">Examples</a></li>
+            <li><a href="#supported-data-types">Supported data types</a></li>
         
     
     </ul>
@@ -229,10 +231,10 @@
     
     <ul class="pager hidden-print">
       <li class="previous">
-        <a rel="prev" href="../object-cache/"><i class="fa fa-arrow-left"></i> Previous</a>
+        <a rel="prev" href="../pattern/capture-cache/"><i class="fa fa-arrow-left"></i> Previous</a>
       </li>
       <li class="next">
-        <a rel="next" href="../capture-cache/">Next <i class="fa fa-arrow-right"></i></a>
+        <a rel="next" href="../psr16/">Next <i class="fa fa-arrow-right"></i></a>
       </li>
     </ul>
     
@@ -240,84 +242,125 @@
         <div class="col-md-9" role="main">
 
 <ol class="breadcrumb" role="navigation" aria-label="breadcrumbs navigation">
-  <li><a href="../..">zend-cache</a></li>
+  <li><a href="..">zend-cache</a></li>
   
     
       
-        <li>Cache Patterns</li>
+        <li>Standards Support</li>
       
     
   
-  <li class="active">OutputCache</li>
+  <li class="active">PSR-6</li>
 </ol>
 
-<h1 id="outputcache">OutputCache</h1>
-<p>The <code>OutputCache</code> pattern caches output between calls to <code>start()</code> and <code>end()</code>.</p>
+<h1 id="psr-6-support">PSR-6 Support</h1>
+<ul>
+<li>Since 2.8.0</li>
+</ul>
+<h2 id="overview">Overview</h2>
+<p>The <code>Zend\Cache\Psr\CacheItemPool\CacheItemPoolDecorator</code> provides a <a href="https://www.php-fig.org/psr/psr-6/">PSR-6</a>
+compliant wrapper for supported storage adapters.</p>
+<p>PSR-6 specifies a common interface to cache storage, enabling developers to switch between implementations without
+having to worry about any behind-the-scenes differences between them.</p>
 <h2 id="quick-start">Quick Start</h2>
-<pre class="codehilite"><code class="language-php">use Zend\Cache\PatternFactory;
+<p>To use the pool, instantiate your storage as normal, then pass it to the
+<code>CacheItemPoolDecorator</code>.</p>
+<pre class="codehilite"><code class="language-php">use Zend\Cache\StorageFactory;
+use Zend\Cache\Psr\CacheItemPool\CacheItemPoolDecorator;
 
-$outputCache = PatternFactory::factory('output', [
-    'storage' =&gt; 'apc'
-]);</code></pre>
-
-<h2 id="configuration-options">Configuration Options</h2>
-<div class="table-responsive"><table>
-<thead>
-<tr>
-<th>Option</th>
-<th>Data Type</th>
-<th>Default Value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>storage</code></td>
-<td><code>string | array | Zend\Cache\Storage\StorageInterface</code></td>
-<td>none</td>
-<td>Adapter used for reading and writing cached data.</td>
-</tr>
-</tbody>
-</table></div>
-<h2 id="available-methods">Available Methods</h2>
-<p>In addition to the methods defined in <code>PatternInterface</code>, this implementation
-defines the following methods.</p>
-<pre class="codehilite"><code class="language-php">namespace Zend\Cache\Pattern;
-
-use Zend\Cache\Exception;
-
-class OutputCache extends AbstractPattern
-{
-    /**
-     * If there is a cached item with the given key, display its data, and
-     * return true. Otherwise, start buffering output until end() is called, or
-     * the script ends.
-     *
-     * @param  string  $key Key
-     * @throws Exception\MissingKeyException if key is missing
-     * @return bool
-     */
-    public function start($key);
-
-    /**
-     * Stop buffering output, write buffered data to the cache using the key
-     * provided to start(), and display the buffer.
-     *
-     * @throws Exception\RuntimeException if output cache not started or buffering not active
-     * @return bool TRUE on success, FALSE on failure writing to cache
-     */
-    public function end();
-}</code></pre>
-
-<h2 id="examples">Examples</h2>
-<h3 id="caching-simple-view-scripts">Caching simple view scripts</h3>
-<pre class="codehilite"><code class="language-php">$outputCache = Zend\Cache\PatternFactory::factory('output', [
-    'storage' =&gt; 'apc',
+$storage = StorageFactory::factory([
+    'adapter' =&gt; [
+        'name'    =&gt; 'apc',
+        'options' =&gt; [],
+    ],
 ]);
 
-$outputCache-&gt;start('mySimpleViewScript');
-include '/path/to/view/script.phtml';
-$outputCache-&gt;end();</code></pre>
+$pool = new CacheItemPoolDecorator($storage);
+
+// attempt to get an item from cache
+$item = $pool-&gt;getItem('foo');
+
+// check whether item was found
+if (! $item-&gt;isHit()) {
+    // ...
+    // perform expensive operation to calculate $value for 'foo'
+    // ...
+
+    $item-&gt;set($value);
+    $pool-&gt;save($item);
+}
+
+// use the value of the item
+echo $item-&gt;get();</code></pre>
+
+<p>Note that you will always get back a <code>CacheItem</code> object, whether it was found in cache or not: this is so <code>false</code>-y
+values like an empty string, <code>null</code>, or <code>false</code> can be stored. Always check <code>isHit()</code> to determine if the item was
+found.</p>
+<h2 id="supported-adapters">Supported adapters</h2>
+<p>The PSR-6 specification requires that the underlying storage support time-to-live (TTL), which is set when the
+item is saved. For this reason the following adapters cannot be used: <code>Dba</code>, <code>Filesystem</code>, <code>Memory</code> and <code>Session</code>. The
+<code>XCache</code> adapter calculates TTLs based on the request time, not the time the item is actually persisted, which means
+that it also cannot be used.</p>
+<p>In addition adapters must support the <code>Zend\Cache\FlushableInterface</code>. All the current <code>Zend\Cache\Storage\Adapter</code>s
+fulfil this requirement.</p>
+<p>Attempting to use an unsupported adapter will throw an exception implementing <code>Psr\Cache\CacheException</code>.</p>
+<p>The <code>Zend\Cache\Psr\CacheItemPool\CacheItemPoolDecorator</code> adapter doesn't support driver deferred saves, so cache items are saved
+on destruct or on explicit <code>commit()</code> call.</p>
+<h3 id="quirks">Quirks</h3>
+<h4 id="apc">APC</h4>
+<p>You cannot set the <a href="http://php.net/manual/en/apc.configuration.php#ini.apc.use-request-time"><code>apc.use_request_time</code></a>
+ini setting with the APC adapter: the specification requires that all TTL values are calculated from when the item is
+actually saved to storage. If this is set when you instantiate the pool it will throw an exception implementing
+<code>Psr\Cache\CacheException</code>. Changing the setting after you have instantiated the pool will result in non-standard
+behaviour.</p>
+<h2 id="logging-errors">Logging errors</h2>
+<p>The specification <a href="https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-6-cache.md#error-handling">states</a>:</p>
+<blockquote>
+<p>While caching is often an important part of application performance, it should never be a critical part of application
+functionality. Thus, an error in a cache system SHOULD NOT result in application failure.</p>
+</blockquote>
+<p>Once you've got your pool instance, almost all exceptions thrown by the storage will be caught and ignored. The only
+storage exceptions that bubble up implement <code>Psr\Cache\InvalidArgumentException</code> and are typically caused by invalid
+key errors. To be PSR-6 compliant, cache keys must not contain the following characters: <code>{}()/\@:</code>. However different
+storage adapters may have further restrictions. Check the documentation for your particular adapter to be sure.</p>
+<p>We strongly recommend tracking exceptions caught from storage, either by logging them or recording them in some other
+way. Doing so is as simple as adding an <a href="../zend.cache.storage.plugin.html#3.4"><code>ExceptionHandler</code> plugin</a>. Say you have a
+<a href="https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-3-logger-interface.md">PSR-3</a> compliant logger
+called <code>$logger</code>:</p>
+<pre class="codehilite"><code class="language-php">$cacheLogger = function (\Exception $e) use ($logger) {
+    $message = sprintf(
+        '[CACHE] %s:%s %s &quot;%s&quot;',
+        $exception-&gt;getFile(),
+        $exception-&gt;getLine(),
+        $exception-&gt;getCode(),
+        $exception-&gt;getMessage()
+    );
+    $logger-&gt;error($message);
+};
+                                }
+$storage = StorageFactory::factory([
+    'adapter' =&gt; [
+        'name'    =&gt; 'apc',
+    ],
+    'plugins' =&gt; [
+        'exceptionhandler' =&gt; [
+            'exception_callback' =&gt; $cacheLogger,
+            'throw_exceptions' =&gt; true,
+        ],
+    ],
+]);
+
+$pool = new CacheItemPoolDecorator($storage);</code></pre>
+
+<p>Note that <code>throw_exceptions</code> should always be <code>true</code> (the default) or you will not get the correct return values from
+calls on the pool such as <code>save()</code>.</p>
+<h2 id="supported-data-types">Supported data types</h2>
+<p>As per <a href="https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-6-cache.md#data">the specification</a>, the
+following data types can be stored in cache: <code>string</code>, <code>integer</code>, <code>float</code>, <code>boolean</code>, <code>null</code>, <code>array</code>, <code>object</code> and be
+returned as a value with exactly the same type.</p>
+<p>Not all adapters can natively store all these types. For instance, Redis stores booleans and integers as a string. Where
+this is the case <em>all</em> values will be automatically run through <code>serialize()</code> on save and <code>unserialize()</code> on get: you
+do not need to use a <code>Zend\Cache\Storage\Plugin\Serializer</code> plugin.</p>
 
 <hr />
 
@@ -325,10 +368,10 @@ $outputCache-&gt;end();</code></pre>
 <nav>
   <ul class="pager hidden-print">
     <li class="previous">
-      <a rel="prev" href="../object-cache/"><i class="fa fa-arrow-left"></i> Previous</a>
+      <a rel="prev" href="../pattern/capture-cache/"><i class="fa fa-arrow-left"></i> Previous</a>
     </li>
     <li class="next">
-      <a rel="next" href="../capture-cache/">Next <i class="fa fa-arrow-right"></i></a>
+      <a rel="next" href="../psr16/">Next <i class="fa fa-arrow-right"></i></a>
     </li>
   </ul>
 </nav>
@@ -383,11 +426,11 @@ $outputCache-&gt;end();</code></pre>
 
     <script src="https://cdn.jsdelivr.net/npm/jquery@2.2.4/dist/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
-    <script>var base_url = '../..';</script>
-    <script src="../../js/scripts-0b6185f4a5.js"></script>
-    <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
-        <script src="../../search/require.js"></script>
-        <script src="../../search/search.js"></script>
+    <script>var base_url = '..';</script>
+    <script src="../js/scripts-0b6185f4a5.js"></script>
+    <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
+        <script src="../search/require.js"></script>
+        <script src="../search/search.js"></script>
 
     <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
         <div class="modal-dialog">
@@ -419,7 +462,7 @@ $outputCache-&gt;end();</code></pre>
     <div class="zf-components">
   <div class="zf-components-grid">
     <div class="zf-logo">
-      <a href="https://framework.zend.com" data-toggle="tooltip" data-placement="bottom" title="Go to the ZF homepage"><img src="../../img/zf-logo-mark.svg" alt="Zend Framework" width="250" /></a>
+      <a href="https://framework.zend.com" data-toggle="tooltip" data-placement="bottom" title="Go to the ZF homepage"><img src="../img/zf-logo-mark.svg" alt="Zend Framework" width="250" /></a>
     </div>
 
     <div class="component-list"></div>

@@ -44,7 +44,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 ### Fixed
 
-- Nothing.
+- [#165](https://github.com/zendframework/zend-cache/issues/165) On not found any cache entry the `$success` attribute is `false`.
 
 ## 2.8.0 - 2018-04-24
 

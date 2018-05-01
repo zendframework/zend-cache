@@ -4,7 +4,7 @@
     
     <url>
      <loc>/</loc>
-     <lastmod>2018-04-26</lastmod>
+     <lastmod>2018-05-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -13,19 +13,19 @@
         
     <url>
      <loc>/storage/adapter/</loc>
-     <lastmod>2018-04-26</lastmod>
+     <lastmod>2018-05-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/storage/capabilities/</loc>
-     <lastmod>2018-04-26</lastmod>
+     <lastmod>2018-05-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/storage/plugin/</loc>
-     <lastmod>2018-04-26</lastmod>
+     <lastmod>2018-05-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
@@ -35,37 +35,37 @@
         
     <url>
      <loc>/pattern/intro/</loc>
-     <lastmod>2018-04-26</lastmod>
+     <lastmod>2018-05-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/pattern/callback-cache/</loc>
-     <lastmod>2018-04-26</lastmod>
+     <lastmod>2018-05-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/pattern/class-cache/</loc>
-     <lastmod>2018-04-26</lastmod>
+     <lastmod>2018-05-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/pattern/object-cache/</loc>
-     <lastmod>2018-04-26</lastmod>
+     <lastmod>2018-05-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/pattern/output-cache/</loc>
-     <lastmod>2018-04-26</lastmod>
+     <lastmod>2018-05-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/pattern/capture-cache/</loc>
-     <lastmod>2018-04-26</lastmod>
+     <lastmod>2018-05-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
@@ -75,13 +75,13 @@
         
     <url>
      <loc>/psr6/</loc>
-     <lastmod>2018-04-26</lastmod>
+     <lastmod>2018-05-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
     <url>
      <loc>/psr16/</loc>
-     <lastmod>2018-04-26</lastmod>
+     <lastmod>2018-05-01</lastmod>
      <changefreq>daily</changefreq>
     </url>
         

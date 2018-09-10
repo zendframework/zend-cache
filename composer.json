@@ -51,7 +51,8 @@
     },
     "autoload": {
         "files": [
-            "autoload/patternPluginManagerPolyfill.php"
+            "autoload/patternPluginManagerPolyfill.php",
+            "autoload/adapterPluginManagerPolyfill.php"
         ],
         "psr-4": {
             "Zend\\Cache\\": "src/"

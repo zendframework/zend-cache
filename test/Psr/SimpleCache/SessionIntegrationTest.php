@@ -11,6 +11,7 @@ use Cache\IntegrationTests\SimpleCacheTest;
 use Zend\Cache\Psr\SimpleCache\SimpleCacheDecorator;
 use Zend\Cache\StorageFactory;
 use Zend\Session\Container as SessionContainer;
+use Zend\Stdlib\ErrorHandler;
 
 class SessionIntegrationTest extends SimpleCacheTest
 {
@@ -28,6 +29,8 @@ class SessionIntegrationTest extends SimpleCacheTest
         $this->skippedTests['testObjectDoesNotChangeInCache'] =
             'Session adapter stores objects in memory; so change in references is possible';
 
+        ErrorHandler::start(E_USER_DEPRECATED);
+
         parent::setUp();
     }
 
@@ -39,6 +42,8 @@ class SessionIntegrationTest extends SimpleCacheTest
 
         $_SESSION = [];
         SessionContainer::setDefaultManager(null);
+
+        ErrorHandler::clean();
 
         parent::tearDown();
     }

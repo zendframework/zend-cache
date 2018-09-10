@@ -15,6 +15,7 @@ use Zend\Cache\Storage\AdapterPluginManager;
 use Zend\Cache\Storage\Adapter\BlackHole;
 use Zend\Cache\StorageFactory;
 use Zend\ServiceManager\ServiceManager;
+use Zend\Stdlib\ErrorHandler;
 
 /**
  * PHPUnit test case
@@ -36,9 +37,16 @@ class BlackHoleTest extends TestCase
      */
     protected $storage;
 
-    public function setUp()
+    protected function setUp()
     {
+        ErrorHandler::start(E_USER_DEPRECATED);
         $this->storage = StorageFactory::adapterFactory('BlackHole');
+    }
+
+    protected function tearDown()
+    {
+        ErrorHandler::clean();
+        parent::tearDown();
     }
 
     /**

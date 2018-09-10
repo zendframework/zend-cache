@@ -11,9 +11,22 @@ use PHPUnit\Framework\TestCase;
 use Zend\Cache\Psr\CacheItemPool\CacheItemPoolDecorator;
 use Zend\Cache\Storage\Plugin\Serializer;
 use Zend\Cache\StorageFactory;
+use Zend\Stdlib\ErrorHandler;
 
 class FilesystemIntegrationTest extends TestCase
 {
+    protected function setUp()
+    {
+        ErrorHandler::start(E_USER_DEPRECATED);
+        parent::setUp();
+    }
+
+    protected function tearDown()
+    {
+        ErrorHandler::clean();
+        parent::tearDown();
+    }
+
     /**
      * @expectedException \Zend\Cache\Psr\CacheItemPool\CacheException
      */

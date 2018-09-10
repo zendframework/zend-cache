@@ -3,6 +3,7 @@
 namespace ZendBench\Cache;
 
 use Zend\Cache\StorageFactory;
+use Zend\Stdlib\ErrorHandler;
 
 /**
  * @Revs(100)
@@ -27,9 +28,11 @@ class FilesystemStorageAdapterBench extends CommonStorageAdapterBench
             $this->fail("Can't create temporary cache directory: {$err['message']}");
         }
 
+        ErrorHandler::start(E_USER_DEPRECATED);
         $this->storage = StorageFactory::adapterFactory('filesystem', [
             'cache_dir' => $this->tmpCacheDir,
         ]);
+        ErrorHandler::clean();
 
         parent::__construct();
     }

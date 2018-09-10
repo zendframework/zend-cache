@@ -14,6 +14,7 @@ use Zend\Cache\Storage\Adapter\ExtMongoDb;
 use Zend\Cache\StorageFactory;
 use Zend\Cache\Exception;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
+use Zend\Stdlib\ErrorHandler;
 
 class ExtMongoDbIntegrationTest extends CachePoolTest
 {
@@ -21,7 +22,7 @@ class ExtMongoDbIntegrationTest extends CachePoolTest
      * Backup default timezone
      * @var string
      */
-    private $tz;
+    private $tz = 'UTC';
 
     /**
      * @var ExtMongoDb
@@ -30,6 +31,8 @@ class ExtMongoDbIntegrationTest extends CachePoolTest
 
     protected function setUp()
     {
+        ErrorHandler::start(E_USER_DEPRECATED);
+
         if (! getenv('TESTS_ZEND_CACHE_EXTMONGODB_ENABLED')) {
             $this->markTestSkipped('Enable TESTS_ZEND_CACHE_EXTMONGODB_ENABLED to run this test');
         }
@@ -39,7 +42,7 @@ class ExtMongoDbIntegrationTest extends CachePoolTest
         }
 
         // set non-UTC timezone
-        $this->tz = date_default_timezone_get();
+        $this->tz = date_default_timezone_get() ?: 'UTC';
         date_default_timezone_set('America/Vancouver');
 
         parent::setUp();
@@ -52,7 +55,7 @@ class ExtMongoDbIntegrationTest extends CachePoolTest
         if ($this->storage) {
             $this->storage->flush();
         }
-
+        ErrorHandler::clean();
         parent::tearDown();
     }
 

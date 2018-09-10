@@ -10,9 +10,23 @@ namespace ZendTest\Cache\Psr\CacheItemPool;
 use PHPUnit\Framework\TestCase;
 use Zend\Cache\Psr\CacheItemPool\CacheItemPoolDecorator;
 use Zend\Cache\StorageFactory;
+use Zend\Stdlib\ErrorHandler;
 
 class MemoryIntegrationTest extends TestCase
 {
+    protected function setUp()
+    {
+        ErrorHandler::start(E_USER_DEPRECATED);
+
+        parent::setUp();
+    }
+
+    protected function tearDown()
+    {
+        ErrorHandler::clean();
+        parent::tearDown();
+    }
+
     /**
      * The memory adapter calculates the TTL on reading which violates PSR-6
      *

@@ -12,9 +12,22 @@ use Zend\Cache\Psr\CacheItemPool\CacheItemPoolDecorator;
 use Zend\Cache\StorageFactory;
 use Zend\Cache\Exception;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
+use Zend\Stdlib\ErrorHandler;
 
 class DbaIntegrationTest extends TestCase
 {
+    protected function setUp()
+    {
+        ErrorHandler::start(E_USER_DEPRECATED);
+        parent::setUp();
+    }
+
+    protected function tearDown()
+    {
+        ErrorHandler::clean();
+        parent::tearDown();
+    }
+
     /**
      * The DBA adapter doesn't support TTL
      *

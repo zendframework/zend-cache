@@ -55,5 +55,7 @@
         <env name="TESTS_ZEND_CACHE_REDIS_PORT" value="6379" />
         <env name="TESTS_ZEND_CACHE_REDIS_PASSWORD" value="" />
         <env name="TESTS_ZEND_CACHE_REDIS_DATABASE" value="false" />
+
+        <ini name="date.timezone" value="UTC"/>
     </php>
 </phpunit>

@@ -12,6 +12,7 @@ use Zend\Cache\Exception\ExtensionNotLoadedException;
 use Zend\Cache\Psr\SimpleCache\SimpleCacheDecorator;
 use Zend\Cache\StorageFactory;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
+use Zend\Stdlib\ErrorHandler;
 
 class ApcuIntegrationTest extends SimpleCacheTest
 {
@@ -19,7 +20,7 @@ class ApcuIntegrationTest extends SimpleCacheTest
      * Backup default timezone
      * @var string
      */
-    private $tz;
+    private $tz = 'UTC';
 
     /**
      * Restore 'apc.use_request_time'
@@ -35,12 +36,14 @@ class ApcuIntegrationTest extends SimpleCacheTest
         }
 
         // set non-UTC timezone
-        $this->tz = date_default_timezone_get();
+        $this->tz = date_default_timezone_get() ?: 'UTC';
         date_default_timezone_set('America/Vancouver');
 
         // needed on test expirations
         $this->iniUseRequestTime = ini_get('apc.use_request_time');
         ini_set('apc.use_request_time', 0);
+
+        ErrorHandler::start(E_USER_DEPRECATED);
 
         parent::setUp();
     }
@@ -56,6 +59,7 @@ class ApcuIntegrationTest extends SimpleCacheTest
         // reset ini configurations
         ini_set('apc.use_request_time', $this->iniUseRequestTime);
 
+        ErrorHandler::clean();
         parent::tearDown();
     }
 

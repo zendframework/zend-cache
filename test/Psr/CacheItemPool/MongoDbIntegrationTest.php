@@ -14,6 +14,7 @@ use Zend\Cache\Storage\Plugin\Serializer;
 use Zend\Cache\StorageFactory;
 use Zend\Cache\Exception;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
+use Zend\Stdlib\ErrorHandler;
 
 class MongoDbIntegrationTest extends CachePoolTest
 {
@@ -21,7 +22,7 @@ class MongoDbIntegrationTest extends CachePoolTest
      * Backup default timezone
      * @var string
      */
-    private $tz;
+    private $tz = 'UTC';
 
     /**
      * @var MongoDb
@@ -35,8 +36,10 @@ class MongoDbIntegrationTest extends CachePoolTest
         }
 
         // set non-UTC timezone
-        $this->tz = date_default_timezone_get();
+        $this->tz = date_default_timezone_get() ?: 'UTC';
         date_default_timezone_set('America/Vancouver');
+
+        ErrorHandler::start(E_USER_DEPRECATED);
 
         parent::setUp();
     }
@@ -48,6 +51,8 @@ class MongoDbIntegrationTest extends CachePoolTest
         if ($this->storage) {
             $this->storage->flush();
         }
+
+        ErrorHandler::clean();
 
         parent::tearDown();
     }

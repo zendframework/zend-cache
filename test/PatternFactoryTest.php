@@ -10,7 +10,6 @@
 namespace ZendTest\Cache;
 
 use const E_USER_DEPRECATED;
-use ErrorException;
 use PHPUnit\Framework\TestCase;
 use Zend\Cache;
 use Zend\Stdlib\ErrorHandler;
@@ -57,14 +56,5 @@ class PatternFactoryTest extends TestCase
         $this->assertInstanceOf('Zend\Cache\Pattern\CaptureCache', $pattern2);
 
         $this->assertNotSame($pattern1, $pattern2);
-    }
-
-    public function testWillTriggerDeprecationError()
-    {
-        Cache\PatternFactory::factory('capture');
-        $error = ErrorHandler::stop();
-
-        $this->assertInstanceOf(ErrorException::class, $error);
-        $this->assertSame(E_USER_DEPRECATED, $error->getSeverity());
     }
 }

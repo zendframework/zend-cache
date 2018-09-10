@@ -9,18 +9,23 @@
 
 namespace ZendTest\Cache;
 
+use const E_USER_DEPRECATED;
+use ErrorException;
 use PHPUnit\Framework\TestCase;
 use Zend\Cache;
 use Zend\ServiceManager\ServiceManager;
+use Zend\Stdlib\ErrorHandler;
 
 /**
  * @group      Zend_Cache
  * @covers Zend\Cache\StorageFactory
+ * @covers Zend\Cache\Storage\StorageFactory
  */
 class StorageFactoryTest extends TestCase
 {
     public function setUp()
     {
+        ErrorHandler::start(E_USER_DEPRECATED);
         Cache\StorageFactory::resetAdapterPluginManager();
         Cache\StorageFactory::resetPluginManager();
     }
@@ -29,6 +34,7 @@ class StorageFactoryTest extends TestCase
     {
         Cache\StorageFactory::resetAdapterPluginManager();
         Cache\StorageFactory::resetPluginManager();
+        ErrorHandler::clean();
     }
 
     public function testDefaultAdapterPluginManager()
@@ -205,5 +211,15 @@ class StorageFactoryTest extends TestCase
                     $this->fail("Unexpected plugin class '{$pluginClass}'");
             }
         }
+    }
+
+    public function testWillTriggerUserDeprecatedOnUsage()
+    {
+        Cache\StorageFactory::factory([
+            'adapter' => 'Memory',
+        ]);
+        $error = ErrorHandler::stop();
+        $this->assertInstanceOf(ErrorException::class, $error);
+        $this->assertSame(E_USER_DEPRECATED, $error->getSeverity());
     }
 }

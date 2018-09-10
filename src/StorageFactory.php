@@ -10,10 +10,11 @@
 namespace Zend\Cache;
 
 use Traversable;
-use Zend\EventManager\EventsCapableInterface;
-use Zend\Stdlib\ArrayUtils;
 use Zend\ServiceManager\ServiceManager;
 
+/**
+ * @deprecated static factories are deprecated as of zendframework 2.9 and may be removed in future major versions.
+ */
 abstract class StorageFactory
 {
     /**
@@ -37,97 +38,18 @@ abstract class StorageFactory
      * @param array|Traversable $cfg
      * @return Storage\StorageInterface
      * @throws Exception\InvalidArgumentException
+     * @deprecated static factories are deprecated as of zendframework 2.9 and may be removed in future major versions.
      */
     public static function factory($cfg)
     {
-        if ($cfg instanceof Traversable) {
-            $cfg = ArrayUtils::iteratorToArray($cfg);
-        }
+        trigger_error(sprintf(
+            '%s is deprecated; please use %s::createFromCachesConfig instead',
+            __METHOD__,
+            Storage\StorageFactory::class
+        ), E_USER_DEPRECATED);
 
-        if (! is_array($cfg)) {
-            throw new Exception\InvalidArgumentException(
-                'The factory needs an associative array '
-                . 'or a Traversable object as an argument'
-            );
-        }
-
-        // instantiate the adapter
-        if (! isset($cfg['adapter'])) {
-            throw new Exception\InvalidArgumentException('Missing "adapter"');
-        }
-        $adapterName    = $cfg['adapter'];
-        $adapterOptions = [];
-        if (is_array($cfg['adapter'])) {
-            if (! isset($cfg['adapter']['name'])) {
-                throw new Exception\InvalidArgumentException('Missing "adapter.name"');
-            }
-
-            $adapterName    = $cfg['adapter']['name'];
-            $adapterOptions = isset($cfg['adapter']['options']) ? $cfg['adapter']['options'] : [];
-        }
-        if (isset($cfg['options'])) {
-            $adapterOptions = array_merge($adapterOptions, $cfg['options']);
-        }
-
-        $adapter = static::adapterFactory((string) $adapterName, $adapterOptions);
-
-        // add plugins
-        if (isset($cfg['plugins'])) {
-            if (! $adapter instanceof EventsCapableInterface) {
-                throw new Exception\RuntimeException(sprintf(
-                    "The adapter '%s' doesn't implement '%s' and therefore can't handle plugins",
-                    get_class($adapter),
-                    'Zend\EventManager\EventsCapableInterface'
-                ));
-            }
-
-            if (! is_array($cfg['plugins'])) {
-                throw new Exception\InvalidArgumentException(
-                    'Plugins needs to be an array'
-                );
-            }
-
-            foreach ($cfg['plugins'] as $k => $v) {
-                $pluginPrio = 1; // default priority
-
-                if (is_string($k)) {
-                    if (! is_array($v)) {
-                        throw new Exception\InvalidArgumentException(
-                            "'plugins.{$k}' needs to be an array"
-                        );
-                    }
-                    $pluginName    = $k;
-                    $pluginOptions = $v;
-                } elseif (is_array($v)) {
-                    if (! isset($v['name'])) {
-                        throw new Exception\InvalidArgumentException(
-                            "Invalid plugins[{$k}] or missing plugins[{$k}].name"
-                        );
-                    }
-                    $pluginName = (string) $v['name'];
-
-                    if (isset($v['options'])) {
-                        $pluginOptions = $v['options'];
-                    } else {
-                        $pluginOptions = [];
-                    }
-
-                    if (isset($v['priority'])) {
-                        $pluginPrio = $v['priority'];
-                    }
-                } else {
-                    $pluginName    = $v;
-                    $pluginOptions = [];
-                }
-
-                $plugin = static::pluginFactory($pluginName, $pluginOptions);
-                if (! $adapter->hasPlugin($plugin)) {
-                    $adapter->addPlugin($plugin, $pluginPrio);
-                }
-            }
-        }
-
-        return $adapter;
+        return (new Storage\StorageFactory(static::getAdapterPluginManager(), static::getPluginManager()))
+            ->createFromCachesConfig($cfg);
     }
 
     /**
@@ -137,13 +59,19 @@ abstract class StorageFactory
      * @param  array|Traversable|Storage\Adapter\AdapterOptions $options
      * @return Storage\StorageInterface
      * @throws Exception\RuntimeException
+     * @deprecated static factories are deprecated as of zendframework 2.9 and may be removed in future major versions.
      */
     public static function adapterFactory($adapterName, $options = [])
     {
-        if ($adapterName instanceof Storage\StorageInterface) {
-            // $adapterName is already an adapter object
-            $adapter = $adapterName;
-        } else {
+        trigger_error(sprintf(
+            '%s is deprecated; please use %s::get instead',
+            __METHOD__,
+            Storage\AdapterPluginManager::class
+        ), E_USER_DEPRECATED);
+
+        $adapter = $adapterName;
+
+        if (!$adapterName instanceof Storage\StorageInterface) {
             $adapter = static::getAdapterPluginManager()->get($adapterName);
         }
 
@@ -158,9 +86,15 @@ abstract class StorageFactory
      * Get the adapter plugin manager
      *
      * @return Storage\AdapterPluginManager
+     * @deprecated static factories are deprecated as of zendframework 2.9 and may be removed in future major versions.
      */
     public static function getAdapterPluginManager()
     {
+        trigger_error(sprintf(
+            '%s is deprecated',
+            __METHOD__
+        ), E_USER_DEPRECATED);
+
         if (static::$adapters === null) {
             static::$adapters = new Storage\AdapterPluginManager(new ServiceManager);
         }
@@ -172,9 +106,15 @@ abstract class StorageFactory
      *
      * @param  Storage\AdapterPluginManager $adapters
      * @return void
+     * @deprecated static factories are deprecated as of zendframework 2.9 and may be removed in future major versions.
      */
     public static function setAdapterPluginManager(Storage\AdapterPluginManager $adapters)
     {
+        trigger_error(sprintf(
+            '%s is deprecated',
+            __METHOD__
+        ), E_USER_DEPRECATED);
+
         static::$adapters = $adapters;
     }
 
@@ -182,9 +122,15 @@ abstract class StorageFactory
      * Resets the internal adapter plugin manager
      *
      * @return void
+     * @deprecated static factories are deprecated as of zendframework 2.9 and may be removed in future major versions.
      */
     public static function resetAdapterPluginManager()
     {
+        trigger_error(sprintf(
+            '%s is deprecated',
+            __METHOD__
+        ), E_USER_DEPRECATED);
+
         static::$adapters = null;
     }
 
@@ -195,14 +141,19 @@ abstract class StorageFactory
      * @param array|Traversable|Storage\Plugin\PluginOptions $options
      * @return Storage\Plugin\PluginInterface
      * @throws Exception\RuntimeException
+     * @deprecated static factories are deprecated as of zendframework 2.9 and may be removed in future major versions.
      */
     public static function pluginFactory($pluginName, $options = [])
     {
-        if ($pluginName instanceof Storage\Plugin\PluginInterface) {
-            // $pluginName is already a plugin object
-            $plugin = $pluginName;
-        } else {
-            $plugin = static::getPluginManager()->get($pluginName);
+        trigger_error(sprintf(
+            '%s is deprecated; please use %s::get instead',
+            __METHOD__,
+            Storage\PluginManager::class
+        ), E_USER_DEPRECATED);
+
+        $plugin = $pluginName;
+        if (!$pluginName instanceof Storage\Plugin\PluginInterface) {
+            $plugin = self::getPluginManager()->get($pluginName);
         }
 
         if ($options) {
@@ -219,9 +170,15 @@ abstract class StorageFactory
      * Get the plugin manager
      *
      * @return Storage\PluginManager
+     * @deprecated static factories are deprecated as of zendframework 2.9 and may be removed in future major versions.
      */
     public static function getPluginManager()
     {
+        trigger_error(sprintf(
+            '%s is deprecated',
+            __METHOD__
+        ), E_USER_DEPRECATED);
+
         if (static::$plugins === null) {
             static::$plugins = new Storage\PluginManager(new ServiceManager);
         }
@@ -233,9 +190,15 @@ abstract class StorageFactory
      *
      * @param  Storage\PluginManager $plugins
      * @return void
+     * @deprecated static factories are deprecated as of zendframework 2.9 and may be removed in future major versions.
      */
     public static function setPluginManager(Storage\PluginManager $plugins)
     {
+        trigger_error(sprintf(
+            '%s is deprecated',
+            __METHOD__
+        ), E_USER_DEPRECATED);
+
         static::$plugins = $plugins;
     }
 
@@ -243,9 +206,15 @@ abstract class StorageFactory
      * Resets the internal plugin manager
      *
      * @return void
+     * @deprecated static factories are deprecated as of zendframework 2.9 and may be removed in future major versions.
      */
     public static function resetPluginManager()
     {
+        trigger_error(sprintf(
+            '%s is deprecated',
+            __METHOD__
+        ), E_USER_DEPRECATED);
+
         static::$plugins = null;
     }
 }

@@ -13,6 +13,7 @@ use Interop\Container\ContainerInterface;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Zend\Cache\Service\StorageCacheAbstractServiceFactory;
+use Zend\Cache\Storage\Plugin\Serializer;
 use Zend\Cache\StorageFactory;
 use Zend\Cache\Storage\AdapterPluginManager;
 use Zend\Cache\Storage\Adapter\AbstractAdapter;
@@ -22,6 +23,7 @@ use Zend\Cache\Storage\Plugin\PluginInterface;
 use Zend\Cache\Storage\StorageInterface;
 use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
+use Zend\Stdlib\ErrorHandler;
 
 /**
  * @covers Zend\Cache\StorageFactory<extended>
@@ -32,8 +34,10 @@ class StorageCacheAbstractServiceFactoryTest extends TestCase
 
     public function setUp()
     {
+        ErrorHandler::start(E_USER_DEPRECATED);
         StorageFactory::resetAdapterPluginManager();
         StorageFactory::resetPluginManager();
+        $this->sm = new ServiceManager();
         $config = [
             'services' => [
                 'config' => [
@@ -51,9 +55,8 @@ class StorageCacheAbstractServiceFactoryTest extends TestCase
             ],
             'abstract_factories' => [
                 StorageCacheAbstractServiceFactory::class
-            ]
+            ],
         ];
-        $this->sm = new ServiceManager();
         (new Config($config))->configureServiceManager($this->sm);
     }
 
@@ -61,6 +64,7 @@ class StorageCacheAbstractServiceFactoryTest extends TestCase
     {
         StorageFactory::resetAdapterPluginManager();
         StorageFactory::resetPluginManager();
+        ErrorHandler::clean();
     }
 
     public function testCanLookupCacheByName()
@@ -94,7 +98,7 @@ class StorageCacheAbstractServiceFactoryTest extends TestCase
         $adapter->addPlugin(Argument::any(), Argument::any())->shouldNotBeCalled();
 
         $adapterPluginManager = $this->prophesize(AdapterPluginManager::class);
-        $adapterPluginManager->get('Memory')->willReturn($adapter->reveal());
+        $adapterPluginManager->get('Memory', [])->willReturn($adapter->reveal());
 
         $container = $this->prophesize(ContainerInterface::class);
         $container->has(AdapterPluginManager::class)->willReturn(true);
@@ -117,7 +121,7 @@ class StorageCacheAbstractServiceFactoryTest extends TestCase
         $plugin->setOptions(Argument::any())->shouldNotBeCalled();
 
         $pluginManager = $this->prophesize(PluginManager::class);
-        $pluginManager->get('Serializer')->willReturn($plugin->reveal());
+        $pluginManager->get('Serializer', [])->willReturn($plugin->reveal());
 
         $adapter = $this->prophesize(AbstractAdapter::class);
         $adapter->willImplement(StorageInterface::class);
@@ -126,7 +130,7 @@ class StorageCacheAbstractServiceFactoryTest extends TestCase
         $adapter->addPlugin($plugin->reveal(), Argument::any())->shouldBeCalled();
 
         $adapterPluginManager = $this->prophesize(AdapterPluginManager::class);
-        $adapterPluginManager->get('Memory')->willReturn($adapter->reveal());
+        $adapterPluginManager->get('Memory', [])->willReturn($adapter->reveal());
 
         $container = $this->prophesize(ContainerInterface::class);
         $container->has(AdapterPluginManager::class)->willReturn(true);
@@ -143,6 +147,7 @@ class StorageCacheAbstractServiceFactoryTest extends TestCase
         ]);
 
         $factory = new StorageCacheAbstractServiceFactory();
+        /** @var Memory $storage */
         $factory($container->reveal(), 'Cache');
         $this->assertSame($pluginManager->reveal(), StorageFactory::getPluginManager());
     }

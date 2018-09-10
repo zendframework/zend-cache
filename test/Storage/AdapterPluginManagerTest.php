@@ -54,4 +54,18 @@ class AdapterPluginManagerTest extends TestCase
     {
         return StorageInterface::class;
     }
+
+    public function testOptionsWillBeSet()
+    {
+        $options = [
+            'readable' => false,
+            'ttl' => 9999,
+            'namespace' => 'test',
+        ];
+
+        $storage = $this->getPluginManager()->get('Memory', $options);
+
+        $adapterOptions = $storage->getOptions();
+        $this->assertArraySubset($options, $adapterOptions->toArray());
+    }
 }

@@ -22,6 +22,7 @@ use Zend\Cache\Storage\Plugin\PluginInterface;
 use Zend\Cache\Storage\StorageInterface;
 use Zend\ServiceManager\Config;
 use Zend\ServiceManager\ServiceManager;
+use Zend\Stdlib\ErrorHandler;
 
 /**
  * @covers Zend\Cache\Service\StorageCacheFactory
@@ -32,6 +33,7 @@ class StorageCacheFactoryTest extends TestCase
 
     public function setUp()
     {
+        ErrorHandler::start(E_USER_DEPRECATED);
         StorageFactory::resetAdapterPluginManager();
         StorageFactory::resetPluginManager();
         $config = [
@@ -55,6 +57,7 @@ class StorageCacheFactoryTest extends TestCase
     {
         StorageFactory::resetAdapterPluginManager();
         StorageFactory::resetPluginManager();
+        ErrorHandler::clean();
     }
 
     public function testCreateServiceCache()
@@ -72,7 +75,7 @@ class StorageCacheFactoryTest extends TestCase
         $adapter->addPlugin(Argument::any(), Argument::any())->shouldNotBeCalled();
 
         $adapterPluginManager = $this->prophesize(AdapterPluginManager::class);
-        $adapterPluginManager->get('Memory')->willReturn($adapter->reveal());
+        $adapterPluginManager->get('Memory', [])->willReturn($adapter->reveal());
 
         $container = $this->prophesize(ContainerInterface::class);
         $container->has(AdapterPluginManager::class)->willReturn(true);
@@ -95,7 +98,7 @@ class StorageCacheFactoryTest extends TestCase
         $plugin->setOptions(Argument::any())->shouldNotBeCalled();
 
         $pluginManager = $this->prophesize(PluginManager::class);
-        $pluginManager->get('Serializer')->willReturn($plugin->reveal());
+        $pluginManager->get('Serializer', [])->willReturn($plugin->reveal());
 
         $adapter = $this->prophesize(AbstractAdapter::class);
         $adapter->willImplement(StorageInterface::class);
@@ -104,7 +107,7 @@ class StorageCacheFactoryTest extends TestCase
         $adapter->addPlugin($plugin->reveal(), Argument::any())->shouldBeCalled();
 
         $adapterPluginManager = $this->prophesize(AdapterPluginManager::class);
-        $adapterPluginManager->get('Memory')->willReturn($adapter->reveal());
+        $adapterPluginManager->get('Memory', [])->willReturn($adapter->reveal());
 
         $container = $this->prophesize(ContainerInterface::class);
         $container->has(AdapterPluginManager::class)->willReturn(true);

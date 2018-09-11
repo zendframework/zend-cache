@@ -47,7 +47,7 @@ class StorageFactoryFactoryTest extends TestCase
 
     public function testFactoryCreatesServiceV3()
     {
-        if (!method_exists(new ServiceManager(), 'configure')) {
+        if (! method_exists(new ServiceManager(), 'configure')) {
             $this->markTestSkipped('Test is only needed in ZF3');
         }
 

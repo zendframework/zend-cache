@@ -47,7 +47,7 @@ final class StorageFactory
             $config = ArrayUtils::iteratorToArray($config);
         }
 
-        if (!is_array($config)) {
+        if (! is_array($config)) {
             throw new Exception\InvalidArgumentException(
                 'The factory needs an associative array '
                 . 'or a Traversable object as an argument'
@@ -55,13 +55,13 @@ final class StorageFactory
         }
 
         // instantiate the adapter
-        if (!isset($config['adapter'])) {
+        if (! isset($config['adapter'])) {
             throw new Exception\InvalidArgumentException('Missing "adapter"');
         }
         $adapterName = $config['adapter'];
         $adapterOptions = [];
         if (is_array($config['adapter'])) {
-            if (!isset($config['adapter']['name'])) {
+            if (! isset($config['adapter']['name'])) {
                 throw new Exception\InvalidArgumentException('Missing "adapter.name"');
             }
 
@@ -76,7 +76,7 @@ final class StorageFactory
 
         // add plugins
         if (isset($config['plugins'])) {
-            if (!is_array($config['plugins'])) {
+            if (! is_array($config['plugins'])) {
                 throw new Exception\InvalidArgumentException(
                     'Plugins needs to be an array'
                 );
@@ -105,7 +105,7 @@ final class StorageFactory
             return $adapter;
         }
 
-        if (!$adapter instanceof EventsCapableInterface) {
+        if (! $adapter instanceof EventsCapableInterface) {
             throw new Exception\RuntimeException(sprintf(
                 "The adapter '%s' doesn't implement '%s' and therefore can't handle plugins",
                 get_class($adapter),
@@ -117,7 +117,7 @@ final class StorageFactory
             $pluginPrio = 1; // default priority
 
             if (is_string($k)) {
-                if (!is_array($v)) {
+                if (! is_array($v)) {
                     throw new Exception\InvalidArgumentException(
                         "'plugins.{$k}' needs to be an array"
                     );
@@ -125,7 +125,7 @@ final class StorageFactory
                 $pluginName = $k;
                 $pluginOptions = $v;
             } elseif (is_array($v)) {
-                if (!isset($v['name'])) {
+                if (! isset($v['name'])) {
                     throw new Exception\InvalidArgumentException(
                         "Invalid plugins[{$k}] or missing plugins[{$k}].name"
                     );
@@ -147,7 +147,7 @@ final class StorageFactory
             }
 
             $plugin = $this->plugins->get($pluginName, $pluginOptions);
-            if (!$adapter->hasPlugin($plugin)) {
+            if (! $adapter->hasPlugin($plugin)) {
                 $adapter->addPlugin($plugin, $pluginPrio);
             }
 

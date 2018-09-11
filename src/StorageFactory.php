@@ -71,7 +71,7 @@ abstract class StorageFactory
 
         $adapter = $adapterName;
 
-        if (!$adapterName instanceof Storage\StorageInterface) {
+        if (! $adapterName instanceof Storage\StorageInterface) {
             $adapter = static::getAdapterPluginManager()->get($adapterName);
         }
 
@@ -152,7 +152,7 @@ abstract class StorageFactory
         ), E_USER_DEPRECATED);
 
         $plugin = $pluginName;
-        if (!$pluginName instanceof Storage\Plugin\PluginInterface) {
+        if (! $pluginName instanceof Storage\Plugin\PluginInterface) {
             $plugin = self::getPluginManager()->get($pluginName);
         }
 

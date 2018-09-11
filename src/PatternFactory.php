@@ -52,7 +52,7 @@ abstract class PatternFactory
             $options = ArrayUtils::iteratorToArray($options);
         }
 
-        if (!is_array($options)) {
+        if (! is_array($options)) {
             throw new Exception\InvalidArgumentException(sprintf(
                 '%s expects an array, Traversable object, or %s\Pattern\PatternOptions object; received "%s"',
                 __METHOD__,

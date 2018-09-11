@@ -36,6 +36,7 @@ class ConfigProvider
                 PatternPluginManager::class => Service\PatternPluginManagerFactory::class,
                 Storage\AdapterPluginManager::class => Service\StorageAdapterPluginManagerFactory::class,
                 Storage\PluginManager::class => Service\StoragePluginManagerFactory::class,
+                Storage\StorageFactory::class => Service\StorageFactoryFactory::class,
             ],
         ];
     }

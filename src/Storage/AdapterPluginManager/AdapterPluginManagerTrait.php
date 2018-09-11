@@ -9,8 +9,11 @@
 namespace Zend\Cache\Storage\AdapterPluginManager;
 
 use Zend\Cache\Exception;
-use Zend\Cache\Storage\Adapter;
+use Zend\Cache\Storage\PluginManager;
+use Zend\Cache\Storage\StorageInterface;
+use Zend\EventManager\EventsCapableInterface;
 use Zend\ServiceManager\Exception\InvalidServiceException;
+use Zend\Stdlib\ArrayUtils;
 
 /**
  * Trait providing common logic between AdapterPluginManager implementations.
@@ -21,22 +24,6 @@ use Zend\ServiceManager\Exception\InvalidServiceException;
  */
 trait AdapterPluginManagerTrait
 {
-    /**
-     * Override build to inject options as PatternOptions instance.
-     *
-     * {@inheritDoc}
-     */
-    public function build($plugin, array $options = null)
-    {
-        if (empty($options)) {
-            return parent::build($plugin);
-        }
-
-        $plugin = parent::build($plugin);
-        $plugin->setOptions(new Adapter\AdapterOptions($options));
-        return $plugin;
-    }
-
     /**
      * Validate the plugin is of the expected type (v3).
      *
@@ -71,6 +58,88 @@ trait AdapterPluginManagerTrait
             $this->validate($plugin);
         } catch (InvalidServiceException $e) {
             throw new Exception\RuntimeException($e->getMessage(), $e->getCode(), $e);
+        }
+    }
+
+    private function parseOptions(array $options)
+    {
+        $plugins = [];
+        if (array_key_exists('plugins', $options)) {
+            $plugins = $options['plugins'] ?: [];
+            unset($options['plugins']);
+        }
+
+        $adapter = $options;
+
+        if (isset($options['options'])) {
+            $adapter = $options['options'];
+        }
+
+        if (isset($options['adapter']['options']) && is_array($options['adapter']['options'])) {
+            $adapter = ArrayUtils::merge($adapter, $options['adapter']['options']);
+        }
+
+        return [$adapter, $plugins];
+    }
+
+    /**
+     * Attaches plugins by using the provided plugin manager.
+     *
+     * @param StorageInterface $adapter
+     * @param PluginManager    $pluginManager
+     * @param array            $plugins
+     *
+     * @return void
+     * @throws Exception\RuntimeException if adapter does not implement `EventsCapableInterface`
+     * @throws Exception\InvalidArgumentException if the plugin configuration does not fit specification.
+     */
+    private function attachPlugins(StorageInterface $adapter, PluginManager $pluginManager, array $plugins)
+    {
+        if (! $adapter instanceof EventsCapableInterface) {
+            throw new Exception\RuntimeException(sprintf(
+                "The adapter '%s' doesn't implement '%s' and therefore can't handle plugins",
+                get_class($adapter),
+                EventsCapableInterface::class
+            ));
+        }
+
+        foreach ($plugins as $k => $v) {
+            $pluginPrio = 1; // default priority
+
+            if (is_string($k)) {
+                if (! is_array($v)) {
+                    throw new Exception\InvalidArgumentException(
+                        "'plugins.{$k}' needs to be an array"
+                    );
+                }
+                $pluginName = $k;
+                $pluginOptions = $v;
+            } elseif (is_array($v)) {
+                if (! isset($v['name'])) {
+                    throw new Exception\InvalidArgumentException(
+                        "Invalid plugins[{$k}] or missing plugins[{$k}].name"
+                    );
+                }
+                $pluginName = (string) $v['name'];
+
+                if (isset($v['options'])) {
+                    $pluginOptions = $v['options'];
+                } else {
+                    $pluginOptions = [];
+                }
+
+                if (isset($v['priority'])) {
+                    $pluginPrio = $v['priority'];
+                }
+            } else {
+                $pluginName = $v;
+                $pluginOptions = [];
+            }
+
+            $plugin = $pluginManager->get($pluginName, $pluginOptions);
+            if (! $adapter->hasPlugin($plugin)) {
+                $adapter->addPlugin($plugin, $pluginPrio);
+            }
         }
     }
 }

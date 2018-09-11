@@ -10,7 +10,9 @@
 namespace Zend\Cache;
 
 use Traversable;
+use Zend\EventManager\EventsCapableInterface;
 use Zend\ServiceManager\ServiceManager;
+use Zend\Stdlib\ArrayUtils;
 
 /**
  * @deprecated static factories are deprecated as of zendframework 2.9 and may be removed in future major versions.
@@ -35,21 +37,108 @@ abstract class StorageFactory
      * The storage factory
      * This can instantiate storage adapters and plugins.
      *
-     * @param array|Traversable $cfg
+     * @param array|Traversable $config
      * @return Storage\StorageInterface
      * @throws Exception\InvalidArgumentException
      * @deprecated static factories are deprecated as of zendframework 2.9 and may be removed in future major versions.
      */
-    public static function factory($cfg)
+    public static function factory($config)
     {
         trigger_error(sprintf(
-            '%s is deprecated; please use %s::createFromCachesConfig instead',
+            '%s is deprecated; please use %s::get instead',
             __METHOD__,
-            Storage\StorageFactory::class
+            Storage\AdapterPluginManager::class
         ), E_USER_DEPRECATED);
 
-        return (new Storage\StorageFactory(static::getAdapterPluginManager(), static::getPluginManager()))
-            ->createFromCachesConfig($cfg);
+        if ($config instanceof Traversable) {
+            $config = ArrayUtils::iteratorToArray($config);
+        }
+
+        if (! is_array($config)) {
+            throw new Exception\InvalidArgumentException(
+                'The factory needs an associative array '
+                . 'or a Traversable object as an argument'
+            );
+        }
+
+        // instantiate the adapter
+        if (! isset($config['adapter'])) {
+            throw new Exception\InvalidArgumentException('Missing "adapter"');
+        }
+
+        $adapterName = $config['adapter'];
+        $adapterOptions = [];
+        if (is_array($config['adapter'])) {
+            if (! isset($config['adapter']['name'])) {
+                throw new Exception\InvalidArgumentException('Missing "adapter.name"');
+            }
+
+            $adapterName    = $config['adapter']['name'];
+            $adapterOptions = isset($config['adapter']['options']) ? $config['adapter']['options'] : [];
+        }
+        if (isset($config['options'])) {
+            $adapterOptions = ArrayUtils::merge($adapterOptions, $config['options']);
+        }
+
+        $adapter = self::adapterFactory((string) $adapterName, $adapterOptions);
+
+        // add plugins
+        if (isset($config['plugins'])) {
+            if (! $adapter instanceof EventsCapableInterface) {
+                throw new Exception\RuntimeException(sprintf(
+                    "The adapter '%s' doesn't implement '%s' and therefore can't handle plugins",
+                    get_class($adapter),
+                    EventsCapableInterface::class
+                ));
+            }
+
+            if (! is_array($config['plugins'])) {
+                throw new Exception\InvalidArgumentException(
+                    'Plugins needs to be an array'
+                );
+            }
+
+            foreach ($config['plugins'] as $k => $v) {
+                $pluginPrio = 1; // default priority
+
+                if (is_string($k)) {
+                    if (! is_array($v)) {
+                        throw new Exception\InvalidArgumentException(
+                            "'plugins.{$k}' needs to be an array"
+                        );
+                    }
+                    $pluginName    = $k;
+                    $pluginOptions = $v;
+                } elseif (is_array($v)) {
+                    if (! isset($v['name'])) {
+                        throw new Exception\InvalidArgumentException(
+                            "Invalid plugins[{$k}] or missing plugins[{$k}].name"
+                        );
+                    }
+                    $pluginName = (string) $v['name'];
+
+                    if (isset($v['options'])) {
+                        $pluginOptions = $v['options'];
+                    } else {
+                        $pluginOptions = [];
+                    }
+
+                    if (isset($v['priority'])) {
+                        $pluginPrio = $v['priority'];
+                    }
+                } else {
+                    $pluginName    = $v;
+                    $pluginOptions = [];
+                }
+
+                $plugin = static::pluginFactory($pluginName, $pluginOptions);
+                if (! $adapter->hasPlugin($plugin)) {
+                    $adapter->addPlugin($plugin, $pluginPrio);
+                }
+            }
+        }
+
+        return $adapter;
     }
 
     /**

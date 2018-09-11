@@ -18,7 +18,6 @@ use Zend\Stdlib\ErrorHandler;
 /**
  * @group      Zend_Cache
  * @covers Zend\Cache\StorageFactory
- * @covers Zend\Cache\Storage\StorageFactory
  */
 class StorageFactoryTest extends TestCase
 {

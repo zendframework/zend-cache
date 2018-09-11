@@ -9,6 +9,7 @@
 namespace Zend\Cache\Storage\AdapterPluginManager;
 
 use Zend\Cache\Storage\Adapter;
+use Zend\Cache\Storage\PluginManager;
 use Zend\Cache\Storage\StorageInterface;
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\Factory\InvokableFactory;
@@ -121,4 +122,29 @@ class AdapterPluginManagerV3Polyfill extends AbstractPluginManager
      * @var string
      */
     protected $instanceOf = StorageInterface::class;
+
+    /**
+     * Override build to inject options as PatternOptions instance.
+     *
+     * {@inheritDoc}
+     */
+    public function build($plugin, array $options = null)
+    {
+        $adapter = parent::build($plugin);
+
+        if (empty($options)) {
+            return $adapter;
+        }
+
+        list ($options, $pluginConfiguration) = $this->parseOptions($options);
+
+        if (! empty($pluginConfiguration)) {
+            $plugins = $this->creationContext->has(PluginManager::class) ?
+                $this->creationContext->get(PluginManager::class) : new PluginManager($this->creationContext);
+            $this->attachPlugins($adapter, $plugins, $pluginConfiguration);
+        }
+
+        $adapter->setOptions(new Adapter\AdapterOptions($options));
+        return $adapter;
+    }
 }

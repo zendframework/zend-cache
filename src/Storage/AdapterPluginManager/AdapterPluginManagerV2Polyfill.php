@@ -8,6 +8,7 @@
  */
 namespace Zend\Cache\Storage\AdapterPluginManager;
 
+use Zend\Cache\Storage\PluginManager;
 use Zend\Cache\Storage\StorageInterface;
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\Cache\Storage\Adapter;
@@ -146,15 +147,21 @@ class AdapterPluginManagerV2Polyfill extends AbstractPluginManager
      */
     public function get($plugin, $options = [], $usePeeringServiceManagers = true)
     {
+        $adapter = parent::get($plugin, [], $usePeeringServiceManagers);
+
         if (empty($options)) {
-            return parent::get($plugin, [], $usePeeringServiceManagers);
+            return $adapter;
         }
 
-        $plugins = isset($options['plugins']) ? $options['plugins'] : [];
-        unset($options['plugins']);
+        list($options, $pluginConfiguration) = $this->parseOptions($options);
+
+        if (! empty($pluginConfiguration)) {
+            $plugins = $this->serviceLocator->has(PluginManager::class) ?
+                $this->serviceLocator->get(PluginManager::class) : new PluginManager($this->serviceLocator);
+            $this->attachPlugins($adapter, $plugins, $pluginConfiguration);
+        }
 
         /** @var StorageInterface $adapter */
-        $adapter = parent::get($plugin, [], $usePeeringServiceManagers);
         $adapter->setOptions(new Adapter\AdapterOptions($options));
 
         return $adapter;

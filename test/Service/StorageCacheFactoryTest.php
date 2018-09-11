@@ -75,7 +75,7 @@ class StorageCacheFactoryTest extends TestCase
         $adapter->addPlugin(Argument::any(), Argument::any())->shouldNotBeCalled();
 
         $adapterPluginManager = $this->prophesize(AdapterPluginManager::class);
-        $adapterPluginManager->get('Memory', [])->willReturn($adapter->reveal());
+        $adapterPluginManager->get('Memory')->willReturn($adapter->reveal());
 
         $container = $this->prophesize(ContainerInterface::class);
         $container->has(AdapterPluginManager::class)->willReturn(true);
@@ -98,7 +98,7 @@ class StorageCacheFactoryTest extends TestCase
         $plugin->setOptions(Argument::any())->shouldNotBeCalled();
 
         $pluginManager = $this->prophesize(PluginManager::class);
-        $pluginManager->get('Serializer', [])->willReturn($plugin->reveal());
+        $pluginManager->get('Serializer')->willReturn($plugin->reveal());
 
         $adapter = $this->prophesize(AbstractAdapter::class);
         $adapter->willImplement(StorageInterface::class);
@@ -107,7 +107,7 @@ class StorageCacheFactoryTest extends TestCase
         $adapter->addPlugin($plugin->reveal(), Argument::any())->shouldBeCalled();
 
         $adapterPluginManager = $this->prophesize(AdapterPluginManager::class);
-        $adapterPluginManager->get('Memory', [])->willReturn($adapter->reveal());
+        $adapterPluginManager->get('Memory')->willReturn($adapter->reveal());
 
         $container = $this->prophesize(ContainerInterface::class);
         $container->has(AdapterPluginManager::class)->willReturn(true);

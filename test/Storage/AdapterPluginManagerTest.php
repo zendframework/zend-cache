@@ -107,7 +107,10 @@ class AdapterPluginManagerTest extends TestCase
                 'plugin_configuration_for_comparison' => [],
             ],
             'options_with_plugins' => [
-                'options_provided_to_pluginmanager' => ['options' => $adapterOptions, 'plugins' => array_keys($pluginOptions)],
+                'options_provided_to_pluginmanager' => [
+                    'options' => $adapterOptions,
+                    'plugins' => array_keys($pluginOptions)
+                ],
                 'adapter_options_for_comparison' => $adapterOptions,
                 'plugin_configuration_for_comparison' => array_keys($pluginOptions),
             ],

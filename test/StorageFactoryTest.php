@@ -9,9 +9,15 @@
 
 namespace ZendTest\Cache;
 
+use const E_USER_DEPRECATED;
+use ErrorException;
 use PHPUnit\Framework\TestCase;
+use Prophecy\Prophecy\MethodProphecy;
 use Zend\Cache;
+use Zend\EventManager\EventsCapableInterface;
 use Zend\ServiceManager\ServiceManager;
+use Zend\Stdlib\ErrorHandler;
+use ZendTest\Cache\Storage\Adapter\TestAsset\AdapterWithStorageAndEventsCapableInterface;
 
 /**
  * @group      Zend_Cache
@@ -205,5 +211,20 @@ class StorageFactoryTest extends TestCase
                     $this->fail("Unexpected plugin class '{$pluginClass}'");
             }
         }
+    }
+
+    public function testWillTriggerDeprecationWarningForMissingPluginAwareInterface()
+    {
+        $adapters = $this->prophesize(Cache\Storage\AdapterPluginManager::class);
+
+        $adapters->get('Foo')->willReturn(new AdapterWithStorageAndEventsCapableInterface());
+
+        Cache\StorageFactory::setAdapterPluginManager($adapters->reveal());
+        ErrorHandler::start(E_USER_DEPRECATED);
+
+        Cache\StorageFactory::factory(['adapter' => 'Foo', 'plugins' => ['IgnoreUserAbort']]);
+
+        $stack = ErrorHandler::stop();
+        $this->assertInstanceOf(ErrorException::class, $stack);
     }
 }

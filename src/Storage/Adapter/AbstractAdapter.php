@@ -18,13 +18,14 @@ use Zend\Cache\Storage\Capabilities;
 use Zend\Cache\Storage\Event;
 use Zend\Cache\Storage\ExceptionEvent;
 use Zend\Cache\Storage\Plugin;
+use Zend\Cache\Storage\PluginAwareInterface;
 use Zend\Cache\Storage\PostEvent;
 use Zend\Cache\Storage\StorageInterface;
 use Zend\EventManager\EventManager;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\EventsCapableInterface;
 
-abstract class AbstractAdapter implements StorageInterface, EventsCapableInterface
+abstract class AbstractAdapter implements StorageInterface, PluginAwareInterface
 {
     /**
      * The used EventManager if any
@@ -258,7 +259,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @param  Plugin\PluginInterface $plugin
      * @return bool
      */
-    public function hasPlugin(Plugin\PluginInterface $plugin)
+    public function hasPlugin(Plugin\PluginInterface $plugin): bool
     {
         $registry = $this->getPluginRegistry();
         return $registry->contains($plugin);
@@ -272,7 +273,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @return AbstractAdapter Provides a fluent interface
      * @throws Exception\LogicException
      */
-    public function addPlugin(Plugin\PluginInterface $plugin, $priority = 1)
+    public function addPlugin(Plugin\PluginInterface $plugin, $priority = 1): void
     {
         $registry = $this->getPluginRegistry();
         if ($registry->contains($plugin)) {
@@ -295,7 +296,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      * @return AbstractAdapter Provides a fluent interface
      * @throws Exception\LogicException
      */
-    public function removePlugin(Plugin\PluginInterface $plugin)
+    public function removePlugin(Plugin\PluginInterface $plugin): void
     {
         $registry = $this->getPluginRegistry();
         if ($registry->contains($plugin)) {
@@ -310,7 +311,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
      *
      * @return SplObjectStorage
      */
-    public function getPluginRegistry()
+    public function getPluginRegistry(): SplObjectStorage
     {
         if (! $this->pluginRegistry instanceof SplObjectStorage) {
             $this->pluginRegistry = new SplObjectStorage();

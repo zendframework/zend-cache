@@ -22,7 +22,6 @@ class AdapterWithStorageAndEventsCapableInterface implements StorageInterface, E
      */
     public function getEventManager()
     {
-
     }
 
     /**
@@ -34,7 +33,6 @@ class AdapterWithStorageAndEventsCapableInterface implements StorageInterface, E
      */
     public function setOptions($options)
     {
-
     }
 
     /**
@@ -44,7 +42,6 @@ class AdapterWithStorageAndEventsCapableInterface implements StorageInterface, E
      */
     public function getOptions()
     {
-
     }
 
     /**
@@ -59,7 +56,6 @@ class AdapterWithStorageAndEventsCapableInterface implements StorageInterface, E
      */
     public function getItem($key, & $success = null, & $casToken = null)
     {
-
     }
 
     /**
@@ -72,7 +68,6 @@ class AdapterWithStorageAndEventsCapableInterface implements StorageInterface, E
      */
     public function getItems(array $keys)
     {
-
     }
 
     /**
@@ -85,7 +80,6 @@ class AdapterWithStorageAndEventsCapableInterface implements StorageInterface, E
      */
     public function hasItem($key)
     {
-
     }
 
     /**
@@ -98,7 +92,6 @@ class AdapterWithStorageAndEventsCapableInterface implements StorageInterface, E
      */
     public function hasItems(array $keys)
     {
-
     }
 
     /**
@@ -111,7 +104,6 @@ class AdapterWithStorageAndEventsCapableInterface implements StorageInterface, E
      */
     public function getMetadata($key)
     {
-
     }
 
     /**
@@ -124,7 +116,6 @@ class AdapterWithStorageAndEventsCapableInterface implements StorageInterface, E
      */
     public function getMetadatas(array $keys)
     {
-
     }
 
     /**
@@ -138,7 +129,6 @@ class AdapterWithStorageAndEventsCapableInterface implements StorageInterface, E
      */
     public function setItem($key, $value)
     {
-
     }
 
     /**
@@ -151,7 +141,6 @@ class AdapterWithStorageAndEventsCapableInterface implements StorageInterface, E
      */
     public function setItems(array $keyValuePairs)
     {
-
     }
 
     /**
@@ -165,7 +154,6 @@ class AdapterWithStorageAndEventsCapableInterface implements StorageInterface, E
      */
     public function addItem($key, $value)
     {
-
     }
 
     /**
@@ -178,7 +166,6 @@ class AdapterWithStorageAndEventsCapableInterface implements StorageInterface, E
      */
     public function addItems(array $keyValuePairs)
     {
-
     }
 
     /**
@@ -192,7 +179,6 @@ class AdapterWithStorageAndEventsCapableInterface implements StorageInterface, E
      */
     public function replaceItem($key, $value)
     {
-
     }
 
     /**
@@ -205,7 +191,6 @@ class AdapterWithStorageAndEventsCapableInterface implements StorageInterface, E
      */
     public function replaceItems(array $keyValuePairs)
     {
-
     }
 
     /**
@@ -225,7 +210,6 @@ class AdapterWithStorageAndEventsCapableInterface implements StorageInterface, E
      */
     public function checkAndSetItem($token, $key, $value)
     {
-
     }
 
     /**
@@ -238,7 +222,6 @@ class AdapterWithStorageAndEventsCapableInterface implements StorageInterface, E
      */
     public function touchItem($key)
     {
-
     }
 
     /**
@@ -251,7 +234,6 @@ class AdapterWithStorageAndEventsCapableInterface implements StorageInterface, E
      */
     public function touchItems(array $keys)
     {
-
     }
 
     /**
@@ -264,7 +246,6 @@ class AdapterWithStorageAndEventsCapableInterface implements StorageInterface, E
      */
     public function removeItem($key)
     {
-
     }
 
     /**
@@ -277,7 +258,6 @@ class AdapterWithStorageAndEventsCapableInterface implements StorageInterface, E
      */
     public function removeItems(array $keys)
     {
-
     }
 
     /**
@@ -291,7 +271,6 @@ class AdapterWithStorageAndEventsCapableInterface implements StorageInterface, E
      */
     public function incrementItem($key, $value)
     {
-
     }
 
     /**
@@ -304,7 +283,6 @@ class AdapterWithStorageAndEventsCapableInterface implements StorageInterface, E
      */
     public function incrementItems(array $keyValuePairs)
     {
-
     }
 
     /**
@@ -318,7 +296,6 @@ class AdapterWithStorageAndEventsCapableInterface implements StorageInterface, E
      */
     public function decrementItem($key, $value)
     {
-
     }
 
     /**
@@ -331,7 +308,6 @@ class AdapterWithStorageAndEventsCapableInterface implements StorageInterface, E
      */
     public function decrementItems(array $keyValuePairs)
     {
-
     }
 
     /**
@@ -341,7 +317,6 @@ class AdapterWithStorageAndEventsCapableInterface implements StorageInterface, E
      */
     public function getCapabilities()
     {
-
     }
 
     public function hasPlugin(PluginInterface $plugin)

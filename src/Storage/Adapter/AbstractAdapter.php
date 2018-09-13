@@ -254,26 +254,18 @@ abstract class AbstractAdapter implements StorageInterface, PluginAwareInterface
     }
 
     /**
-     * Check if a plugin is registered
-     *
-     * @param  Plugin\PluginInterface $plugin
-     * @return bool
+     * {@inheritdoc}
      */
-    public function hasPlugin(Plugin\PluginInterface $plugin): bool
+    public function hasPlugin(Plugin\PluginInterface $plugin)
     {
         $registry = $this->getPluginRegistry();
         return $registry->contains($plugin);
     }
 
     /**
-     * Register a plugin
-     *
-     * @param  Plugin\PluginInterface $plugin
-     * @param  int $priority
-     * @return AbstractAdapter Provides a fluent interface
-     * @throws Exception\LogicException
+     * {@inheritdoc}
      */
-    public function addPlugin(Plugin\PluginInterface $plugin, $priority = 1): void
+    public function addPlugin(Plugin\PluginInterface $plugin, $priority = 1)
     {
         $registry = $this->getPluginRegistry();
         if ($registry->contains($plugin)) {
@@ -290,13 +282,9 @@ abstract class AbstractAdapter implements StorageInterface, PluginAwareInterface
     }
 
     /**
-     * Unregister an already registered plugin
-     *
-     * @param  Plugin\PluginInterface $plugin
-     * @return AbstractAdapter Provides a fluent interface
-     * @throws Exception\LogicException
+     * {@inheritdoc}
      */
-    public function removePlugin(Plugin\PluginInterface $plugin): void
+    public function removePlugin(Plugin\PluginInterface $plugin)
     {
         $registry = $this->getPluginRegistry();
         if ($registry->contains($plugin)) {
@@ -307,11 +295,9 @@ abstract class AbstractAdapter implements StorageInterface, PluginAwareInterface
     }
 
     /**
-     * Return registry of plugins
-     *
-     * @return SplObjectStorage
+     * {@inheritdoc}
      */
-    public function getPluginRegistry(): SplObjectStorage
+    public function getPluginRegistry()
     {
         if (! $this->pluginRegistry instanceof SplObjectStorage) {
             $this->pluginRegistry = new SplObjectStorage();

@@ -12,6 +12,7 @@
     <title>Plugins - zend-cache</title>
 
     <link rel="stylesheet" href="../../css/styles-18b942728f.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
 </head>
 <body id="page-top">
 
@@ -66,7 +67,7 @@
                     
     <div class="subnavigation hidden-print">
         <h4 class="subnavigation__title">
-            <a href="../..">zend-cache</a>
+            <a href="">zend-cache</a>
         </h4>
 
         <h5 class="subnavigation__subtitle">Table of Contents</h5>
@@ -75,7 +76,7 @@
             
                 
                     <li class="subnavigation__list-item ">
-                        <a href="../.." class="subnavigation__link">zend-cache</a>
+                        <a href="" class="subnavigation__link">zend-cache</a>
                     </li>
                 
             
@@ -86,19 +87,19 @@
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../adapter/" class="subnavigation__link">Adapters</a>
+        <a href="storage/adapter/" class="subnavigation__link">Adapters</a>
     </li>
 
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../capabilities/" class="subnavigation__link">Capabilities</a>
+        <a href="storage/capabilities/" class="subnavigation__link">Capabilities</a>
     </li>
 
                             
                                 
     <li class="subnavigation__list-item subnavigation__list-item--active">
-        <a href="./" class="subnavigation__link">Plugins</a>
+        <a href="storage/plugin/" class="subnavigation__link">Plugins</a>
     </li>
 
                             
@@ -113,37 +114,37 @@
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../../pattern/intro/" class="subnavigation__link">Introduction</a>
+        <a href="pattern/intro/" class="subnavigation__link">Introduction</a>
     </li>
 
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../../pattern/callback-cache/" class="subnavigation__link">CallbackCache</a>
+        <a href="pattern/callback-cache/" class="subnavigation__link">CallbackCache</a>
     </li>
 
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../../pattern/class-cache/" class="subnavigation__link">ClassCache</a>
+        <a href="pattern/class-cache/" class="subnavigation__link">ClassCache</a>
     </li>
 
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../../pattern/object-cache/" class="subnavigation__link">ObjectCache</a>
+        <a href="pattern/object-cache/" class="subnavigation__link">ObjectCache</a>
     </li>
 
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../../pattern/output-cache/" class="subnavigation__link">OutputCache</a>
+        <a href="pattern/output-cache/" class="subnavigation__link">OutputCache</a>
     </li>
 
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../../pattern/capture-cache/" class="subnavigation__link">CaptureCache</a>
+        <a href="pattern/capture-cache/" class="subnavigation__link">CaptureCache</a>
     </li>
 
                             
@@ -158,13 +159,13 @@
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../../psr6/" class="subnavigation__link">PSR-6</a>
+        <a href="psr6/" class="subnavigation__link">PSR-6</a>
     </li>
 
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../../psr16/" class="subnavigation__link">PSR-16</a>
+        <a href="psr16/" class="subnavigation__link">PSR-16</a>
     </li>
 
                             
@@ -248,7 +249,7 @@
         <li><a href="https://docs.zendframework.com/">Documentation</a></li>
 
         
-            <li><a href="../..">zend-cache</a></li>
+            <li><a href="">zend-cache</a></li>
 
             
                 
@@ -558,13 +559,13 @@ class MyPlugin extends AbstractPlugin
     public function onGetItemPre(Event $event)
     {
         $params = $event-&gt;getParams();
-        echo sprintf(&quot;Method 'getItem' with key '%s' started\n&quot;, $params['key']);
+        echo sprintf("Method 'getItem' with key '%s' started\n", $params['key']);
     }
 
     public function onGetItemPost(Event $event)
     {
         $params = $event-&gt;getParams();
-        echo sprintf(&quot;Method 'getItem' with key '%s' finished\n&quot;, $params['key']);
+        echo sprintf("Method 'getItem' with key '%s' finished\n", $params['key']);
     }
 }
 
@@ -586,7 +587,7 @@ $cache-&gt;getItem('cache-key');
         
         <li class="page-nav__item">
             
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../capabilities/">
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="storage/capabilities/">
                     <i class="fa fa-chevron-left"></i> Previous
                 </a>
             
@@ -595,7 +596,7 @@ $cache-&gt;getItem('cache-key');
         
         <li class="page-nav__item">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../../pattern/intro/">
+                <a rel="next" class="page-nav__link page-nav__link--next" href="pattern/intro/">
                     Next <i class="fa fa-chevron-right"></i>
                 </a>
             
@@ -630,7 +631,7 @@ $cache-&gt;getItem('cache-key');
                     
     <div class="subnavigation hidden-print">
         <h4 class="subnavigation__title">
-            <a href="../..">zend-cache</a>
+            <a href="">zend-cache</a>
         </h4>
 
         <h5 class="subnavigation__subtitle">Table of Contents</h5>
@@ -639,7 +640,7 @@ $cache-&gt;getItem('cache-key');
             
                 
                     <li class="subnavigation__list-item ">
-                        <a href="../.." class="subnavigation__link">zend-cache</a>
+                        <a href="" class="subnavigation__link">zend-cache</a>
                     </li>
                 
             
@@ -650,19 +651,19 @@ $cache-&gt;getItem('cache-key');
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../adapter/" class="subnavigation__link">Adapters</a>
+        <a href="storage/adapter/" class="subnavigation__link">Adapters</a>
     </li>
 
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../capabilities/" class="subnavigation__link">Capabilities</a>
+        <a href="storage/capabilities/" class="subnavigation__link">Capabilities</a>
     </li>
 
                             
                                 
     <li class="subnavigation__list-item subnavigation__list-item--active">
-        <a href="./" class="subnavigation__link">Plugins</a>
+        <a href="storage/plugin/" class="subnavigation__link">Plugins</a>
     </li>
 
                             
@@ -677,37 +678,37 @@ $cache-&gt;getItem('cache-key');
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../../pattern/intro/" class="subnavigation__link">Introduction</a>
+        <a href="pattern/intro/" class="subnavigation__link">Introduction</a>
     </li>
 
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../../pattern/callback-cache/" class="subnavigation__link">CallbackCache</a>
+        <a href="pattern/callback-cache/" class="subnavigation__link">CallbackCache</a>
     </li>
 
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../../pattern/class-cache/" class="subnavigation__link">ClassCache</a>
+        <a href="pattern/class-cache/" class="subnavigation__link">ClassCache</a>
     </li>
 
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../../pattern/object-cache/" class="subnavigation__link">ObjectCache</a>
+        <a href="pattern/object-cache/" class="subnavigation__link">ObjectCache</a>
     </li>
 
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../../pattern/output-cache/" class="subnavigation__link">OutputCache</a>
+        <a href="pattern/output-cache/" class="subnavigation__link">OutputCache</a>
     </li>
 
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../../pattern/capture-cache/" class="subnavigation__link">CaptureCache</a>
+        <a href="pattern/capture-cache/" class="subnavigation__link">CaptureCache</a>
     </li>
 
                             
@@ -722,13 +723,13 @@ $cache-&gt;getItem('cache-key');
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../../psr6/" class="subnavigation__link">PSR-6</a>
+        <a href="psr6/" class="subnavigation__link">PSR-6</a>
     </li>
 
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../../psr16/" class="subnavigation__link">PSR-16</a>
+        <a href="psr16/" class="subnavigation__link">PSR-16</a>
     </li>
 
                             
@@ -810,9 +811,8 @@ $cache-&gt;getItem('cache-key');
         var base_url = '../..',
             siteName = 'zend-cache';
     </script>
-    <script src="../../js/scripts-0bcb0a3bb3.js"></script>
-        <script src="../../search/require.js"></script>
-        <script src="../../search/search.js"></script>
+    <script src="../../js/scripts-edc4cfa790.js"></script>
+        <script src="../../search/main.js"></script>
 
     
     <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
@@ -841,6 +841,14 @@ $cache-&gt;getItem('cache-key');
             </div>
         </div>
     </div>
+
+<script>
+// Anchors
+anchors.options.placement = 'left';
+anchors.add(
+    '.content h1:not(.content__title), .content h2, .content > h3, .content h4, .content h5'
+);
+</script>
 
 
 

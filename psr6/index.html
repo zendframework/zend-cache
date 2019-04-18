@@ -12,6 +12,7 @@
     <title>PSR-6 - zend-cache</title>
 
     <link rel="stylesheet" href="../css/styles-18b942728f.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.2.0/anchor.min.js"></script>
 </head>
 <body id="page-top">
 
@@ -66,7 +67,7 @@
                     
     <div class="subnavigation hidden-print">
         <h4 class="subnavigation__title">
-            <a href="..">zend-cache</a>
+            <a href="">zend-cache</a>
         </h4>
 
         <h5 class="subnavigation__subtitle">Table of Contents</h5>
@@ -75,7 +76,7 @@
             
                 
                     <li class="subnavigation__list-item ">
-                        <a href=".." class="subnavigation__link">zend-cache</a>
+                        <a href="" class="subnavigation__link">zend-cache</a>
                     </li>
                 
             
@@ -86,19 +87,19 @@
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../storage/adapter/" class="subnavigation__link">Adapters</a>
+        <a href="storage/adapter/" class="subnavigation__link">Adapters</a>
     </li>
 
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../storage/capabilities/" class="subnavigation__link">Capabilities</a>
+        <a href="storage/capabilities/" class="subnavigation__link">Capabilities</a>
     </li>
 
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../storage/plugin/" class="subnavigation__link">Plugins</a>
+        <a href="storage/plugin/" class="subnavigation__link">Plugins</a>
     </li>
 
                             
@@ -113,37 +114,37 @@
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../pattern/intro/" class="subnavigation__link">Introduction</a>
+        <a href="pattern/intro/" class="subnavigation__link">Introduction</a>
     </li>
 
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../pattern/callback-cache/" class="subnavigation__link">CallbackCache</a>
+        <a href="pattern/callback-cache/" class="subnavigation__link">CallbackCache</a>
     </li>
 
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../pattern/class-cache/" class="subnavigation__link">ClassCache</a>
+        <a href="pattern/class-cache/" class="subnavigation__link">ClassCache</a>
     </li>
 
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../pattern/object-cache/" class="subnavigation__link">ObjectCache</a>
+        <a href="pattern/object-cache/" class="subnavigation__link">ObjectCache</a>
     </li>
 
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../pattern/output-cache/" class="subnavigation__link">OutputCache</a>
+        <a href="pattern/output-cache/" class="subnavigation__link">OutputCache</a>
     </li>
 
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../pattern/capture-cache/" class="subnavigation__link">CaptureCache</a>
+        <a href="pattern/capture-cache/" class="subnavigation__link">CaptureCache</a>
     </li>
 
                             
@@ -158,13 +159,13 @@
                             
                                 
     <li class="subnavigation__list-item subnavigation__list-item--active">
-        <a href="./" class="subnavigation__link">PSR-6</a>
+        <a href="psr6/" class="subnavigation__link">PSR-6</a>
     </li>
 
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../psr16/" class="subnavigation__link">PSR-16</a>
+        <a href="psr16/" class="subnavigation__link">PSR-16</a>
     </li>
 
                             
@@ -248,7 +249,7 @@
         <li><a href="https://docs.zendframework.com/">Documentation</a></li>
 
         
-            <li><a href="..">zend-cache</a></li>
+            <li><a href="">zend-cache</a></li>
 
             
                 
@@ -367,12 +368,12 @@ storage exceptions that bubble up implement <code>Psr\Cache\InvalidArgumentExcep
 key errors. To be PSR-6 compliant, cache keys must not contain the following characters: <code>{}()/\@:</code>. However different
 storage adapters may have further restrictions. Check the documentation for your particular adapter to be sure.</p>
 <p>We strongly recommend tracking exceptions caught from storage, either by logging them or recording them in some other
-way. Doing so is as simple as adding an <a href="../zend.cache.storage.plugin.html#3.4"><code>ExceptionHandler</code> plugin</a>. Say you have a
+way. Doing so is as simple as adding an <a href="zend.cache.storage.plugin.html#3.4"><code>ExceptionHandler</code> plugin</a>. Say you have a
 <a href="https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-3-logger-interface.md">PSR-3</a> compliant logger
 called <code>$logger</code>:</p>
 <pre class="codehilite"><code class="language-php">$cacheLogger = function (\Exception $e) use ($logger) {
     $message = sprintf(
-        '[CACHE] %s:%s %s &quot;%s&quot;',
+        '[CACHE] %s:%s %s "%s"',
         $exception-&gt;getFile(),
         $exception-&gt;getLine(),
         $exception-&gt;getCode(),
@@ -413,7 +414,7 @@ do not need to use a <code>Zend\Cache\Storage\Plugin\Serializer</code> plugin.</
         
         <li class="page-nav__item">
             
-                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../pattern/capture-cache/">
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="pattern/capture-cache/">
                     <i class="fa fa-chevron-left"></i> Previous
                 </a>
             
@@ -422,7 +423,7 @@ do not need to use a <code>Zend\Cache\Storage\Plugin\Serializer</code> plugin.</
         
         <li class="page-nav__item">
             
-                <a rel="next" class="page-nav__link page-nav__link--next" href="../psr16/">
+                <a rel="next" class="page-nav__link page-nav__link--next" href="psr16/">
                     Next <i class="fa fa-chevron-right"></i>
                 </a>
             
@@ -457,7 +458,7 @@ do not need to use a <code>Zend\Cache\Storage\Plugin\Serializer</code> plugin.</
                     
     <div class="subnavigation hidden-print">
         <h4 class="subnavigation__title">
-            <a href="..">zend-cache</a>
+            <a href="">zend-cache</a>
         </h4>
 
         <h5 class="subnavigation__subtitle">Table of Contents</h5>
@@ -466,7 +467,7 @@ do not need to use a <code>Zend\Cache\Storage\Plugin\Serializer</code> plugin.</
             
                 
                     <li class="subnavigation__list-item ">
-                        <a href=".." class="subnavigation__link">zend-cache</a>
+                        <a href="" class="subnavigation__link">zend-cache</a>
                     </li>
                 
             
@@ -477,19 +478,19 @@ do not need to use a <code>Zend\Cache\Storage\Plugin\Serializer</code> plugin.</
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../storage/adapter/" class="subnavigation__link">Adapters</a>
+        <a href="storage/adapter/" class="subnavigation__link">Adapters</a>
     </li>
 
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../storage/capabilities/" class="subnavigation__link">Capabilities</a>
+        <a href="storage/capabilities/" class="subnavigation__link">Capabilities</a>
     </li>
 
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../storage/plugin/" class="subnavigation__link">Plugins</a>
+        <a href="storage/plugin/" class="subnavigation__link">Plugins</a>
     </li>
 
                             
@@ -504,37 +505,37 @@ do not need to use a <code>Zend\Cache\Storage\Plugin\Serializer</code> plugin.</
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../pattern/intro/" class="subnavigation__link">Introduction</a>
+        <a href="pattern/intro/" class="subnavigation__link">Introduction</a>
     </li>
 
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../pattern/callback-cache/" class="subnavigation__link">CallbackCache</a>
+        <a href="pattern/callback-cache/" class="subnavigation__link">CallbackCache</a>
     </li>
 
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../pattern/class-cache/" class="subnavigation__link">ClassCache</a>
+        <a href="pattern/class-cache/" class="subnavigation__link">ClassCache</a>
     </li>
 
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../pattern/object-cache/" class="subnavigation__link">ObjectCache</a>
+        <a href="pattern/object-cache/" class="subnavigation__link">ObjectCache</a>
     </li>
 
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../pattern/output-cache/" class="subnavigation__link">OutputCache</a>
+        <a href="pattern/output-cache/" class="subnavigation__link">OutputCache</a>
     </li>
 
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../pattern/capture-cache/" class="subnavigation__link">CaptureCache</a>
+        <a href="pattern/capture-cache/" class="subnavigation__link">CaptureCache</a>
     </li>
 
                             
@@ -549,13 +550,13 @@ do not need to use a <code>Zend\Cache\Storage\Plugin\Serializer</code> plugin.</
                             
                                 
     <li class="subnavigation__list-item subnavigation__list-item--active">
-        <a href="./" class="subnavigation__link">PSR-6</a>
+        <a href="psr6/" class="subnavigation__link">PSR-6</a>
     </li>
 
                             
                                 
     <li class="subnavigation__list-item ">
-        <a href="../psr16/" class="subnavigation__link">PSR-16</a>
+        <a href="psr16/" class="subnavigation__link">PSR-16</a>
     </li>
 
                             
@@ -637,9 +638,8 @@ do not need to use a <code>Zend\Cache\Storage\Plugin\Serializer</code> plugin.</
         var base_url = '..',
             siteName = 'zend-cache';
     </script>
-    <script src="../js/scripts-0bcb0a3bb3.js"></script>
-        <script src="../search/require.js"></script>
-        <script src="../search/search.js"></script>
+    <script src="../js/scripts-edc4cfa790.js"></script>
+        <script src="../search/main.js"></script>
 
     
     <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
@@ -668,6 +668,14 @@ do not need to use a <code>Zend\Cache\Storage\Plugin\Serializer</code> plugin.</
             </div>
         </div>
     </div>
+
+<script>
+// Anchors
+anchors.options.placement = 'left';
+anchors.add(
+    '.content h1:not(.content__title), .content h2, .content > h3, .content h4, .content h5'
+);
+</script>
 
 
 

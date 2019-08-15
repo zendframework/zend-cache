@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Zend\Cache">  
+    <meta name="description" content="Caching implementation with a variety of storage options, as well as codified caching strategies for callbacks, classes, and output.">  
     <link rel="canonical" href="https://docs.zendframework.com/zend-cache/psr16/">
     <link rel="shortcut icon" href="../img/favicon.ico">
 
@@ -73,20 +73,6 @@
         <h5 class="subnavigation__subtitle">Table of Contents</h5>
 
         <ul class="subnavigation__list">
-            
-
-                
-                
-
-                    
-                    
-                        
-                            <li class="subnavigation__list-item ">
-                                <a href=".." class="subnavigation__link">zend-cache</a>
-                            </li>
-                        
-                    
-                
             
 
                 
@@ -324,7 +310,7 @@
                     </li>
                 
                     <li class="toc__entry">
-                        <a href="#deleting-items-and-exceptions" class="toc__link">Deleting items and exceptions</a>
+                        <a href="#deleting-items-and-exceptions" class="toc__link">Deleting Items and Exceptions</a>
                     </li>
                 
             </ul>
@@ -333,10 +319,10 @@
 
     </div>
 
-    <h1 id="psr-16-support">PSR-16 Support</h1>
-<ul>
-<li>Since 2.8.0</li>
-</ul>
+    <h1 id="psr-16">PSR-16</h1>
+<blockquote>
+<p>Available since version 2.8.0</p>
+</blockquote>
 <p><a href="https://www.php-fig.org/psr/psr-16/">PSR-16</a> provides a simplified approach to
 cache access that does not involve cache pools, tags, deferment, etc.; it
 can be thought of as a key/value storage approach to caching.</p>
@@ -418,7 +404,7 @@ $cache = StorageFactory::factory([
     ],
 ]);</code></pre>
 
-<h2 id="deleting-items-and-exceptions">Deleting items and exceptions</h2>
+<h2 id="deleting-items-and-exceptions">Deleting Items and Exceptions</h2>
 <p>PSR-16 states that the <code>delete()</code> and <code>deleteMultiple()</code> methods should return
 <code>false</code> if an <em>error</em> occured when deleting the key(s) provided, but <code>true</code>
 otherwise.</p>
@@ -496,20 +482,6 @@ operations.</p>
         <h5 class="subnavigation__subtitle">Table of Contents</h5>
 
         <ul class="subnavigation__list">
-            
-
-                
-                
-
-                    
-                    
-                        
-                            <li class="subnavigation__list-item ">
-                                <a href=".." class="subnavigation__link">zend-cache</a>
-                            </li>
-                        
-                    
-                
             
 
                 

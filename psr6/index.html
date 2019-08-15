@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Zend\Cache">  
+    <meta name="description" content="Caching implementation with a variety of storage options, as well as codified caching strategies for callbacks, classes, and output.">  
     <link rel="canonical" href="https://docs.zendframework.com/zend-cache/psr6/">
     <link rel="shortcut icon" href="../img/favicon.ico">
 
@@ -73,20 +73,6 @@
         <h5 class="subnavigation__subtitle">Table of Contents</h5>
 
         <ul class="subnavigation__list">
-            
-
-                
-                
-
-                    
-                    
-                        
-                            <li class="subnavigation__list-item ">
-                                <a href=".." class="subnavigation__link">zend-cache</a>
-                            </li>
-                        
-                    
-                
             
 
                 
@@ -328,15 +314,15 @@
                     </li>
                 
                     <li class="toc__entry">
-                        <a href="#supported-adapters" class="toc__link">Supported adapters</a>
+                        <a href="#supported-adapters" class="toc__link">Supported Adapters</a>
                     </li>
                 
                     <li class="toc__entry">
-                        <a href="#logging-errors" class="toc__link">Logging errors</a>
+                        <a href="#logging-errors" class="toc__link">Logging Errors</a>
                     </li>
                 
                     <li class="toc__entry">
-                        <a href="#supported-data-types" class="toc__link">Supported data types</a>
+                        <a href="#supported-data-types" class="toc__link">Supported Data Types</a>
                     </li>
                 
             </ul>
@@ -345,10 +331,10 @@
 
     </div>
 
-    <h1 id="psr-6-support">PSR-6 Support</h1>
-<ul>
-<li>Since 2.8.0</li>
-</ul>
+    <h1 id="psr-6">PSR-6</h1>
+<blockquote>
+<p>Available since version 2.8.0</p>
+</blockquote>
 <h2 id="overview">Overview</h2>
 <p>The <code>Zend\Cache\Psr\CacheItemPool\CacheItemPoolDecorator</code> provides a <a href="https://www.php-fig.org/psr/psr-6/">PSR-6</a>
 compliant wrapper for supported storage adapters.</p>
@@ -388,7 +374,7 @@ echo $item-&gt;get();</code></pre>
 <p>Note that you will always get back a <code>CacheItem</code> object, whether it was found in cache or not: this is so <code>false</code>-y
 values like an empty string, <code>null</code>, or <code>false</code> can be stored. Always check <code>isHit()</code> to determine if the item was
 found.</p>
-<h2 id="supported-adapters">Supported adapters</h2>
+<h2 id="supported-adapters">Supported Adapters</h2>
 <p>The PSR-6 specification requires that the underlying storage support time-to-live (TTL), which is set when the
 item is saved. For this reason the following adapters cannot be used: <code>Dba</code>, <code>Filesystem</code>, <code>Memory</code> and <code>Session</code>. The
 <code>XCache</code> adapter calculates TTLs based on the request time, not the time the item is actually persisted, which means
@@ -405,7 +391,7 @@ ini setting with the APC adapter: the specification requires that all TTL values
 actually saved to storage. If this is set when you instantiate the pool it will throw an exception implementing
 <code>Psr\Cache\CacheException</code>. Changing the setting after you have instantiated the pool will result in non-standard
 behaviour.</p>
-<h2 id="logging-errors">Logging errors</h2>
+<h2 id="logging-errors">Logging Errors</h2>
 <p>The specification <a href="https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-6-cache.md#error-handling">states</a>:</p>
 <blockquote>
 <p>While caching is often an important part of application performance, it should never be a critical part of application
@@ -446,7 +432,7 @@ $pool = new CacheItemPoolDecorator($storage);</code></pre>
 
 <p>Note that <code>throw_exceptions</code> should always be <code>true</code> (the default) or you will not get the correct return values from
 calls on the pool such as <code>save()</code>.</p>
-<h2 id="supported-data-types">Supported data types</h2>
+<h2 id="supported-data-types">Supported Data Types</h2>
 <p>As per <a href="https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-6-cache.md#data">the specification</a>, the
 following data types can be stored in cache: <code>string</code>, <code>integer</code>, <code>float</code>, <code>boolean</code>, <code>null</code>, <code>array</code>, <code>object</code> and be
 returned as a value with exactly the same type.</p>
@@ -514,20 +500,6 @@ do not need to use a <code>Zend\Cache\Storage\Plugin\Serializer</code> plugin.</
         <h5 class="subnavigation__subtitle">Table of Contents</h5>
 
         <ul class="subnavigation__list">
-            
-
-                
-                
-
-                    
-                    
-                        
-                            <li class="subnavigation__list-item ">
-                                <a href=".." class="subnavigation__link">zend-cache</a>
-                            </li>
-                        
-                    
-                
             
 
                 

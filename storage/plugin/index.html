@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Zend\Cache">  
+    <meta name="description" content="Caching implementation with a variety of storage options, as well as codified caching strategies for callbacks, classes, and output.">  
     <link rel="canonical" href="https://docs.zendframework.com/zend-cache/storage/plugin/">
     <link rel="shortcut icon" href="../../img/favicon.ico">
 
@@ -73,20 +73,6 @@
         <h5 class="subnavigation__subtitle">Table of Contents</h5>
 
         <ul class="subnavigation__list">
-            
-
-                
-                
-
-                    
-                    
-                        
-                            <li class="subnavigation__list-item ">
-                                <a href="../.." class="subnavigation__link">zend-cache</a>
-                            </li>
-                        
-                    
-                
             
 
                 
@@ -357,7 +343,7 @@
 
     </div>
 
-    <h1 id="storage-plugins">Storage Plugins</h1>
+    <h1 id="plugins">Plugins</h1>
 <p>Cache storage plugins are objects that provide additional functionality to or
 influence behavior of a storage adapter.</p>
 <p>The plugins listen to events the adapter triggers, and can:</p>
@@ -395,7 +381,7 @@ $cache-&gt;addPlugin($plugin);</code></pre>
 <p><code>Zend\Cache\Storage\Plugin\ClearExpiredByFactor</code> calls the storage method
 <code>clearExpired()</code> randomly (by factor) after every call of <code>setItem()</code>,
 <code>setItems()</code>, <code>addItem()</code>, and <code>addItems()</code>.</p>
-<h3 id="plugin-specific-options">Plugin specific options</h3>
+<h3 id="plugin-specific-options">Plugin specific Options</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -423,7 +409,7 @@ to work with this plugin.</p>
 <p><code>Zend\Cache\Storage\Plugin\ExceptionHandler</code> catches all exceptions thrown on
 reading from or writing to the cache, and sends the exception to a defined callback function.
 You may also configure the plugin to re-throw exceptions.</p>
-<h3 id="plugin-specific-options_1">Plugin specific options</h3>
+<h3 id="plugin-specific-options_1">Plugin specific Options</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -451,7 +437,7 @@ You may also configure the plugin to re-throw exceptions.</p>
 <h2 id="the-ignoreuserabort-plugin">The IgnoreUserAbort Plugin</h2>
 <p><code>Zend\Cache\Storage\Plugin\IgnoreUserAbort</code> ignores user-invoked script
 termination when, allowing cache write operations to complete first.</p>
-<h3 id="plugin-specific-options_2">Plugin specific options</h3>
+<h3 id="plugin-specific-options_2">Plugin specific Options</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -473,7 +459,7 @@ termination when, allowing cache write operations to complete first.</p>
 <h2 id="the-optimizebyfactor-plugin">The OptimizeByFactor Plugin</h2>
 <p><code>Zend\Cache\Storage\Plugin\OptimizeByFactor</code> calls the storage method <code>optimize()</code>
 randomly (by factor) after removing items from the cache.</p>
-<h3 id="plugin-specific-options_3">Plugin specific options</h3>
+<h3 id="plugin-specific-options_3">Plugin specific Options</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -501,7 +487,7 @@ to work with this plugin.</p>
 <p><code>Zend\Cache\Storage\Plugin\Serializer</code> will serialize data when writing to
 cache, and deserialize when reading. This allows storing datatypes not supported
 by the underlying storage adapter.</p>
-<h3 id="plugin-specific-options_4">Plugin specific options</h3>
+<h3 id="plugin-specific-options_4">Plugin specific Options</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -575,7 +561,7 @@ interface PluginInterface extends ListenerAggregateInterface
 }</code></pre>
 
 <h2 id="examples">Examples</h2>
-<h3 id="basic-plugin-implementation">Basic plugin implementation</h3>
+<h3 id="basic-plugin-implementation">Basic Plugin Implementation</h3>
 <pre class="codehilite"><code class="language-php">use Zend\Cache\Storage\Event;
 use Zend\Cache\Storage\Plugin\AbstractPlugin;
 use Zend\EventManager\EventManagerInterface;
@@ -687,20 +673,6 @@ $cache-&gt;getItem('cache-key');
         <h5 class="subnavigation__subtitle">Table of Contents</h5>
 
         <ul class="subnavigation__list">
-            
-
-                
-                
-
-                    
-                    
-                        
-                            <li class="subnavigation__list-item ">
-                                <a href="../.." class="subnavigation__link">zend-cache</a>
-                            </li>
-                        
-                    
-                
             
 
                 

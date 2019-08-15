@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Zend\Cache">  
+    <meta name="description" content="Caching implementation with a variety of storage options, as well as codified caching strategies for callbacks, classes, and output.">  
     <link rel="canonical" href="https://docs.zendframework.com/zend-cache/storage/adapter/">
     <link rel="shortcut icon" href="../../img/favicon.ico">
 
@@ -73,20 +73,6 @@
         <h5 class="subnavigation__subtitle">Table of Contents</h5>
 
         <ul class="subnavigation__list">
-            
-
-                
-                
-
-                    
-                    
-                        
-                            <li class="subnavigation__list-item ">
-                                <a href="../.." class="subnavigation__link">zend-cache</a>
-                            </li>
-                        
-                    
-                
             
 
                 
@@ -320,7 +306,7 @@
             <ul class="toc__list">
                 
                     <li class="toc__entry">
-                        <a href="#many-methods-throw-exceptions" class="toc__link">Many methods throw exceptions</a>
+                        <a href="#many-methods-throw-exceptions" class="toc__link">Many Methods throw Exceptions</a>
                     </li>
                 
                     <li class="toc__entry">
@@ -445,7 +431,7 @@ these are then passed to an options class instance). Alternately, you can pass
 either the options instance or associative array to the
 <code>Zend\Cache\StorageFactory::factory</code> method.</p>
 <blockquote>
-<h3 id="many-methods-throw-exceptions">Many methods throw exceptions</h3>
+<h3 id="many-methods-throw-exceptions">Many Methods throw Exceptions</h3>
 <p>Because many caching operations throw an exception on error, you need to catch
 them. You can do so manually, or you can use the plugin
 <code>Zend\Cache\Storage\Plugin\ExceptionHandler</code> with <code>throw_exceptions</code> set to
@@ -1008,7 +994,7 @@ PHP extension <a href="http://pecl.php.net/package/APC">APC</a> (Alternative PHP
 </tr>
 </tbody>
 </table></div>
-<h3 id="adapter-specific-options">Adapter specific options</h3>
+<h3 id="adapter-specific-options">Adapter specific Options</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -1077,7 +1063,7 @@ PHP extension <a href="http://pecl.php.net/package/APC">APC</a> (Alternative PHP
 </tr>
 </tbody>
 </table></div>
-<h3 id="adapter-specific-options_1">Adapter specific options</h3>
+<h3 id="adapter-specific-options_1">Adapter specific Options</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -1189,7 +1175,7 @@ outdated items periodically!</p>
 </tr>
 </tbody>
 </table></div>
-<h3 id="adapter-specific-options_2">Adapter specific options</h3>
+<h3 id="adapter-specific-options_2">Adapter specific Options</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -1348,7 +1334,7 @@ based on <a href="http://libmemcached.org/">Libmemcached</a>.</p>
 </tr>
 </tbody>
 </table></div>
-<h3 id="adapter-specific-options_3">Adapter specific options</h3>
+<h3 id="adapter-specific-options_3">Adapter specific Options</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -1436,7 +1422,7 @@ using the PHP extension <a href="https://github.com/nicolasff/phpredis">redis</a
 </tr>
 </tbody>
 </table></div>
-<h3 id="adapter-specific-options_4">Adapter specific options</h3>
+<h3 id="adapter-specific-options_4">Adapter specific Options</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -1562,7 +1548,7 @@ process only.</p>
 </tr>
 </tbody>
 </table></div>
-<h3 id="adapter-specific-options_5">Adapter specific options</h3>
+<h3 id="adapter-specific-options_5">Adapter specific Options</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -1582,7 +1568,7 @@ process only.</p>
 </tbody>
 </table></div>
 <blockquote>
-<h4 id="memory-limit">Memory limit</h4>
+<h4 id="memory-limit">Memory Limit</h4>
 <p>The adapter has the following behavior with regards to the memory limit:</p>
 <ul>
 <li>If the consumed memory exceeds the limit provided, an <code>OutOfSpaceException</code>
@@ -1663,7 +1649,7 @@ to use the <a href="#the-extmongodb-adapter">ExtMongoDb adapter</a> instead.</p>
 </tr>
 </tbody>
 </table></div>
-<h3 id="adapter-specific-options_6">Adapter specific options</h3>
+<h3 id="adapter-specific-options_6">Adapter specific Options</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -1726,9 +1712,9 @@ to use the <a href="#the-extmongodb-adapter">ExtMongoDb adapter</a> instead.</p>
 </tbody>
 </table></div>
 <h2 id="the-extmongodb-adapter">The ExtMongoDB Adapter</h2>
-<ul>
-<li>Since 2.8.0</li>
-</ul>
+<blockquote>
+<p>Available since version 2.8.0</p>
+</blockquote>
 <p><code>Zend\Cache\Storage\Adapter\ExtMongoDB</code> stores cache items using the mongodb extension, and
 requires that the MongoDB PHP Client library is also installed. You can install the client
 library using the following:</p>
@@ -1798,7 +1784,7 @@ to use the <a href="#the-mongodb-adapter">MongoDb adapter</a> instead.</p>
 </tr>
 </tbody>
 </table></div>
-<h3 id="adapter-specific-options_7">Adapter specific options</h3>
+<h3 id="adapter-specific-options_7">Adapter specific Options</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -1921,7 +1907,7 @@ through the PHP extension <a href="http://pecl.php.net/package/WinCache">WinCach
 </tr>
 </tbody>
 </table></div>
-<h3 id="adapter-specific-options_8">Adapter specific options</h3>
+<h3 id="adapter-specific-options_8">Adapter specific Options</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -2008,7 +1994,7 @@ PHP extension <a href="http://xcache.lighttpd.net/">XCache</a>.</p>
 </tr>
 </tbody>
 </table></div>
-<h3 id="adapter-specific-options_9">Adapter specific options</h3>
+<h3 id="adapter-specific-options_9">Adapter specific Options</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -2177,7 +2163,7 @@ through the <a href="http://www.zend.com/en/products/server/">Zend Server Data C
 </tbody>
 </table></div>
 <h2 id="examples">Examples</h2>
-<h3 id="basic-usage">Basic usage</h3>
+<h3 id="basic-usage">Basic Usage</h3>
 <pre class="codehilite"><code class="language-php">use Zend\Cache\StorageFactory;
 
 $cache = StorageFactory::factory([
@@ -2199,7 +2185,7 @@ if (! $success) {
     $cache-&gt;setItem($key, $result);
 }</code></pre>
 
-<h3 id="get-multiple-rows-from-a-database">Get multiple rows from a database</h3>
+<h3 id="get-multiple-rows-from-a-database">Get multiple Rows from a Database</h3>
 <pre class="codehilite"><code class="language-php">use Zend\Cache\StorageFactory;
 
 // Instantiate the cache instance using a namespace for the same type of items
@@ -2301,20 +2287,6 @@ if (count($results) &lt; count($ids)) {
         <h5 class="subnavigation__subtitle">Table of Contents</h5>
 
         <ul class="subnavigation__list">
-            
-
-                
-                
-
-                    
-                    
-                        
-                            <li class="subnavigation__list-item ">
-                                <a href="../.." class="subnavigation__link">zend-cache</a>
-                            </li>
-                        
-                    
-                
             
 
                 

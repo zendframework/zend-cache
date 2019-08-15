@@ -2,62 +2,62 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
      <loc>https://docs.zendframework.com/zend-cache/</loc>
-     <lastmod>2019-04-29</lastmod>
+     <lastmod>2019-08-15</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-cache/storage/adapter/</loc>
-     <lastmod>2019-04-29</lastmod>
+     <lastmod>2019-08-15</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-cache/storage/capabilities/</loc>
-     <lastmod>2019-04-29</lastmod>
+     <lastmod>2019-08-15</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-cache/storage/plugin/</loc>
-     <lastmod>2019-04-29</lastmod>
+     <lastmod>2019-08-15</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-cache/pattern/intro/</loc>
-     <lastmod>2019-04-29</lastmod>
+     <lastmod>2019-08-15</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-cache/pattern/callback-cache/</loc>
-     <lastmod>2019-04-29</lastmod>
+     <lastmod>2019-08-15</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-cache/pattern/class-cache/</loc>
-     <lastmod>2019-04-29</lastmod>
+     <lastmod>2019-08-15</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-cache/pattern/object-cache/</loc>
-     <lastmod>2019-04-29</lastmod>
+     <lastmod>2019-08-15</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-cache/pattern/output-cache/</loc>
-     <lastmod>2019-04-29</lastmod>
+     <lastmod>2019-08-15</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-cache/pattern/capture-cache/</loc>
-     <lastmod>2019-04-29</lastmod>
+     <lastmod>2019-08-15</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-cache/psr6/</loc>
-     <lastmod>2019-04-29</lastmod>
+     <lastmod>2019-08-15</lastmod>
      <changefreq>daily</changefreq>
     </url>
     <url>
      <loc>https://docs.zendframework.com/zend-cache/psr16/</loc>
-     <lastmod>2019-04-29</lastmod>
+     <lastmod>2019-08-15</lastmod>
      <changefreq>daily</changefreq>
     </url>
 </urlset>

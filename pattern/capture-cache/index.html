@@ -336,10 +336,8 @@ again.</p>
 <p>This pattern comes with basic logic for managing generated resources.</p>
 <h2 id="quick-start">Quick Start</h2>
 <p>For use with an Apache 404 handler:</p>
-<pre class="codehilite"><code class="language-apacheconf"># .htdocs
-ErrorDocument 404 /index.php</code></pre>
-
-<pre class="codehilite"><code class="language-php">// index.php
+<div class=md-fenced-code-tabs id=tab-tab-group-0><ul class="nav nav-tabs"><li class="nav-item active"><a href=#tab-group-0-0_apacheconf role=tab data-toggle=tab data-lang=apacheconf>Apacheconf</a></li><li class="nav-item "><a href=#tab-group-0-1_php role=tab data-toggle=tab data-lang=php>Php</a></li></ul><div class=tab-content><div id=tab-group-0-0_apacheconf class="tab-pane active" role=tabpanel><pre class=codehilite><code class=language-apacheconf># .htdocs
+ErrorDocument 404 /index.php</code></pre></div><div id=tab-group-0-1_php class="tab-pane " role=tabpanel><pre class=codehilite><code class=language-php>// index.php
 use Zend\Cache\PatternFactory;
 $capture = Zend\Cache\PatternFactory::factory('capture', [
     'public_dir' =&gt; __DIR__,
@@ -352,7 +350,7 @@ $capture-&gt;start();
 // Don't forget to change the HTTP response code
 header('Status: 200', true, 200);
 
-// do stuff to dynamically generate output</code></pre>
+// do stuff to dynamically generate output</code></pre></div></div></div>
 
 <h2 id="configuration-options">Configuration Options</h2>
 <div class="table-responsive"><table>
@@ -406,7 +404,7 @@ header('Status: 200', true, 200);
 <h2 id="available-methods">Available Methods</h2>
 <p>In addition to the methods exposed in <code>PatternInterface</code>, this implementation
 exposes the following methods.</p>
-<pre class="codehilite"><code class="language-php">namespace Zend\Cache\Pattern;
+<p> <pre class=codehilite><code class=language-php>namespace Zend\Cache\Pattern;
 
 use Zend\Cache\Exception;
 use Zend\Stdlib\ErrorHandler;
@@ -474,21 +472,19 @@ class CaptureCache extends AbstractPattern
      * @return string
      */
     public function getFilename($pageId = null);
-}</code></pre>
-
+}</code></pre></p>
 <h2 id="examples">Examples</h2>
-<h3 id="scaling-images-in-the-web-root">Scaling Images in the Web Root</h3>
+<h3>Scaling Images in the Web Root</h3>
 <p>Using the following Apache 404 configuration:</p>
-<pre class="codehilite"><code class="language-apacheconf"># .htdocs
-ErrorDocument 404 /index.php</code></pre>
-
+<p> <pre class=codehilite><code class=language-apacheconf># .htdocs
+ErrorDocument 404 /index.php</code></pre></p>
 <p>Use the following script:</p>
-<pre class="codehilite"><code class="language-php">// index.php
+<p> <pre class=codehilite><code class=language-php>// index.php
 $captureCache = Zend\Cache\PatternFactory::factory('capture', [
     'public_dir' =&gt; __DIR__,
 ]);
 
-// TODO</code></pre>
+// TODO</code></pre></p>
 
 
 
@@ -522,7 +518,7 @@ $captureCache = Zend\Cache\PatternFactory::factory('capture', [
     <div class="help-wanted">
         <p>
             Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/zendframework/zend-cache/edit/master/docs/pattern/capture-cache.md" target="_blank" class="help-wanted__link">
+            <a href="https://github.com/zendframework/zend-cache/edit/master/docs/book/pattern/capture-cache.md" target="_blank" class="help-wanted__link">
                 Edit this page on GitHub!
             </a>
         </p>

@@ -331,7 +331,7 @@ notifications; see the examples for details.</p>
 because you have access to the marker object and can create your own marker to
 instantiate a new instance of <code>Zend\Cache\Storage\Capabilities</code>.</p>
 <h2 id="available-methods">Available Methods</h2>
-<pre class="codehilite"><code class="language-php">namespace Zend\Cache\Storage;
+<p> <pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
 
 use ArrayObject;
 use stdClass;
@@ -501,7 +501,7 @@ class Capabilities
     public function setExpiredRead(stdClass $marker, $flag);
 
     /**
-     * Get "lock-on-expire" support in seconds.
+     * Get &quot;lock-on-expire&quot; support in seconds.
      *
      * @return int  0 = Expired items will never be retrieved
      *             &gt;0 = Time in seconds an expired item could be retrieved
@@ -513,7 +513,7 @@ class Capabilities
     }
 
     /**
-     * Set "lock-on-expire" support in seconds.
+     * Set &quot;lock-on-expire&quot; support in seconds.
      *
      * @param  stdClass $marker
      * @param  int      $timeout
@@ -572,11 +572,10 @@ class Capabilities
      * @return Capabilities Fluent interface
      */
     public function setNamespaceSeparator(stdClass $marker, $separator);
-}</code></pre>
-
+}</code></pre></p>
 <h2 id="examples">Examples</h2>
-<h3 id="get-storage-capabilities-and-do-specific-stuff-based-on-them">Get Storage Capabilities and do specific Stuff based on them</h3>
-<pre class="codehilite"><code class="language-php">use Zend\Cache\StorageFactory;
+<h3>Get Storage Capabilities and do specific Stuff based on them</h3>
+<p> <pre class=codehilite><code class=language-php>use Zend\Cache\StorageFactory;
 
 $cache = StorageFactory::adapterFactory('filesystem');
 $supportedDatatypes = $cache-&gt;getCapabilities()-&gt;getSupportedDatatypes();
@@ -586,10 +585,9 @@ if ($supportedDatatypes['object']) {
     $cache-&gt;set($key, $object);
 } else {
     $cache-&gt;set($key, serialize($object));
-}</code></pre>
-
-<h3 id="listen-to-the-change-event">Listen to the change Event</h3>
-<pre class="codehilite"><code class="language-php">use Zend\Cache\StorageFactory;
+}</code></pre></p>
+<h3>Listen to the change Event</h3>
+<p> <pre class=codehilite><code class=language-php>use Zend\Cache\StorageFactory;
 
 $cache = StorageFactory::adapterFactory('filesystem', [
     'no_atime' =&gt; false,
@@ -601,7 +599,7 @@ $cache-&gt;getEventManager()-&gt;attach('capability', function($event) {
 });
 
 // change option which changes capabilities
-$cache-&gt;getOptions()-&gt;setNoATime(true);</code></pre>
+$cache-&gt;getOptions()-&gt;setNoATime(true);</code></pre></p>
 
 
 
@@ -635,7 +633,7 @@ $cache-&gt;getOptions()-&gt;setNoATime(true);</code></pre>
     <div class="help-wanted">
         <p>
             Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/zendframework/zend-cache/edit/master/docs/storage/capabilities.md" target="_blank" class="help-wanted__link">
+            <a href="https://github.com/zendframework/zend-cache/edit/master/docs/book/storage/capabilities.md" target="_blank" class="help-wanted__link">
                 Edit this page on GitHub!
             </a>
         </p>

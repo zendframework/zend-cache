@@ -306,10 +306,6 @@
             <ul class="toc__list">
                 
                     <li class="toc__entry">
-                        <a href="#many-methods-throw-exceptions" class="toc__link">Many Methods throw Exceptions</a>
-                    </li>
-                
-                    <li class="toc__entry">
                         <a href="#quick-start" class="toc__link">Quick Start</a>
                     </li>
                 
@@ -431,7 +427,7 @@ these are then passed to an options class instance). Alternately, you can pass
 either the options instance or associative array to the
 <code>Zend\Cache\StorageFactory::factory</code> method.</p>
 <blockquote>
-<h3 id="many-methods-throw-exceptions">Many Methods throw Exceptions</h3>
+<h3>Many Methods throw Exceptions</h3>
 <p>Because many caching operations throw an exception on error, you need to catch
 them. You can do so manually, or you can use the plugin
 <code>Zend\Cache\Storage\Plugin\ExceptionHandler</code> with <code>throw_exceptions</code> set to
@@ -444,7 +440,7 @@ them. You can do so manually, or you can use the plugin
 <code>Zend\Cache\Storage\Adapter\*</code> classes.  To make life easier, the
 <code>Zend\Cache\StorageFactory</code> comes with a <code>factory()</code> method to create an adapter
 and all requested plugins at once.</p>
-<pre class="codehilite"><code class="language-php">use Zend\Cache\StorageFactory;
+<p> <pre class=codehilite><code class=language-php>use Zend\Cache\StorageFactory;
 
 // Via factory:
 $cache = StorageFactory::factory([
@@ -470,8 +466,7 @@ $cache-&gt;getOptions()-&gt;setTtl(3600);
 
 $plugin = new Zend\Cache\Storage\Plugin\ExceptionHandler();
 $plugin-&gt;getOptions()-&gt;setThrowExceptions(false);
-$cache-&gt;addPlugin($plugin);</code></pre>
-
+$cache-&gt;addPlugin($plugin);</code></pre></p>
 <h2 id="basic-configuration-options">Basic Configuration Options</h2>
 <p>The following configuration options are defined by <code>Zend\Cache\Storage\Adapter\AdapterOptions</code> and
 are available for every supported adapter. Adapter-specific configuration options are described on
@@ -521,7 +516,7 @@ adapter level below.</p>
 <h2 id="the-storageinterface">The StorageInterface</h2>
 <p><code>Zend\Cache\Storage\StorageInterface</code> is the basic interface implemented by all
 storage adapters.</p>
-<pre class="codehilite"><code class="language-php">namespace Zend\Cache\Storage;
+<p> <pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
 
 use Traversable;
 
@@ -757,12 +752,11 @@ interface StorageInterface
      * @return Capabilities
      */
     public function getCapabilities();
-}</code></pre>
-
+}</code></pre></p>
 <h2 id="the-availablespacecapableinterface">The AvailableSpaceCapableInterface</h2>
 <p><code>Zend\Cache\Storage\AvailableSpaceCapableInterface</code> implements a method to allow
 retrieving the current available space remaining in storage.</p>
-<pre class="codehilite"><code class="language-php">namespace Zend\Cache\Storage;
+<p> <pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
 
 interface AvailableSpaceCapableInterface
 {
@@ -772,12 +766,11 @@ interface AvailableSpaceCapableInterface
      * @return int|float
      */
     public function getAvailableSpace();
-}</code></pre>
-
+}</code></pre></p>
 <h2 id="the-totalspacecapableinterface">The TotalSpaceCapableInterface</h2>
 <p><code>Zend\Cache\Storage\TotalSpaceCapableInterface</code> implements a method to allow
 retrieving the total storage space.</p>
-<pre class="codehilite"><code class="language-php">namespace Zend\Cache\Storage;
+<p> <pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
 
 interface TotalSpaceCapableInterface
 {
@@ -787,12 +780,11 @@ interface TotalSpaceCapableInterface
      * @return int|float
      */
     public function getTotalSpace();
-}</code></pre>
-
+}</code></pre></p>
 <h2 id="the-clearbynamespaceinterface">The ClearByNamespaceInterface</h2>
 <p><code>Zend\Cache\Storage\ClearByNamespaceInterface</code> implements a method to allow
 clearing all cached items within a given namespace.</p>
-<pre class="codehilite"><code class="language-php">namespace Zend\Cache\Storage;
+<p> <pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
 
 interface ClearByNamespaceInterface
 {
@@ -803,13 +795,12 @@ interface ClearByNamespaceInterface
      * @return bool
      */
     public function clearByNamespace($namespace);
-}</code></pre>
-
+}</code></pre></p>
 <h2 id="the-clearbyprefixinterface">The ClearByPrefixInterface</h2>
 <p><code>Zend\Cache\Storage\ClearByPrefixInterface</code> implements a method to allow
 clearing all cached items that have a given prefix (within the currently
 configured namespace).</p>
-<pre class="codehilite"><code class="language-php">namespace Zend\Cache\Storage;
+<p> <pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
 
 interface ClearByPrefixInterface
 {
@@ -820,12 +811,11 @@ interface ClearByPrefixInterface
      * @return bool
      */
     public function clearByPrefix($prefix);
-}</code></pre>
-
+}</code></pre></p>
 <h2 id="the-clearexpiredinterface">The ClearExpiredInterface</h2>
 <p><code>Zend\Cache\Storage\ClearExpiredInterface</code> implements a method to allow clearing
 all expired items (within the current configured namespace).</p>
-<pre class="codehilite"><code class="language-php">namespace Zend\Cache\Storage;
+<p> <pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
 
 interface ClearExpiredInterface
 {
@@ -835,12 +825,11 @@ interface ClearExpiredInterface
      * @return bool
      */
     public function clearExpired();
-}</code></pre>
-
+}</code></pre></p>
 <h2 id="the-flushableinterface">The FlushableInterface</h2>
 <p><code>Zend\Cache\Storage\FlushableInterface</code> implements a method for flushing the
 entire cache storage.</p>
-<pre class="codehilite"><code class="language-php">namespace Zend\Cache\Storage;
+<p> <pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
 
 interface FlushableInterface
 {
@@ -850,14 +839,13 @@ interface FlushableInterface
      * @return bool
      */
     public function flush();
-}</code></pre>
-
+}</code></pre></p>
 <h2 id="the-iterableinterface">The IterableInterface</h2>
 <p><code>Zend\Cache\Storage\IterableInterface</code> implements a method for retrieving an
 iterator of all items in storage. It extends <code>IteratorAggregate</code>, so it's
 possible to directly iterate over the storage implementations that implement
 this interface using <code>foreach</code>.</p>
-<pre class="codehilite"><code class="language-php">namespace Zend\Cache\Storage;
+<p> <pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
 
 use IteratorAggregate;
 
@@ -871,12 +859,11 @@ interface IterableInterface extends IteratorAggregate
      * @return \Traversable
      */
     public function getIterator();
-}</code></pre>
-
+}</code></pre></p>
 <h2 id="the-optimizableinterface">The OptimizableInterface</h2>
 <p><code>Zend\Cache\Storage\OptimizableInterface</code> implements a method for running
 optimization processes on the storage adapter.</p>
-<pre class="codehilite"><code class="language-php">namespace Zend\Cache\Storage;
+<p> <pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
 
 interface OptimizableInterface
 {
@@ -886,12 +873,11 @@ interface OptimizableInterface
      * @return bool
      */
     public function optimize();
-}</code></pre>
-
+}</code></pre></p>
 <h2 id="the-taggableinterface">The TaggableInterface</h2>
 <p><code>Zend\Cache\Storage\TaggableInterface</code> implements methods for tagging items, and
 cleaning (expiring) items matching tags.</p>
-<pre class="codehilite"><code class="language-php">namespace Zend\Cache\Storage;
+<p> <pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
 
 interface TaggableInterface
 {
@@ -924,8 +910,7 @@ interface TaggableInterface
      * @return bool
      */
     public function clearByTags(array $tags, $disjunction = false);
-}</code></pre>
-
+}</code></pre></p>
 <h2 id="the-apc-adapter">The Apc Adapter</h2>
 <p><code>Zend\Cache\Storage\Adapter\Apc</code> stores cache items in shared memory through the
 PHP extension <a href="http://pecl.php.net/package/APC">APC</a> (Alternative PHP Cache).</p>
@@ -939,7 +924,7 @@ PHP extension <a href="http://pecl.php.net/package/APC">APC</a> (Alternative PHP
 <li><code>Zend\Cache\Storage\IterableInterface</code></li>
 <li><code>Zend\Cache\Storage\TotalSpaceCapableInterface</code></li>
 </ul>
-<h3 id="capabilities">Capabilities</h3>
+<h3>Capabilities</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -994,7 +979,7 @@ PHP extension <a href="http://pecl.php.net/package/APC">APC</a> (Alternative PHP
 </tr>
 </tbody>
 </table></div>
-<h3 id="adapter-specific-options">Adapter specific Options</h3>
+<h3>Adapter specific Options</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -1028,7 +1013,7 @@ PHP extension <a href="http://pecl.php.net/package/APC">APC</a> (Alternative PHP
 <li><code>Zend\Cache\Storage\OptimizableInterface</code></li>
 <li><code>Zend\Cache\Storage\TotalSpaceCapableInterface</code></li>
 </ul>
-<h3 id="capabilities_1">Capabilities</h3>
+<h3>Capabilities</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -1063,7 +1048,7 @@ PHP extension <a href="http://pecl.php.net/package/APC">APC</a> (Alternative PHP
 </tr>
 </tbody>
 </table></div>
-<h3 id="adapter-specific-options_1">Adapter specific Options</h3>
+<h3>Adapter specific Options</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -1101,7 +1086,7 @@ PHP extension <a href="http://pecl.php.net/package/APC">APC</a> (Alternative PHP
 </tbody>
 </table></div>
 <blockquote>
-<h3 id="this-adapter-doesnt-support-automatic-expiry">This adapter doesn't support automatic expiry</h3>
+<h3>This adapter doesn't support automatic expiry</h3>
 <p>Because this adapter doesn't support automatic expiry, it's very important to clean
 outdated items periodically!</p>
 </blockquote>
@@ -1120,7 +1105,7 @@ outdated items periodically!</p>
 <li><code>Zend\Cache\Storage\TaggableInterface</code></li>
 <li><code>Zend\Cache\Storage\TotalSpaceCapableInterface</code></li>
 </ul>
-<h3 id="capabilities_2">Capabilities</h3>
+<h3>Capabilities</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -1175,7 +1160,7 @@ outdated items periodically!</p>
 </tr>
 </tbody>
 </table></div>
-<h3 id="adapter-specific-options_2">Adapter specific Options</h3>
+<h3>Adapter specific Options</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -1279,7 +1264,7 @@ based on <a href="http://libmemcached.org/">Libmemcached</a>.</p>
 <li><code>Zend\Cache\Storage\FlushableInterface</code></li>
 <li><code>Zend\Cache\Storage\TotalSpaceCapableInterface</code></li>
 </ul>
-<h3 id="capabilities_3">Capabilities</h3>
+<h3>Capabilities</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -1334,7 +1319,7 @@ based on <a href="http://libmemcached.org/">Libmemcached</a>.</p>
 </tr>
 </tbody>
 </table></div>
-<h3 id="adapter-specific-options_3">Adapter specific Options</h3>
+<h3>Adapter specific Options</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -1367,7 +1352,7 @@ using the PHP extension <a href="https://github.com/nicolasff/phpredis">redis</a
 <li><code>Zend\Cache\Storage\FlushableInterface</code></li>
 <li><code>Zend\Cache\Storage\TotalSpaceCapableInterface</code></li>
 </ul>
-<h3 id="capabilities_4">Capabilities</h3>
+<h3>Capabilities</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -1422,7 +1407,7 @@ using the PHP extension <a href="https://github.com/nicolasff/phpredis">redis</a
 </tr>
 </tbody>
 </table></div>
-<h3 id="adapter-specific-options_4">Adapter specific Options</h3>
+<h3>Adapter specific Options</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -1497,7 +1482,7 @@ process only.</p>
 <li><code>Zend\Cache\Storage\TaggableInterface</code></li>
 <li><code>Zend\Cache\Storage\TotalSpaceCapableInterface</code></li>
 </ul>
-<h3 id="capabilities_5">Capabilities</h3>
+<h3>Capabilities</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -1548,7 +1533,7 @@ process only.</p>
 </tr>
 </tbody>
 </table></div>
-<h3 id="adapter-specific-options_5">Adapter specific Options</h3>
+<h3>Adapter specific Options</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -1568,7 +1553,7 @@ process only.</p>
 </tbody>
 </table></div>
 <blockquote>
-<h4 id="memory-limit">Memory Limit</h4>
+<h4>Memory Limit</h4>
 <p>The adapter has the following behavior with regards to the memory limit:</p>
 <ul>
 <li>If the consumed memory exceeds the limit provided, an <code>OutOfSpaceException</code>
@@ -1577,7 +1562,7 @@ process only.</p>
 <li>When a value is provided for the memory limit, the value is measured in
   bytes. Shorthand notation may also be provided.</li>
 </ul>
-<h3 id="current-process-only">Current process only!</h3>
+<h3>Current process only!</h3>
 <p>All stored items will be lost on termination of the script. For web-facing
 requests, this typically means the cache is volatile.</p>
 </blockquote>
@@ -1586,7 +1571,7 @@ requests, this typically means the cache is volatile.</p>
 PHP extension <a href="http://php.net/mongo">mongo</a>, or a MongoDB polyfill library, such as
 <a href="https://github.com/mongofill/mongofill">Mongofill</a>.</p>
 <blockquote>
-<h4 id="ext-mongodb">ext-mongodb</h4>
+<h4>ext-mongodb</h4>
 <p>If you are using the mongodb extension (vs the mongo extension), you will need
 to use the <a href="#the-extmongodb-adapter">ExtMongoDb adapter</a> instead.</p>
 </blockquote>
@@ -1594,7 +1579,7 @@ to use the <a href="#the-extmongodb-adapter">ExtMongoDb adapter</a> instead.</p>
 <ul>
 <li><code>Zend\Cache\Storage\FlushableInterface</code></li>
 </ul>
-<h3 id="capabilities_6">Capabilities</h3>
+<h3>Capabilities</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -1649,7 +1634,7 @@ to use the <a href="#the-extmongodb-adapter">ExtMongoDb adapter</a> instead.</p>
 </tr>
 </tbody>
 </table></div>
-<h3 id="adapter-specific-options_6">Adapter specific Options</h3>
+<h3>Adapter specific Options</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -1718,10 +1703,9 @@ to use the <a href="#the-extmongodb-adapter">ExtMongoDb adapter</a> instead.</p>
 <p><code>Zend\Cache\Storage\Adapter\ExtMongoDB</code> stores cache items using the mongodb extension, and
 requires that the MongoDB PHP Client library is also installed. You can install the client
 library using the following:</p>
-<pre class="codehilite"><code class="language-bash">$ composer require mongodb/mongodb</code></pre>
-
+<p> <pre class=codehilite><code class=language-bash>$ composer require mongodb/mongodb</code></pre></p>
 <blockquote>
-<h4 id="ext-mongo">ext-mongo</h4>
+<h4>ext-mongo</h4>
 <p>If you are using the mongo extension (vs the mongodb extension), you will need
 to use the <a href="#the-mongodb-adapter">MongoDb adapter</a> instead.</p>
 </blockquote>
@@ -1729,7 +1713,7 @@ to use the <a href="#the-mongodb-adapter">MongoDb adapter</a> instead.</p>
 <ul>
 <li><code>Zend\Cache\Storage\FlushableInterface</code></li>
 </ul>
-<h3 id="capabilities_7">Capabilities</h3>
+<h3>Capabilities</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -1784,7 +1768,7 @@ to use the <a href="#the-mongodb-adapter">MongoDb adapter</a> instead.</p>
 </tr>
 </tbody>
 </table></div>
-<h3 id="adapter-specific-options_7">Adapter specific Options</h3>
+<h3>Adapter specific Options</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -1856,7 +1840,7 @@ through the PHP extension <a href="http://pecl.php.net/package/WinCache">WinCach
 <li><code>Zend\Cache\Storage\FlushableInterface</code></li>
 <li><code>Zend\Cache\Storage\TotalSpaceCapableInterface</code></li>
 </ul>
-<h3 id="capabilities_8">Capabilities</h3>
+<h3>Capabilities</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -1907,7 +1891,7 @@ through the PHP extension <a href="http://pecl.php.net/package/WinCache">WinCach
 </tr>
 </tbody>
 </table></div>
-<h3 id="adapter-specific-options_8">Adapter specific Options</h3>
+<h3>Adapter specific Options</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -1939,7 +1923,7 @@ PHP extension <a href="http://xcache.lighttpd.net/">XCache</a>.</p>
 <li><code>Zend\Cache\Storage\IterableInterface</code></li>
 <li><code>Zend\Cache\Storage\TotalSpaceCapableInterface</code></li>
 </ul>
-<h3 id="capabilities_9">Capabilities</h3>
+<h3>Capabilities</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -1994,7 +1978,7 @@ PHP extension <a href="http://xcache.lighttpd.net/">XCache</a>.</p>
 </tr>
 </tbody>
 </table></div>
-<h3 id="adapter-specific-options_9">Adapter specific Options</h3>
+<h3>Adapter specific Options</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -2042,7 +2026,7 @@ using the <a href="http://www.zend.com/en/products/server/">Zend Server Data Cac
 <li><code>Zend\Cache\Storage\FlushableInterface</code></li>
 <li><code>Zend\Cache\Storage\TotalSpaceCapableInterface</code></li>
 </ul>
-<h3 id="capabilities_10">Capabilities</h3>
+<h3>Capabilities</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -2107,7 +2091,7 @@ through the <a href="http://www.zend.com/en/products/server/">Zend Server Data C
 <li><code>Zend\Cache\Storage\FlushableInterface</code></li>
 <li><code>Zend\Cache\Storage\TotalSpaceCapableInterface</code></li>
 </ul>
-<h3 id="capabilities_11">Capabilities</h3>
+<h3>Capabilities</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -2163,8 +2147,8 @@ through the <a href="http://www.zend.com/en/products/server/">Zend Server Data C
 </tbody>
 </table></div>
 <h2 id="examples">Examples</h2>
-<h3 id="basic-usage">Basic Usage</h3>
-<pre class="codehilite"><code class="language-php">use Zend\Cache\StorageFactory;
+<h3>Basic Usage</h3>
+<p> <pre class=codehilite><code class=language-php>use Zend\Cache\StorageFactory;
 
 $cache = StorageFactory::factory([
     'adapter' =&gt; [
@@ -2183,10 +2167,9 @@ $result = $cache-&gt;getItem($key, $success);
 if (! $success) {
     $result = doExpensiveStuff();
     $cache-&gt;setItem($key, $result);
-}</code></pre>
-
-<h3 id="get-multiple-rows-from-a-database">Get multiple Rows from a Database</h3>
-<pre class="codehilite"><code class="language-php">use Zend\Cache\StorageFactory;
+}</code></pre></p>
+<h3>Get multiple Rows from a Database</h3>
+<p> <pre class=codehilite><code class=language-php>use Zend\Cache\StorageFactory;
 
 // Instantiate the cache instance using a namespace for the same type of items
 $cache = StorageFactory::factory([
@@ -2225,7 +2208,7 @@ if (count($results) &lt; count($ids)) {
 
     // merge results from cache and db
     $results = array_merge($results, $missingResults);
-}</code></pre>
+}</code></pre></p>
 
 
 
@@ -2259,7 +2242,7 @@ if (count($results) &lt; count($ids)) {
     <div class="help-wanted">
         <p>
             Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/zendframework/zend-cache/edit/master/docs/storage/adapter.md" target="_blank" class="help-wanted__link">
+            <a href="https://github.com/zendframework/zend-cache/edit/master/docs/book/storage/adapter.md" target="_blank" class="help-wanted__link">
                 Edit this page on GitHub!
             </a>
         </p>

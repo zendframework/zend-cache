@@ -359,7 +359,7 @@ influence behavior of a storage adapter.</p>
 <code>Zend\Cache\Storage\Plugin\*</code> classes.</p>
 <p>To make life easier, <code>Zend\Cache\StorageFactory::factory()</code> can create both the
 requested adapter and all specified plugins at once.</p>
-<pre class="codehilite"><code class="language-php">use Zend\Cache\StorageFactory;
+<p> <pre class=codehilite><code class=language-php>use Zend\Cache\StorageFactory;
 
 // All at once:
 $cache = StorageFactory::factory([
@@ -375,13 +375,12 @@ $cache-&gt;addPlugin($plugin);
 // Or manually:
 $cache  = new Zend\Cache\Storage\Adapter\Filesystem();
 $plugin = new Zend\Cache\Storage\Plugin\Serializer();
-$cache-&gt;addPlugin($plugin);</code></pre>
-
+$cache-&gt;addPlugin($plugin);</code></pre></p>
 <h2 id="the-clearexpiredbyfactor-plugin">The ClearExpiredByFactor Plugin</h2>
 <p><code>Zend\Cache\Storage\Plugin\ClearExpiredByFactor</code> calls the storage method
 <code>clearExpired()</code> randomly (by factor) after every call of <code>setItem()</code>,
 <code>setItems()</code>, <code>addItem()</code>, and <code>addItems()</code>.</p>
-<h3 id="plugin-specific-options">Plugin specific Options</h3>
+<h3>Plugin specific Options</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -401,7 +400,7 @@ $cache-&gt;addPlugin($plugin);</code></pre>
 </tbody>
 </table></div>
 <blockquote>
-<h3 id="adapter-must-implement-clearexpiredinterface">Adapter must implement ClearExpiredInterface</h3>
+<h3>Adapter must implement ClearExpiredInterface</h3>
 <p>The storage adapter must implement <code>Zend\Cache\Storage\ClearExpiredInterface</code>
 to work with this plugin.</p>
 </blockquote>
@@ -409,7 +408,7 @@ to work with this plugin.</p>
 <p><code>Zend\Cache\Storage\Plugin\ExceptionHandler</code> catches all exceptions thrown on
 reading from or writing to the cache, and sends the exception to a defined callback function.
 You may also configure the plugin to re-throw exceptions.</p>
-<h3 id="plugin-specific-options_1">Plugin specific Options</h3>
+<h3>Plugin specific Options</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -437,7 +436,7 @@ You may also configure the plugin to re-throw exceptions.</p>
 <h2 id="the-ignoreuserabort-plugin">The IgnoreUserAbort Plugin</h2>
 <p><code>Zend\Cache\Storage\Plugin\IgnoreUserAbort</code> ignores user-invoked script
 termination when, allowing cache write operations to complete first.</p>
-<h3 id="plugin-specific-options_2">Plugin specific Options</h3>
+<h3>Plugin specific Options</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -459,7 +458,7 @@ termination when, allowing cache write operations to complete first.</p>
 <h2 id="the-optimizebyfactor-plugin">The OptimizeByFactor Plugin</h2>
 <p><code>Zend\Cache\Storage\Plugin\OptimizeByFactor</code> calls the storage method <code>optimize()</code>
 randomly (by factor) after removing items from the cache.</p>
-<h3 id="plugin-specific-options_3">Plugin specific Options</h3>
+<h3>Plugin specific Options</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -479,7 +478,7 @@ randomly (by factor) after removing items from the cache.</p>
 </tbody>
 </table></div>
 <blockquote>
-<h3 id="adapter-must-implement-optimizableinterface">Adapter must implement OptimizableInterface</h3>
+<h3>Adapter must implement OptimizableInterface</h3>
 <p>The storage adapter must implement <code>Zend\Cache\Storage\OptimizableInterface</code>
 to work with this plugin.</p>
 </blockquote>
@@ -487,7 +486,7 @@ to work with this plugin.</p>
 <p><code>Zend\Cache\Storage\Plugin\Serializer</code> will serialize data when writing to
 cache, and deserialize when reading. This allows storing datatypes not supported
 by the underlying storage adapter.</p>
-<h3 id="plugin-specific-options_4">Plugin specific Options</h3>
+<h3>Plugin specific Options</h3>
 <div class="table-responsive"><table>
 <thead>
 <tr>
@@ -521,7 +520,7 @@ by the underlying storage adapter.</p>
 </ul>
 <h2 id="available-methods">Available Methods</h2>
 <p>The following methods are available to all <code>Zend\Cache\Storage\Plugin\PluginInterface</code> implementations:</p>
-<pre class="codehilite"><code class="language-php">namespace Zend\Cache\Storage\Plugin;
+<p> <pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage\Plugin;
 
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
@@ -558,11 +557,10 @@ interface PluginInterface extends ListenerAggregateInterface
      * @return void
      */
     public function attach(EventManagerInterface $events);
-}</code></pre>
-
+}</code></pre></p>
 <h2 id="examples">Examples</h2>
-<h3 id="basic-plugin-implementation">Basic Plugin Implementation</h3>
-<pre class="codehilite"><code class="language-php">use Zend\Cache\Storage\Event;
+<h3>Basic Plugin Implementation</h3>
+<p> <pre class=codehilite><code class=language-php>use Zend\Cache\Storage\Event;
 use Zend\Cache\Storage\Plugin\AbstractPlugin;
 use Zend\EventManager\EventManagerInterface;
 
@@ -593,13 +591,13 @@ class MyPlugin extends AbstractPlugin
     public function onGetItemPre(Event $event)
     {
         $params = $event-&gt;getParams();
-        echo sprintf("Method 'getItem' with key '%s' started\n", $params['key']);
+        echo sprintf(&quot;Method 'getItem' with key '%s' started\n&quot;, $params['key']);
     }
 
     public function onGetItemPost(Event $event)
     {
         $params = $event-&gt;getParams();
-        echo sprintf("Method 'getItem' with key '%s' finished\n", $params['key']);
+        echo sprintf(&quot;Method 'getItem' with key '%s' finished\n&quot;, $params['key']);
     }
 }
 
@@ -611,7 +609,7 @@ $cache-&gt;addPlugin($plugin);
 // Now when calling getItem(), our plugin should print the expected output:
 $cache-&gt;getItem('cache-key');
 // Method 'getItem' with key 'cache-key' started
-// Method 'getItem' with key 'cache-key' finished</code></pre>
+// Method 'getItem' with key 'cache-key' finished</code></pre></p>
 
 
 
@@ -645,7 +643,7 @@ $cache-&gt;getItem('cache-key');
     <div class="help-wanted">
         <p>
             Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/zendframework/zend-cache/edit/master/docs/storage/plugin.md" target="_blank" class="help-wanted__link">
+            <a href="https://github.com/zendframework/zend-cache/edit/master/docs/book/storage/plugin.md" target="_blank" class="help-wanted__link">
                 Edit this page on GitHub!
             </a>
         </p>

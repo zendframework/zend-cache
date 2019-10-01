@@ -333,13 +333,12 @@
 instead generates the callbacks for any public static method invoked on the
 class being cached, and caches static properties.</p>
 <h2 id="quick-start">Quick Start</h2>
-<pre class="codehilite"><code class="language-php">use Zend\Cache\PatternFactory;
+<p> <pre class=codehilite><code class=language-php>use Zend\Cache\PatternFactory;
 
 $classCache = PatternFactory::factory('class', [
     'class'   =&gt; 'MyClass',
     'storage' =&gt; 'apc',
-]);</code></pre>
-
+]);</code></pre></p>
 <h2 id="configuration-options">Configuration Options</h2>
 <div class="table-responsive"><table>
 <thead>
@@ -392,7 +391,7 @@ $classCache = PatternFactory::factory('class', [
 <h2 id="available-methods">Available Methods</h2>
 <p>In addition to the methods defined in <code>PatternInterface</code>, this implementation
 exposes the following methods.</p>
-<pre class="codehilite"><code class="language-php">namespace Zend\Cache\Pattern;
+<p> <pre class=codehilite><code class=language-php>namespace Zend\Cache\Pattern;
 
 use Zend\Cache;
 use Zend\Cache\Exception;
@@ -485,11 +484,10 @@ class ClassCache extends CallbackCache
         $class = $this-&gt;getOptions()-&gt;getClass();
         unset($class::$name);
     }
-}</code></pre>
-
+}</code></pre></p>
 <h2 id="examples">Examples</h2>
-<h3 id="caching-of-import-feeds">Caching of Import Feeds</h3>
-<pre class="codehilite"><code class="language-php">$cachedFeedReader = Zend\Cache\PatternFactory::factory('class', [
+<h3>Caching of Import Feeds</h3>
+<p> <pre class=codehilite><code class=language-php>$cachedFeedReader = Zend\Cache\PatternFactory::factory('class', [
     'class'   =&gt; 'Zend\Feed\Reader\Reader',
     'storage' =&gt; 'apc',
 
@@ -498,10 +496,10 @@ class ClassCache extends CallbackCache
     'cache_output' =&gt; false,
 ]);
 
-$feed = $cachedFeedReader-&gt;call("import", array('http://www.planet-php.net/rdf/'));
+$feed = $cachedFeedReader-&gt;call(&quot;import&quot;, array('http://www.planet-php.net/rdf/'));
 
 // OR
-$feed = $cachedFeedReader-&gt;import('http://www.planet-php.net/rdf/');</code></pre>
+$feed = $cachedFeedReader-&gt;import('http://www.planet-php.net/rdf/');</code></pre></p>
 
 
 
@@ -535,7 +533,7 @@ $feed = $cachedFeedReader-&gt;import('http://www.planet-php.net/rdf/');</code></
     <div class="help-wanted">
         <p>
             Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/zendframework/zend-cache/edit/master/docs/pattern/class-cache.md" target="_blank" class="help-wanted__link">
+            <a href="https://github.com/zendframework/zend-cache/edit/master/docs/book/pattern/class-cache.md" target="_blank" class="help-wanted__link">
                 Edit this page on GitHub!
             </a>
         </p>

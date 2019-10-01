@@ -330,7 +330,7 @@
     <h1 id="callbackcache">CallbackCache</h1>
 <p>The callback cache pattern caches the results of arbitrary PHP callables.</p>
 <h2 id="quick-start">Quick Start</h2>
-<pre class="codehilite"><code class="language-php">use Zend\Cache\PatternFactory;
+<p> <pre class=codehilite><code class=language-php>use Zend\Cache\PatternFactory;
 use Zend\Cache\Pattern\PatternOptions;
 
 // Via the factory:
@@ -344,8 +344,7 @@ $callbackCache = new \Zend\Cache\Pattern\CallbackCache();
 $callbackCache-&gt;setOptions(new PatternOptions([
     'storage'      =&gt; 'apc',
     'cache_output' =&gt; true,
-]));</code></pre>
-
+]));</code></pre></p>
 <h2 id="configuration-options">Configuration Options</h2>
 <div class="table-responsive"><table>
 <thead>
@@ -374,7 +373,7 @@ $callbackCache-&gt;setOptions(new PatternOptions([
 <h2 id="available-methods">Available Methods</h2>
 <p>In addition to the methods defined in the <code>PatternInterface</code>, this
 implementation provides the following methods.</p>
-<pre class="codehilite"><code class="language-php">namespace Zend\Cache\Pattern;
+<p> <pre class=codehilite><code class=language-php>namespace Zend\Cache\Pattern;
 
 use Zend\Cache\Exception;
 use Zend\Stdlib\ErrorHandler;
@@ -414,15 +413,14 @@ class CallbackCache extends AbstractPattern
      * @throws Exception\InvalidArgumentException
      */
     public function generateKey($callback, array $args = []);
-}</code></pre>
-
+}</code></pre></p>
 <h2 id="examples">Examples</h2>
-<h3 id="instantiating-the-callback-cache-pattern">Instantiating the Callback Cache Pattern</h3>
-<pre class="codehilite"><code class="language-php">use Zend\Cache\PatternFactory;
+<h3>Instantiating the Callback Cache Pattern</h3>
+<p> <pre class=codehilite><code class=language-php>use Zend\Cache\PatternFactory;
 
 $callbackCache = PatternFactory::factory('callback', [
     'storage' =&gt; 'apc'
-]);</code></pre>
+]);</code></pre></p>
 
 
 
@@ -456,7 +454,7 @@ $callbackCache = PatternFactory::factory('callback', [
     <div class="help-wanted">
         <p>
             Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/zendframework/zend-cache/edit/master/docs/pattern/callback-cache.md" target="_blank" class="help-wanted__link">
+            <a href="https://github.com/zendframework/zend-cache/edit/master/docs/book/pattern/callback-cache.md" target="_blank" class="help-wanted__link">
                 Edit this page on GitHub!
             </a>
         </p>

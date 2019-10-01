@@ -339,7 +339,7 @@ instance) to the second argument of the factory.</p>
 <h2 id="quick-start">Quick Start</h2>
 <p>Pattern objects can either be created from the provided <code>Zend\Cache\PatternFactory</code>, or
 by instantiating one of the <code>Zend\Cache\Pattern\*Cache</code> classes.</p>
-<pre class="codehilite"><code class="language-php">// Via the factory:
+<p> <pre class=codehilite><code class=language-php>// Via the factory:
 $callbackCache = Zend\Cache\PatternFactory::factory('callback', [
     'storage' =&gt; 'apc',
 ]);
@@ -348,12 +348,11 @@ $callbackCache = Zend\Cache\PatternFactory::factory('callback', [
 $callbackCache = new Zend\Cache\Pattern\CallbackCache();
 $callbackCache-&gt;setOptions(new Zend\Cache\Pattern\PatternOptions([
     'storage' =&gt; 'apc',
-]));</code></pre>
-
+]));</code></pre></p>
 <h2 id="available-methods">Available Methods</h2>
 <p>The following methods are implemented by <code>Zend\Cache\Pattern\AbstractPattern</code>.
 Please read documentation of specific patterns to get more information.</p>
-<pre class="codehilite"><code class="language-php">namespace Zend\Cache\Pattern;
+<p> <pre class=codehilite><code class=language-php>namespace Zend\Cache\Pattern;
 
 interface PatternInterface
 {
@@ -371,7 +370,7 @@ interface PatternInterface
      * @return PatternOptions
      */
     public function getOptions();
-}</code></pre>
+}</code></pre></p>
 
 
 
@@ -405,7 +404,7 @@ interface PatternInterface
     <div class="help-wanted">
         <p>
             Found a mistake or want to contribute to the documentation?
-            <a href="https://github.com/zendframework/zend-cache/edit/master/docs/pattern/intro.md" target="_blank" class="help-wanted__link">
+            <a href="https://github.com/zendframework/zend-cache/edit/master/docs/book/pattern/intro.md" target="_blank" class="help-wanted__link">
                 Edit this page on GitHub!
             </a>
         </p>

@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Caching implementation with a variety of storage options, as well as codified caching strategies for callbacks, classes, and output.">  
+    <link rel="canonical" href="https://docs.zendframework.com/zend-cache/storage/plugin/">
+    <link rel="shortcut icon" href="../../img/favicon.ico">
+
+    <title>Plugins - zend-cache - Zend Framework Docs</title>
+
+    <link rel="stylesheet" href="../../css/styles-5cfabd53ee.css">
+</head>
+<body id="page-top">
+
+    
+    <div class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+
+            
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            
+            <span class="navbar-brand">
+                <a class="logo-link" href="https://framework.zend.com/" data-tooltip data-placement="bottom" title="Go to the ZF homepage">
+                    <img src="../../img/zend-framework-logo.svg" height="28" alt="Zend Framework">
+                </a>
+            </span>
+        </div>
+
+        <div class="navbar-collapse collapse">
+
+            
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="https://framework.zend.com/about">About</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/downloads">Install</a>
+                </li>
+                <li class="active">
+                    <a href="https://docs.zendframework.com">Documentation</a>
+                </li>
+                <li>
+                    <a href="https://www.zend.com/en/services/training">Training</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="https://framework.zend.com/participate">Participate</a>
+                </li>
+            </ul>
+
+            
+            
+                <div class="nav navbar-nav navbar-collapse visible-xs-block ">
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="../..">zend-cache</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Storage</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../adapter/" class="subnavigation__link">Adapters</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../capabilities/" class="subnavigation__link">Capabilities</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Plugins</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Cache Patterns</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../pattern/intro/" class="subnavigation__link">Introduction</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../pattern/callback-cache/" class="subnavigation__link">CallbackCache</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../pattern/class-cache/" class="subnavigation__link">ClassCache</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../pattern/object-cache/" class="subnavigation__link">ObjectCache</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../pattern/output-cache/" class="subnavigation__link">OutputCache</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../pattern/capture-cache/" class="subnavigation__link">CaptureCache</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Standards Support</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../psr6/" class="subnavigation__link">PSR-6</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../psr16/" class="subnavigation__link">PSR-16</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                </div>
+            
+
+            
+            <div class="nav navbar-nav navbar-collapse visible-xs-block">
+                <div class="component-selector">
+    <h4 class="component-selector__title">Components</h4>
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <header class="header">
+    <div class="container">
+        <div class="row">
+
+            
+            <div class="col-xs-8">
+                <h1 class="header__title">
+                    Documentation
+
+                    
+                        <small class="header__subtitle">zend-cache</small>
+                    
+                </h1>
+            </div>
+
+            
+            <div class="col-xs-4 text-right">
+                
+                    
+
+                    <a href="#" class="header__link header__link--search" data-toggle="modal" data-target="#mkdocs_search_modal" title="Open search">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                    <a href="https://github.com/zendframework/zend-cache/" class="header__link header__link--github" title="Go to repository of zend-cache">
+                        <i class="fa fa-github"></i> GitHub
+                    </a>
+                
+            </div>
+        </div>
+    </div>
+</header>
+
+    
+    <div class="laminas-announcement">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                Zend Framework transitions to the Linux Foundation. <a href="https://getlaminas.org">Learn More.</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 col-xs-12 content" role="main">
+            <!-- content:begin -->
+                
+                    <ol class="breadcrumb" role="navigation" aria-label="breadcrumbs navigation">
+    <li><a href="https://framework.zend.com/">Home</a></li>
+
+    
+        <li><a href="https://docs.zendframework.com/">Documentation</a></li>
+
+        
+            <li><a href="../..">zend-cache</a></li>
+
+            
+                
+                    
+                    
+                        <li>Storage</li>
+                    
+                
+            
+
+            <li class="active">Plugins</li>
+        
+    
+</ol>
+
+
+
+
+
+
+    
+    
+        <h2 class="chapter__headline">Storage</h2>
+    
+
+    <div>
+        
+    
+
+    
+    
+        <div class="toc">
+            <h6 class="toc__headline">In This Article</h6>
+            <ul class="toc__list">
+                
+                    <li class="toc__entry">
+                        <a href="#quick-start" class="toc__link">Quick Start</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#the-clearexpiredbyfactor-plugin" class="toc__link">The ClearExpiredByFactor Plugin</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#the-exceptionhandler-plugin" class="toc__link">The ExceptionHandler Plugin</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#the-ignoreuserabort-plugin" class="toc__link">The IgnoreUserAbort Plugin</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#the-optimizebyfactor-plugin" class="toc__link">The OptimizeByFactor Plugin</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#the-serializer-plugin" class="toc__link">The Serializer Plugin</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#available-methods" class="toc__link">Available Methods</a>
+                    </li>
+                
+                    <li class="toc__entry">
+                        <a href="#examples" class="toc__link">Examples</a>
+                    </li>
+                
+            </ul>
+        </div>
+    
+
+    </div>
+
+    <h1 id="plugins">Plugins</h1>
+<p>Cache storage plugins are objects that provide additional functionality to or
+influence behavior of a storage adapter.</p>
+<p>The plugins listen to events the adapter triggers, and can:</p>
+<ul>
+<li>change the arguments provided to the method triggering the event (via <code>*.post</code> events)</li>
+<li>skip and directly return a result (by calling <code>stopPropagation</code>)</li>
+<li>change the result (by calling <code>setResult</code> on the provided <code>Zend\Cache\Storage\PostEvent</code>)</li>
+<li>catch exceptions (by reacting to <code>Zend\Cache\Storage\ExceptionEvent</code>)</li>
+</ul>
+<h2 id="quick-start">Quick Start</h2>
+<p>Storage plugins can either be created from
+<code>Zend\Cache\StorageFactory::pluginFactory()</code>, or by instantiating one of the
+<code>Zend\Cache\Storage\Plugin\*</code> classes.</p>
+<p>To make life easier, <code>Zend\Cache\StorageFactory::factory()</code> can create both the
+requested adapter and all specified plugins at once.</p>
+<p> <pre class=codehilite><code class=language-php>use Zend\Cache\StorageFactory;
+
+// All at once:
+$cache = StorageFactory::factory([
+    'adapter' =&gt; 'filesystem',
+    'plugins' =&gt; ['serializer'],
+]);
+
+// Alternately, via discrete factory methods:
+$cache  = StorageFactory::adapterFactory('filesystem');
+$plugin = StorageFactory::pluginFactory('serializer');
+$cache-&gt;addPlugin($plugin);
+
+// Or manually:
+$cache  = new Zend\Cache\Storage\Adapter\Filesystem();
+$plugin = new Zend\Cache\Storage\Plugin\Serializer();
+$cache-&gt;addPlugin($plugin);</code></pre></p>
+<h2 id="the-clearexpiredbyfactor-plugin">The ClearExpiredByFactor Plugin</h2>
+<p><code>Zend\Cache\Storage\Plugin\ClearExpiredByFactor</code> calls the storage method
+<code>clearExpired()</code> randomly (by factor) after every call of <code>setItem()</code>,
+<code>setItems()</code>, <code>addItem()</code>, and <code>addItems()</code>.</p>
+<h3>Plugin specific Options</h3>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Data Type</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>clearing_factor</code></td>
+<td><code>integer</code></td>
+<td><code>0</code></td>
+<td>The automatic clearing factor.</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<h3>Adapter must implement ClearExpiredInterface</h3>
+<p>The storage adapter must implement <code>Zend\Cache\Storage\ClearExpiredInterface</code>
+to work with this plugin.</p>
+</blockquote>
+<h2 id="the-exceptionhandler-plugin">The ExceptionHandler Plugin</h2>
+<p><code>Zend\Cache\Storage\Plugin\ExceptionHandler</code> catches all exceptions thrown on
+reading from or writing to the cache, and sends the exception to a defined callback function.
+You may also configure the plugin to re-throw exceptions.</p>
+<h3>Plugin specific Options</h3>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Data Type</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>exception_callback</code></td>
+<td><code>callable|null</code></td>
+<td>null</td>
+<td>Callback to invoke on exception; receives the exception as the sole argument.</td>
+</tr>
+<tr>
+<td><code>throw_exceptions</code></td>
+<td><code>boolean</code></td>
+<td><code>true</code></td>
+<td>Re-throw caught exceptions.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="the-ignoreuserabort-plugin">The IgnoreUserAbort Plugin</h2>
+<p><code>Zend\Cache\Storage\Plugin\IgnoreUserAbort</code> ignores user-invoked script
+termination when, allowing cache write operations to complete first.</p>
+<h3>Plugin specific Options</h3>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Data Type</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>exit_on_abort</code></td>
+<td><code>boolean</code></td>
+<td><code>true</code></td>
+<td>Terminate script execution on user abort.</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="the-optimizebyfactor-plugin">The OptimizeByFactor Plugin</h2>
+<p><code>Zend\Cache\Storage\Plugin\OptimizeByFactor</code> calls the storage method <code>optimize()</code>
+randomly (by factor) after removing items from the cache.</p>
+<h3>Plugin specific Options</h3>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Data Type</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>optimizing_factor</code></td>
+<td><code>integer</code></td>
+<td><code>0</code></td>
+<td>The automatic optimization factor.</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<h3>Adapter must implement OptimizableInterface</h3>
+<p>The storage adapter must implement <code>Zend\Cache\Storage\OptimizableInterface</code>
+to work with this plugin.</p>
+</blockquote>
+<h2 id="the-serializer-plugin">The Serializer Plugin</h2>
+<p><code>Zend\Cache\Storage\Plugin\Serializer</code> will serialize data when writing to
+cache, and deserialize when reading. This allows storing datatypes not supported
+by the underlying storage adapter.</p>
+<h3>Plugin specific Options</h3>
+<div class="table-responsive"><table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Data Type</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>serializer</code></td>
+<td><code>null|string|Zend\Serializer\Adapter\AdapterInterface</code></td>
+<td><code>null</code></td>
+<td>The serializer to use; see below.</td>
+</tr>
+<tr>
+<td><code>serializer_options</code></td>
+<td><code>array</code></td>
+<td><code>[]</code></td>
+<td>Array of options to use when instantiating the specified serializer.</td>
+</tr>
+</tbody>
+</table></div>
+<p>The <code>serializer</code> value has two special cases:</p>
+<ul>
+<li>When <code>null</code>, the default serializer is used (JSON).</li>
+<li>When a <code>string</code>, the value will be pulled via
+  <code>Zend\Serializer\AdapterPluginManager</code>, with the provided
+  <code>serializer_options</code>.</li>
+</ul>
+<h2 id="available-methods">Available Methods</h2>
+<p>The following methods are available to all <code>Zend\Cache\Storage\Plugin\PluginInterface</code> implementations:</p>
+<p> <pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage\Plugin;
+
+use Zend\EventManager\EventManagerInterface;
+use Zend\EventManager\ListenerAggregateInterface;
+
+interface PluginInterface extends ListenerAggregateInterface
+{
+    /**
+     * Set options
+     *
+     * @param  PluginOptions $options
+     * @return PluginInterface
+     */
+    public function setOptions(PluginOptions $options);
+
+    /**
+     * Get options
+     *
+     * @return PluginOptions
+     */
+    public function getOptions();
+
+    /**
+     * Attach listeners; inherited from ListenerAggregateInterface.
+     *
+     * @param EventManagerInterface $events
+     * @return void
+     */
+    public function attach(EventManagerInterface $events);
+
+    /**
+     * Detach listeners; inherited from ListenerAggregateInterface.
+     *
+     * @param EventManagerInterface $events
+     * @return void
+     */
+    public function attach(EventManagerInterface $events);
+}</code></pre></p>
+<h2 id="examples">Examples</h2>
+<h3>Basic Plugin Implementation</h3>
+<p> <pre class=codehilite><code class=language-php>use Zend\Cache\Storage\Event;
+use Zend\Cache\Storage\Plugin\AbstractPlugin;
+use Zend\EventManager\EventManagerInterface;
+
+class MyPlugin extends AbstractPlugin
+{
+    protected $handles = [];
+
+    /**
+     * Attach to all events this plugin is interested in.
+     */
+    public function attach(EventManagerInterface $events)
+    {
+        $this-&gt;handles[] = $events-&gt;attach('getItem.pre', array($this, 'onGetItemPre'));
+        $this-&gt;handles[] = $events-&gt;attach('getItem.post', array($this, 'onGetItemPost'));
+    }
+
+    /**
+     * Detach all handlers this plugin previously attached.
+     */
+    public function detach(EventManagerInterface $events)
+    {
+        foreach ($this-&gt;handles as $handle) {
+           $events-&gt;detach($handle);
+        }
+        $this-&gt;handles = [];
+    }
+
+    public function onGetItemPre(Event $event)
+    {
+        $params = $event-&gt;getParams();
+        echo sprintf(&quot;Method 'getItem' with key '%s' started\n&quot;, $params['key']);
+    }
+
+    public function onGetItemPost(Event $event)
+    {
+        $params = $event-&gt;getParams();
+        echo sprintf(&quot;Method 'getItem' with key '%s' finished\n&quot;, $params['key']);
+    }
+}
+
+// After defining this plugin, we can instantiate and add it to an adapter
+// instance:
+$plugin = new MyPlugin();
+$cache-&gt;addPlugin($plugin);
+
+// Now when calling getItem(), our plugin should print the expected output:
+$cache-&gt;getItem('cache-key');
+// Method 'getItem' with key 'cache-key' started
+// Method 'getItem' with key 'cache-key' finished</code></pre></p>
+
+
+
+
+    <nav>
+    <ul class="page-nav hidden-print">
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="prev" class="page-nav__link page-nav__link--prev" href="../capabilities/">
+                    <i class="fa fa-chevron-left"></i> Previous
+                </a>
+            
+        </li>
+
+        
+        <li class="page-nav__item">
+            
+                <a rel="next" class="page-nav__link page-nav__link--next" href="../../pattern/intro/">
+                    Next <i class="fa fa-chevron-right"></i>
+                </a>
+            
+        </li>
+    </ul>
+</nav>
+
+
+
+
+    <div class="help-wanted">
+        <p>
+            Found a mistake or want to contribute to the documentation?
+            <a href="https://github.com/zendframework/zend-cache/edit/master/docs/book/storage/plugin.md" target="_blank" class="help-wanted__link">
+                Edit this page on GitHub!
+            </a>
+        </p>
+    </div>
+
+                
+            <!-- content:end -->
+            </div>
+            <div class="col-md-3 col-xs-12 sidebar">
+                
+                    <div class="component-selector">
+    <h4 class="component-selector__title">Components</h4>
+    <h5 class="component-selector__subtitle">Find documentation…</h5>
+    <select class="form-control component-selector__control">
+        <option value="/">Overview</option>
+        <optgroup label="Components"></optgroup>
+    </select>
+</div>
+                    
+    <div class="subnavigation hidden-print">
+        <h4 class="subnavigation__title">
+            <a href="../..">zend-cache</a>
+        </h4>
+
+        <h5 class="subnavigation__subtitle">Table of Contents</h5>
+
+        <ul class="subnavigation__list">
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Storage</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../adapter/" class="subnavigation__link">Adapters</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../capabilities/" class="subnavigation__link">Capabilities</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item subnavigation__list-item--active">
+        <a href="./" class="subnavigation__link">Plugins</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Cache Patterns</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../pattern/intro/" class="subnavigation__link">Introduction</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../pattern/callback-cache/" class="subnavigation__link">CallbackCache</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../pattern/class-cache/" class="subnavigation__link">ClassCache</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../pattern/object-cache/" class="subnavigation__link">ObjectCache</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../pattern/output-cache/" class="subnavigation__link">OutputCache</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../pattern/capture-cache/" class="subnavigation__link">CaptureCache</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+
+                
+                
+
+                    
+                    
+                        
+                            <li class="subnavigation__list-item">
+                                <span class="subnavigation__headline">Standards Support</span>
+                                <ul class="subnavigation__list">
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../psr6/" class="subnavigation__link">PSR-6</a>
+    </li>
+
+                                    
+                                        
+    <li class="subnavigation__list-item ">
+        <a href="../../psr16/" class="subnavigation__link">PSR-16</a>
+    </li>
+
+                                    
+                                </ul>
+                            </li>
+                        
+                    
+                
+            
+        </ul>
+    </div>
+
+                
+            </div>
+        </div>
+    </div>
+
+    
+    <footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <h5>Zend Framework</h5>
+                <ul>
+                    <li><a href="https://framework.zend.com/">framework.zend.com</a></li>
+                    <li><a href="https://docs.zendframework.com">docs.zendframework.com</a></li>
+                    <li><a href="https://packages.zendframework.com">packages.zendframework.com</a></li>
+                    <li><a href="https://apigility.org">apigility.org</a></li>
+                    <li><a href="https://getexpressive.org/">getexpressive.org</a></li>
+                </ul>
+            </div>
+        </div>
+
+        
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <a class="footer__button" href="#page-top"><i class="fa fa-chevron-up" aria-hidden="true"></i></a>
+            </div>
+        </div>
+
+        <div class="row">
+
+            
+            <div class="col-md-9">
+                <h4 class="footer__headline">Copyright</h4>
+                <p>&copy; 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+            </div>
+
+            
+            <div class="col-md-3">
+                <h4 class="footer__headline">Support</h4>
+                <ul class="support__list">
+                    <li class="support__list-item">
+                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
+                    </li>
+                    <li class="support__list-item">
+                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script>
+        var base_url = '../..',
+            siteName = 'zend-cache';
+    </script>
+    <script src="../../js/scripts-8d7ae56abf.js"></script>
+        <script src="../../search/main.js"></script>
+
+    
+    <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span aria-hidden="true">&times;</span>
+                        <span class="sr-only">Close</span>
+                    </button>
+                    <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        From here you can search these documents. Enter your search terms below.
+                    </p>
+                    <form role="form">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                        </div>
+                    </form>
+                    <div id="mkdocs-search-results"></div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+
+
+</html>

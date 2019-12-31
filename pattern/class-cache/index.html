@@ -333,12 +333,12 @@
 instead generates the callbacks for any public static method invoked on the
 class being cached, and caches static properties.</p>
 <h2 id="quick-start">Quick Start</h2>
-<p> <pre class=codehilite><code class=language-php>use Zend\Cache\PatternFactory;
+<pre class=codehilite><code class=language-php>use Zend\Cache\PatternFactory;
 
 $classCache = PatternFactory::factory('class', [
     'class'   =&gt; 'MyClass',
     'storage' =&gt; 'apc',
-]);</code></pre></p>
+]);</code></pre>
 <h2 id="configuration-options">Configuration Options</h2>
 <div class="table-responsive"><table>
 <thead>
@@ -391,7 +391,7 @@ $classCache = PatternFactory::factory('class', [
 <h2 id="available-methods">Available Methods</h2>
 <p>In addition to the methods defined in <code>PatternInterface</code>, this implementation
 exposes the following methods.</p>
-<p> <pre class=codehilite><code class=language-php>namespace Zend\Cache\Pattern;
+<pre class=codehilite><code class=language-php>namespace Zend\Cache\Pattern;
 
 use Zend\Cache;
 use Zend\Cache\Exception;
@@ -484,10 +484,10 @@ class ClassCache extends CallbackCache
         $class = $this-&gt;getOptions()-&gt;getClass();
         unset($class::$name);
     }
-}</code></pre></p>
+}</code></pre>
 <h2 id="examples">Examples</h2>
 <h3>Caching of Import Feeds</h3>
-<p> <pre class=codehilite><code class=language-php>$cachedFeedReader = Zend\Cache\PatternFactory::factory('class', [
+<pre class=codehilite><code class=language-php>$cachedFeedReader = Zend\Cache\PatternFactory::factory('class', [
     'class'   =&gt; 'Zend\Feed\Reader\Reader',
     'storage' =&gt; 'apc',
 
@@ -499,7 +499,7 @@ class ClassCache extends CallbackCache
 $feed = $cachedFeedReader-&gt;call(&quot;import&quot;, array('http://www.planet-php.net/rdf/'));
 
 // OR
-$feed = $cachedFeedReader-&gt;import('http://www.planet-php.net/rdf/');</code></pre></p>
+$feed = $cachedFeedReader-&gt;import('http://www.planet-php.net/rdf/');</code></pre>
 
 
 

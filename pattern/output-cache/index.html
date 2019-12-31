@@ -330,11 +330,11 @@
     <h1 id="outputcache">OutputCache</h1>
 <p>The <code>OutputCache</code> pattern caches output between calls to <code>start()</code> and <code>end()</code>.</p>
 <h2 id="quick-start">Quick Start</h2>
-<p> <pre class=codehilite><code class=language-php>use Zend\Cache\PatternFactory;
+<pre class=codehilite><code class=language-php>use Zend\Cache\PatternFactory;
 
 $outputCache = PatternFactory::factory('output', [
     'storage' =&gt; 'apc'
-]);</code></pre></p>
+]);</code></pre>
 <h2 id="configuration-options">Configuration Options</h2>
 <div class="table-responsive"><table>
 <thead>
@@ -357,7 +357,7 @@ $outputCache = PatternFactory::factory('output', [
 <h2 id="available-methods">Available Methods</h2>
 <p>In addition to the methods defined in <code>PatternInterface</code>, this implementation
 defines the following methods.</p>
-<p> <pre class=codehilite><code class=language-php>namespace Zend\Cache\Pattern;
+<pre class=codehilite><code class=language-php>namespace Zend\Cache\Pattern;
 
 use Zend\Cache\Exception;
 
@@ -382,16 +382,16 @@ class OutputCache extends AbstractPattern
      * @return bool TRUE on success, FALSE on failure writing to cache
      */
     public function end();
-}</code></pre></p>
+}</code></pre>
 <h2 id="examples">Examples</h2>
 <h3>Caching simple View Scripts</h3>
-<p> <pre class=codehilite><code class=language-php>$outputCache = Zend\Cache\PatternFactory::factory('output', [
+<pre class=codehilite><code class=language-php>$outputCache = Zend\Cache\PatternFactory::factory('output', [
     'storage' =&gt; 'apc',
 ]);
 
 $outputCache-&gt;start('mySimpleViewScript');
 include '/path/to/view/script.phtml';
-$outputCache-&gt;end();</code></pre></p>
+$outputCache-&gt;end();</code></pre>
 
 
 

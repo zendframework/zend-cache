@@ -332,14 +332,14 @@
 the same methods, but instead caches output from any instance method calls or
 public properties.</p>
 <h2 id="quick-start">Quick Start</h2>
-<p> <pre class=codehilite><code class=language-php>use stdClass;
+<pre class=codehilite><code class=language-php>use stdClass;
 use Zend\Cache\PatternFactory;
 
 $object      = new stdClass();
 $objectCache = PatternFactory::factory('object', [
     'object'  =&gt; $object,
     'storage' =&gt; 'apc'
-]);</code></pre></p>
+]);</code></pre>
 <h2 id="configuration-options">Configuration Options</h2>
 <div class="table-responsive"><table>
 <thead>
@@ -404,7 +404,7 @@ $objectCache = PatternFactory::factory('object', [
 <h2 id="available-methods">Available Methods</h2>
 <p>In addition to the methods defined in <code>PatternInterface</code>, this implementation
 defines the following methods.</p>
-<p> <pre class=codehilite><code class=language-php>namespace Zend\Cache\Pattern;
+<pre class=codehilite><code class=language-php>namespace Zend\Cache\Pattern;
 
 use Zend\Cache\Exception;
 
@@ -513,10 +513,10 @@ class ObjectCache extends CallbackCache
      * @see    http://php.net/manual/language.oop5.magic.php#language.oop5.magic.invoke
      */
     public function __invoke();
-}</code></pre></p>
+}</code></pre>
 <h2 id="examples">Examples</h2>
 <h3>Caching a Filter</h3>
-<p> <pre class=codehilite><code class=language-php>$filter       = new Zend\Filter\RealPath();
+<pre class=codehilite><code class=language-php>$filter       = new Zend\Filter\RealPath();
 $cachedFilter = Zend\Cache\PatternFactory::factory('object', [
     'object'     =&gt; $filter,
     'object_key' =&gt; 'RealpathFilter',
@@ -530,7 +530,7 @@ $cachedFilter = Zend\Cache\PatternFactory::factory('object', [
 $path = $cachedFilter-&gt;call(&quot;filter&quot;, ['/www/var/path/../../mypath']);
 
 // OR
-$path = $cachedFilter-&gt;filter('/www/var/path/../../mypath');</code></pre></p>
+$path = $cachedFilter-&gt;filter('/www/var/path/../../mypath');</code></pre>
 
 
 

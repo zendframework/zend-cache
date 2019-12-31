@@ -440,7 +440,7 @@ them. You can do so manually, or you can use the plugin
 <code>Zend\Cache\Storage\Adapter\*</code> classes.  To make life easier, the
 <code>Zend\Cache\StorageFactory</code> comes with a <code>factory()</code> method to create an adapter
 and all requested plugins at once.</p>
-<p> <pre class=codehilite><code class=language-php>use Zend\Cache\StorageFactory;
+<pre class=codehilite><code class=language-php>use Zend\Cache\StorageFactory;
 
 // Via factory:
 $cache = StorageFactory::factory([
@@ -466,7 +466,7 @@ $cache-&gt;getOptions()-&gt;setTtl(3600);
 
 $plugin = new Zend\Cache\Storage\Plugin\ExceptionHandler();
 $plugin-&gt;getOptions()-&gt;setThrowExceptions(false);
-$cache-&gt;addPlugin($plugin);</code></pre></p>
+$cache-&gt;addPlugin($plugin);</code></pre>
 <h2 id="basic-configuration-options">Basic Configuration Options</h2>
 <p>The following configuration options are defined by <code>Zend\Cache\Storage\Adapter\AdapterOptions</code> and
 are available for every supported adapter. Adapter-specific configuration options are described on
@@ -516,7 +516,7 @@ adapter level below.</p>
 <h2 id="the-storageinterface">The StorageInterface</h2>
 <p><code>Zend\Cache\Storage\StorageInterface</code> is the basic interface implemented by all
 storage adapters.</p>
-<p> <pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
+<pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
 
 use Traversable;
 
@@ -752,11 +752,11 @@ interface StorageInterface
      * @return Capabilities
      */
     public function getCapabilities();
-}</code></pre></p>
+}</code></pre>
 <h2 id="the-availablespacecapableinterface">The AvailableSpaceCapableInterface</h2>
 <p><code>Zend\Cache\Storage\AvailableSpaceCapableInterface</code> implements a method to allow
 retrieving the current available space remaining in storage.</p>
-<p> <pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
+<pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
 
 interface AvailableSpaceCapableInterface
 {
@@ -766,11 +766,11 @@ interface AvailableSpaceCapableInterface
      * @return int|float
      */
     public function getAvailableSpace();
-}</code></pre></p>
+}</code></pre>
 <h2 id="the-totalspacecapableinterface">The TotalSpaceCapableInterface</h2>
 <p><code>Zend\Cache\Storage\TotalSpaceCapableInterface</code> implements a method to allow
 retrieving the total storage space.</p>
-<p> <pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
+<pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
 
 interface TotalSpaceCapableInterface
 {
@@ -780,11 +780,11 @@ interface TotalSpaceCapableInterface
      * @return int|float
      */
     public function getTotalSpace();
-}</code></pre></p>
+}</code></pre>
 <h2 id="the-clearbynamespaceinterface">The ClearByNamespaceInterface</h2>
 <p><code>Zend\Cache\Storage\ClearByNamespaceInterface</code> implements a method to allow
 clearing all cached items within a given namespace.</p>
-<p> <pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
+<pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
 
 interface ClearByNamespaceInterface
 {
@@ -795,12 +795,12 @@ interface ClearByNamespaceInterface
      * @return bool
      */
     public function clearByNamespace($namespace);
-}</code></pre></p>
+}</code></pre>
 <h2 id="the-clearbyprefixinterface">The ClearByPrefixInterface</h2>
 <p><code>Zend\Cache\Storage\ClearByPrefixInterface</code> implements a method to allow
 clearing all cached items that have a given prefix (within the currently
 configured namespace).</p>
-<p> <pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
+<pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
 
 interface ClearByPrefixInterface
 {
@@ -811,11 +811,11 @@ interface ClearByPrefixInterface
      * @return bool
      */
     public function clearByPrefix($prefix);
-}</code></pre></p>
+}</code></pre>
 <h2 id="the-clearexpiredinterface">The ClearExpiredInterface</h2>
 <p><code>Zend\Cache\Storage\ClearExpiredInterface</code> implements a method to allow clearing
 all expired items (within the current configured namespace).</p>
-<p> <pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
+<pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
 
 interface ClearExpiredInterface
 {
@@ -825,11 +825,11 @@ interface ClearExpiredInterface
      * @return bool
      */
     public function clearExpired();
-}</code></pre></p>
+}</code></pre>
 <h2 id="the-flushableinterface">The FlushableInterface</h2>
 <p><code>Zend\Cache\Storage\FlushableInterface</code> implements a method for flushing the
 entire cache storage.</p>
-<p> <pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
+<pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
 
 interface FlushableInterface
 {
@@ -839,13 +839,13 @@ interface FlushableInterface
      * @return bool
      */
     public function flush();
-}</code></pre></p>
+}</code></pre>
 <h2 id="the-iterableinterface">The IterableInterface</h2>
 <p><code>Zend\Cache\Storage\IterableInterface</code> implements a method for retrieving an
 iterator of all items in storage. It extends <code>IteratorAggregate</code>, so it's
 possible to directly iterate over the storage implementations that implement
 this interface using <code>foreach</code>.</p>
-<p> <pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
+<pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
 
 use IteratorAggregate;
 
@@ -859,11 +859,11 @@ interface IterableInterface extends IteratorAggregate
      * @return \Traversable
      */
     public function getIterator();
-}</code></pre></p>
+}</code></pre>
 <h2 id="the-optimizableinterface">The OptimizableInterface</h2>
 <p><code>Zend\Cache\Storage\OptimizableInterface</code> implements a method for running
 optimization processes on the storage adapter.</p>
-<p> <pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
+<pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
 
 interface OptimizableInterface
 {
@@ -873,11 +873,11 @@ interface OptimizableInterface
      * @return bool
      */
     public function optimize();
-}</code></pre></p>
+}</code></pre>
 <h2 id="the-taggableinterface">The TaggableInterface</h2>
 <p><code>Zend\Cache\Storage\TaggableInterface</code> implements methods for tagging items, and
 cleaning (expiring) items matching tags.</p>
-<p> <pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
+<pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
 
 interface TaggableInterface
 {
@@ -910,7 +910,7 @@ interface TaggableInterface
      * @return bool
      */
     public function clearByTags(array $tags, $disjunction = false);
-}</code></pre></p>
+}</code></pre>
 <h2 id="the-apc-adapter">The Apc Adapter</h2>
 <p><code>Zend\Cache\Storage\Adapter\Apc</code> stores cache items in shared memory through the
 PHP extension <a href="http://pecl.php.net/package/APC">APC</a> (Alternative PHP Cache).</p>
@@ -1703,7 +1703,7 @@ to use the <a href="#the-extmongodb-adapter">ExtMongoDb adapter</a> instead.</p>
 <p><code>Zend\Cache\Storage\Adapter\ExtMongoDB</code> stores cache items using the mongodb extension, and
 requires that the MongoDB PHP Client library is also installed. You can install the client
 library using the following:</p>
-<p> <pre class=codehilite><code class=language-bash>$ composer require mongodb/mongodb</code></pre></p>
+<pre class=codehilite><code class=language-bash>$ composer require mongodb/mongodb</code></pre>
 <blockquote>
 <h4>ext-mongo</h4>
 <p>If you are using the mongo extension (vs the mongodb extension), you will need
@@ -2148,7 +2148,7 @@ through the <a href="http://www.zend.com/en/products/server/">Zend Server Data C
 </table></div>
 <h2 id="examples">Examples</h2>
 <h3>Basic Usage</h3>
-<p> <pre class=codehilite><code class=language-php>use Zend\Cache\StorageFactory;
+<pre class=codehilite><code class=language-php>use Zend\Cache\StorageFactory;
 
 $cache = StorageFactory::factory([
     'adapter' =&gt; [
@@ -2167,9 +2167,9 @@ $result = $cache-&gt;getItem($key, $success);
 if (! $success) {
     $result = doExpensiveStuff();
     $cache-&gt;setItem($key, $result);
-}</code></pre></p>
+}</code></pre>
 <h3>Get multiple Rows from a Database</h3>
-<p> <pre class=codehilite><code class=language-php>use Zend\Cache\StorageFactory;
+<pre class=codehilite><code class=language-php>use Zend\Cache\StorageFactory;
 
 // Instantiate the cache instance using a namespace for the same type of items
 $cache = StorageFactory::factory([
@@ -2208,7 +2208,7 @@ if (count($results) &lt; count($ids)) {
 
     // merge results from cache and db
     $results = array_merge($results, $missingResults);
-}</code></pre></p>
+}</code></pre>
 
 
 

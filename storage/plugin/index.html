@@ -359,7 +359,7 @@ influence behavior of a storage adapter.</p>
 <code>Zend\Cache\Storage\Plugin\*</code> classes.</p>
 <p>To make life easier, <code>Zend\Cache\StorageFactory::factory()</code> can create both the
 requested adapter and all specified plugins at once.</p>
-<p> <pre class=codehilite><code class=language-php>use Zend\Cache\StorageFactory;
+<pre class=codehilite><code class=language-php>use Zend\Cache\StorageFactory;
 
 // All at once:
 $cache = StorageFactory::factory([
@@ -375,7 +375,7 @@ $cache-&gt;addPlugin($plugin);
 // Or manually:
 $cache  = new Zend\Cache\Storage\Adapter\Filesystem();
 $plugin = new Zend\Cache\Storage\Plugin\Serializer();
-$cache-&gt;addPlugin($plugin);</code></pre></p>
+$cache-&gt;addPlugin($plugin);</code></pre>
 <h2 id="the-clearexpiredbyfactor-plugin">The ClearExpiredByFactor Plugin</h2>
 <p><code>Zend\Cache\Storage\Plugin\ClearExpiredByFactor</code> calls the storage method
 <code>clearExpired()</code> randomly (by factor) after every call of <code>setItem()</code>,
@@ -520,7 +520,7 @@ by the underlying storage adapter.</p>
 </ul>
 <h2 id="available-methods">Available Methods</h2>
 <p>The following methods are available to all <code>Zend\Cache\Storage\Plugin\PluginInterface</code> implementations:</p>
-<p> <pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage\Plugin;
+<pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage\Plugin;
 
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
@@ -557,10 +557,10 @@ interface PluginInterface extends ListenerAggregateInterface
      * @return void
      */
     public function attach(EventManagerInterface $events);
-}</code></pre></p>
+}</code></pre>
 <h2 id="examples">Examples</h2>
 <h3>Basic Plugin Implementation</h3>
-<p> <pre class=codehilite><code class=language-php>use Zend\Cache\Storage\Event;
+<pre class=codehilite><code class=language-php>use Zend\Cache\Storage\Event;
 use Zend\Cache\Storage\Plugin\AbstractPlugin;
 use Zend\EventManager\EventManagerInterface;
 
@@ -609,7 +609,7 @@ $cache-&gt;addPlugin($plugin);
 // Now when calling getItem(), our plugin should print the expected output:
 $cache-&gt;getItem('cache-key');
 // Method 'getItem' with key 'cache-key' started
-// Method 'getItem' with key 'cache-key' finished</code></pre></p>
+// Method 'getItem' with key 'cache-key' finished</code></pre>
 
 
 

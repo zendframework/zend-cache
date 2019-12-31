@@ -1,5 +1,9 @@
 # zend-cache
 
+> ## Repository abandoned 2019-12-31
+>
+> This repository has moved to laminas/laminas-cache.
+
 [![Build Status](https://secure.travis-ci.org/zendframework/zend-cache.svg?branch=master)](https://secure.travis-ci.org/zendframework/zend-cache)
 [![Coverage Status](https://coveralls.io/repos/github/zendframework/zend-cache/badge.svg?branch=master)](https://coveralls.io/github/zendframework/zend-cache?branch=master)
 

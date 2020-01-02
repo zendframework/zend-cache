@@ -18,13 +18,14 @@ use Zend\Cache\Storage\Capabilities;
 use Zend\Cache\Storage\Event;
 use Zend\Cache\Storage\ExceptionEvent;
 use Zend\Cache\Storage\Plugin;
+use Zend\Cache\Storage\PluginAwareInterface;
 use Zend\Cache\Storage\PostEvent;
 use Zend\Cache\Storage\StorageInterface;
 use Zend\EventManager\EventManager;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\EventsCapableInterface;
 
-abstract class AbstractAdapter implements StorageInterface, EventsCapableInterface
+abstract class AbstractAdapter implements StorageInterface, PluginAwareInterface
 {
     /**
      * The used EventManager if any
@@ -253,10 +254,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
     }
 
     /**
-     * Check if a plugin is registered
-     *
-     * @param  Plugin\PluginInterface $plugin
-     * @return bool
+     * {@inheritdoc}
      */
     public function hasPlugin(Plugin\PluginInterface $plugin)
     {
@@ -265,12 +263,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
     }
 
     /**
-     * Register a plugin
-     *
-     * @param  Plugin\PluginInterface $plugin
-     * @param  int $priority
-     * @return AbstractAdapter Provides a fluent interface
-     * @throws Exception\LogicException
+     * {@inheritdoc}
      */
     public function addPlugin(Plugin\PluginInterface $plugin, $priority = 1)
     {
@@ -289,11 +282,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
     }
 
     /**
-     * Unregister an already registered plugin
-     *
-     * @param  Plugin\PluginInterface $plugin
-     * @return AbstractAdapter Provides a fluent interface
-     * @throws Exception\LogicException
+     * {@inheritdoc}
      */
     public function removePlugin(Plugin\PluginInterface $plugin)
     {
@@ -306,9 +295,7 @@ abstract class AbstractAdapter implements StorageInterface, EventsCapableInterfa
     }
 
     /**
-     * Return registry of plugins
-     *
-     * @return SplObjectStorage
+     * {@inheritdoc}
      */
     public function getPluginRegistry()
     {

@@ -12,6 +12,7 @@ use Zend\Cache\Psr\CacheItemPool\CacheItemPoolDecorator;
 use Zend\Cache\StorageFactory;
 use Zend\Cache\Exception;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
+use Zend\Stdlib\ErrorHandler;
 
 class ZendServerShmIntegrationTest extends CachePoolTest
 {
@@ -19,7 +20,7 @@ class ZendServerShmIntegrationTest extends CachePoolTest
      * Backup default timezone
      * @var string
      */
-    private $tz;
+    private $tz = 'UTC';
 
     protected function setUp()
     {
@@ -32,8 +33,10 @@ class ZendServerShmIntegrationTest extends CachePoolTest
         }
 
         // set non-UTC timezone
-        $this->tz = date_default_timezone_get();
+        $this->tz = date_default_timezone_get() ?: 'UTC';
         date_default_timezone_set('America/Vancouver');
+
+        ErrorHandler::start(E_USER_DEPRECATED);
 
         parent::setUp();
     }
@@ -45,6 +48,8 @@ class ZendServerShmIntegrationTest extends CachePoolTest
         if (function_exists('zend_shm_cache_clear')) {
             zend_disk_cache_clear();
         }
+
+        ErrorHandler::clean();
 
         parent::tearDown();
     }

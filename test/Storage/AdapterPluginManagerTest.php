@@ -54,4 +54,76 @@ class AdapterPluginManagerTest extends TestCase
     {
         return StorageInterface::class;
     }
+
+    public function testOptionsWillBeSet()
+    {
+        $options = [
+            'readable' => false,
+            'ttl' => 9999,
+            'namespace' => 'test',
+        ];
+
+        $storage = $this->getPluginManager()->get('Memory', $options);
+
+        $adapterOptions = $storage->getOptions();
+        $this->assertArraySubset($options, $adapterOptions->toArray());
+    }
+
+    /**
+     * @dataProvider complexConfigurationProvider
+     */
+    public function testComplexConfigurationIsBeingParsed(array $options, array $adapter, array $plugins)
+    {
+        /** @var StorageInterface $storage */
+        $storage = $this->getPluginManager()->get('Memory', $options);
+
+        $this->assertArraySubset($adapter, $storage->getOptions()->toArray());
+        $this->assertCount(count($plugins), $storage->getPluginRegistry());
+    }
+
+    public function complexConfigurationProvider()
+    {
+        $adapterOptions = [
+            'readable' => false,
+            'ttl' => 9999,
+            'namespace' => 'test',
+        ];
+
+        $pluginOptions = [
+            'Serializer' => [
+                'options' => [],
+                'priority' => 1,
+            ],
+            'ClearExpiredByFactor' => [
+                'options' => [],
+                'priority' => 2,
+            ],
+        ];
+
+        return [
+            'default_options' => [
+                'options_provided_to_pluginmanager' => $adapterOptions,
+                'adapter_options_for_comparison' => $adapterOptions,
+                'plugin_configuration_for_comparison' => [],
+            ],
+            'options_with_plugins' => [
+                'options_provided_to_pluginmanager' => [
+                    'options' => $adapterOptions,
+                    'plugins' => array_keys($pluginOptions)
+                ],
+                'adapter_options_for_comparison' => $adapterOptions,
+                'plugin_configuration_for_comparison' => array_keys($pluginOptions),
+            ],
+            'options_with_complex_plugins' => [
+                'options_provided_to_pluginmanager' => ['options' => $adapterOptions, 'plugins' => $pluginOptions],
+                'adapter_options_for_comparison' => $adapterOptions,
+                'plugin_configuration_for_comparison' => $pluginOptions,
+            ],
+            'options_with_added_plugins' => [
+                'options_provided_to_pluginmanager' => array_merge($adapterOptions, ['plugins' => $pluginOptions]),
+                'adapter_options_for_comparison' => $adapterOptions,
+                'plugin_configuration_for_comparison' => $pluginOptions,
+            ],
+        ];
+    }
 }

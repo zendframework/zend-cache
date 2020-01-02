@@ -10,6 +10,7 @@ namespace ZendTest\Cache\Psr\SimpleCache;
 use Cache\IntegrationTests\SimpleCacheTest;
 use Zend\Cache\Psr\SimpleCache\SimpleCacheDecorator;
 use Zend\Cache\StorageFactory;
+use Zend\Stdlib\ErrorHandler;
 
 class MemoryIntegrationTest extends SimpleCacheTest
 {
@@ -21,7 +22,16 @@ class MemoryIntegrationTest extends SimpleCacheTest
         $this->skippedTests['testObjectDoesNotChangeInCache'] =
             'Memory adapter stores objects in memory; so change in references is possible';
 
+        ErrorHandler::start(E_USER_DEPRECATED);
+
         parent::setUp();
+    }
+
+    protected function tearDown()
+    {
+        ErrorHandler::clean();
+
+        parent::tearDown();
     }
 
     public function createSimpleCache()

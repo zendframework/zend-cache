@@ -14,12 +14,12 @@ use Zend\Cache\Psr\CacheItemPool\CacheItem;
 
 class CacheItemTest extends TestCase
 {
-    private $tz;
+    private $tz = 'UTC';
 
     protected function setUp()
     {
         // set non-UTC timezone
-        $this->tz = date_default_timezone_get();
+        $this->tz = date_default_timezone_get() ?: 'UTC';
         date_default_timezone_set('America/Vancouver');
     }
 

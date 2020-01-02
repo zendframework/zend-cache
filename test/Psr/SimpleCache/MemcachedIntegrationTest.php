@@ -13,6 +13,7 @@ use Zend\Cache\Storage\Adapter\Memcached;
 use Zend\Cache\StorageFactory;
 use Zend\Cache\Exception;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
+use Zend\Stdlib\ErrorHandler;
 
 /**
  * @require extension memcached
@@ -23,7 +24,7 @@ class MemcachedIntegrationTest extends SimpleCacheTest
      * Backup default timezone
      * @var string
      */
-    private $tz;
+    private $tz = 'UTC';
 
     /**
      * @var Memcached
@@ -37,8 +38,10 @@ class MemcachedIntegrationTest extends SimpleCacheTest
         }
 
         // set non-UTC timezone
-        $this->tz = date_default_timezone_get();
+        $this->tz = date_default_timezone_get() ?: 'UTC';
         date_default_timezone_set('America/Vancouver');
+
+        ErrorHandler::start(E_USER_DEPRECATED);
 
         parent::setUp();
     }
@@ -50,6 +53,8 @@ class MemcachedIntegrationTest extends SimpleCacheTest
         if ($this->storage) {
             $this->storage->flush();
         }
+
+        ErrorHandler::clean();
 
         parent::tearDown();
     }

@@ -13,8 +13,12 @@ use Traversable;
 use Zend\Stdlib\ArrayUtils;
 use Zend\ServiceManager\ServiceManager;
 
+/**
+ * @deprecated static factories are deprecated as of zendframework 2.9 and may be removed in future major versions.
+ */
 abstract class PatternFactory
 {
+
     /**
      * The pattern manager
      *
@@ -25,13 +29,21 @@ abstract class PatternFactory
     /**
      * Instantiate a cache pattern
      *
-     * @param  string|Pattern\PatternInterface $patternName
+     * @param  string|Pattern\PatternInterface          $patternName
      * @param  array|Traversable|Pattern\PatternOptions $options
+     *
      * @return Pattern\PatternInterface
      * @throws Exception\InvalidArgumentException
+     * @deprecated static factories are deprecated as of zendframework 2.9 and may be removed in future major versions.
      */
     public static function factory($patternName, $options = [])
     {
+        trigger_error(sprintf(
+            '%s is deprecated; please use %s::get instead',
+            __METHOD__,
+            PatternPluginManager::class
+        ), E_USER_DEPRECATED);
+
         if ($options instanceof Pattern\PatternOptions) {
             $options = $options->toArray();
         }
@@ -51,6 +63,7 @@ abstract class PatternFactory
 
         if ($patternName instanceof Pattern\PatternInterface) {
             $patternName->setOptions(new Pattern\PatternOptions($options));
+
             return $patternName;
         }
 
@@ -61,9 +74,15 @@ abstract class PatternFactory
      * Get the pattern plugin manager
      *
      * @return PatternPluginManager
+     * @deprecated static factories are deprecated as of zendframework 2.9 and may be removed in future major versions.
      */
     public static function getPluginManager()
     {
+        trigger_error(sprintf(
+            '%s is deprecated',
+            __METHOD__
+        ), E_USER_DEPRECATED);
+
         if (static::$plugins === null) {
             static::$plugins = new PatternPluginManager(new ServiceManager);
         }
@@ -75,10 +94,17 @@ abstract class PatternFactory
      * Set the pattern plugin manager
      *
      * @param  PatternPluginManager $plugins
+     *
      * @return void
+     * @deprecated static factories are deprecated as of zendframework 2.9 and may be removed in future major versions.
      */
     public static function setPluginManager(PatternPluginManager $plugins)
     {
+        trigger_error(sprintf(
+            '%s is deprecated',
+            __METHOD__
+        ), E_USER_DEPRECATED);
+
         static::$plugins = $plugins;
     }
 
@@ -86,9 +112,15 @@ abstract class PatternFactory
      * Reset pattern plugin manager to default
      *
      * @return void
+     * @deprecated static factories are deprecated as of zendframework 2.9 and may be removed in future major versions.
      */
     public static function resetPluginManager()
     {
+        trigger_error(sprintf(
+            '%s is deprecated',
+            __METHOD__
+        ), E_USER_DEPRECATED);
+
         static::$plugins = null;
     }
 }

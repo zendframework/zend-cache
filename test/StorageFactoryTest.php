@@ -9,9 +9,11 @@
 
 namespace ZendTest\Cache;
 
+use const E_USER_DEPRECATED;
 use PHPUnit\Framework\TestCase;
 use Zend\Cache;
 use Zend\ServiceManager\ServiceManager;
+use Zend\Stdlib\ErrorHandler;
 
 /**
  * @group      Zend_Cache
@@ -21,6 +23,7 @@ class StorageFactoryTest extends TestCase
 {
     public function setUp()
     {
+        ErrorHandler::start(E_USER_DEPRECATED);
         Cache\StorageFactory::resetAdapterPluginManager();
         Cache\StorageFactory::resetPluginManager();
     }
@@ -29,6 +32,7 @@ class StorageFactoryTest extends TestCase
     {
         Cache\StorageFactory::resetAdapterPluginManager();
         Cache\StorageFactory::resetPluginManager();
+        ErrorHandler::clean();
     }
 
     public function testDefaultAdapterPluginManager()

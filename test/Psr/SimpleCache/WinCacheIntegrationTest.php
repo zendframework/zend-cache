@@ -13,6 +13,7 @@ use Zend\Cache\Storage\Adapter\WinCache;
 use Zend\Cache\StorageFactory;
 use Zend\Cache\Exception;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
+use Zend\Stdlib\ErrorHandler;
 
 /**
  * @requires extension wincache
@@ -23,7 +24,7 @@ class WinCacheIntegrationTest extends SimpleCacheTest
      * Backup default timezone
      * @var string
      */
-    private $tz;
+    private $tz = 'UTC';
 
     /**
      * @var WinCache
@@ -37,8 +38,10 @@ class WinCacheIntegrationTest extends SimpleCacheTest
         }
 
         // set non-UTC timezone
-        $this->tz = date_default_timezone_get();
+        $this->tz = date_default_timezone_get() ?: 'UTC';
         date_default_timezone_set('America/Vancouver');
+
+        ErrorHandler::start(E_USER_DEPRECATED);
 
         parent::setUp();
     }
@@ -50,6 +53,8 @@ class WinCacheIntegrationTest extends SimpleCacheTest
         if ($this->storage) {
             $this->storage->flush();
         }
+
+        ErrorHandler::clean();
 
         parent::tearDown();
     }

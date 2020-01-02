@@ -12,7 +12,7 @@ use Zend\Cache\Pattern;
 use Zend\ServiceManager\Exception\InvalidServiceException;
 
 /**
- * Trait providing common logic between FormElementManager implementations.
+ * Trait providing common logic between PatternPluginManager implementations.
  *
  * Trait does not define properties, as the properties common between the
  * two versions are originally defined in their parent class, causing a

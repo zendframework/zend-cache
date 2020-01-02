@@ -13,6 +13,7 @@ use Zend\Cache\Storage\Plugin\Serializer;
 use Zend\Cache\StorageFactory;
 use Zend\Cache\Exception;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
+use Zend\Stdlib\ErrorHandler;
 
 /**
  * @requires extension xcache
@@ -55,7 +56,15 @@ class XCacheIntegrationTest extends SimpleCacheTest
         $this->skippedTests['testSetTtl'] = 'XCache adapter does not honor TTL';
         $this->skippedTests['testSetMultipleTtl'] = 'XCache adapter does not honor TTL';
 
+        ErrorHandler::start(E_USER_DEPRECATED);
+
         parent::setUp();
+    }
+
+    protected function tearDown()
+    {
+        ErrorHandler::clean();
+        parent::tearDown();
     }
 
     public function createSimpleCache()

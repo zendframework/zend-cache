@@ -12,6 +12,7 @@ use Zend\Cache\Psr\CacheItemPool\CacheItemPoolDecorator;
 use Zend\Cache\StorageFactory;
 use Zend\Cache\Exception;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
+use Zend\Stdlib\ErrorHandler;
 
 /**
  * @requires extension apcu
@@ -22,7 +23,7 @@ class ApcIntegrationTest extends CachePoolTest
      * Backup default timezone
      * @var string
      */
-    private $tz;
+    private $tz = 'UTC';
 
     /**
      * Restore 'apc.use_request_time'
@@ -33,12 +34,13 @@ class ApcIntegrationTest extends CachePoolTest
 
     protected function setUp()
     {
+        ErrorHandler::start(E_USER_DEPRECATED);
         if (! getenv('TESTS_ZEND_CACHE_APC_ENABLED')) {
             $this->markTestSkipped('Enable TESTS_ZEND_CACHE_APC_ENABLED to run this test');
         }
 
         // set non-UTC timezone
-        $this->tz = date_default_timezone_get();
+        $this->tz = date_default_timezone_get() ?: 'UTC';
         date_default_timezone_set('America/Vancouver');
 
         // needed on test expirations
@@ -59,6 +61,8 @@ class ApcIntegrationTest extends CachePoolTest
         // reset ini configurations
         ini_set('apc.use_request_time', $this->iniUseRequestTime);
 
+
+        ErrorHandler::clean();
         parent::tearDown();
     }
 

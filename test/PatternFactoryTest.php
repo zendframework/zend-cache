@@ -9,8 +9,10 @@
 
 namespace ZendTest\Cache;
 
+use const E_USER_DEPRECATED;
 use PHPUnit\Framework\TestCase;
 use Zend\Cache;
+use Zend\Stdlib\ErrorHandler;
 
 /**
  * @group      Zend_Cache
@@ -20,12 +22,14 @@ class PatternFactoryTest extends TestCase
 {
     public function setUp()
     {
+        ErrorHandler::start(E_USER_DEPRECATED);
         Cache\PatternFactory::resetPluginManager();
     }
 
     public function tearDown()
     {
         Cache\PatternFactory::resetPluginManager();
+        ErrorHandler::clean();
     }
 
     public function testDefaultPluginManager()

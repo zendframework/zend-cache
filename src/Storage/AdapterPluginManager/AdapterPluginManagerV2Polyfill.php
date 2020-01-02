@@ -3,26 +3,28 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2018 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2018 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
+namespace Zend\Cache\Storage\AdapterPluginManager;
 
-namespace Zend\Cache\Storage;
-
-use Zend\Cache\Exception\RuntimeException;
+use Zend\Cache\Storage\PluginManager;
+use Zend\Cache\Storage\StorageInterface;
 use Zend\ServiceManager\AbstractPluginManager;
-use Zend\ServiceManager\Exception\InvalidServiceException;
+use Zend\Cache\Storage\Adapter;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
 /**
- * Plugin manager implementation for cache storage adapters
+ * zend-servicemanager v2-compatible plugin manager implementation for cache pattern adapters.
  *
- * Enforces that adapters retrieved are instances of
- * StorageInterface. Additionally, it registers a number of default
- * adapters available.
+ * Enforces that retrieved adapters are instances of
+ * Pattern\PatternInterface. Additionally, it registers a number of default
+ * patterns available.
  */
-class AdapterPluginManager extends AbstractPluginManager
+class AdapterPluginManagerV2Polyfill extends AbstractPluginManager
 {
+    use AdapterPluginManagerTrait;
+
     protected $aliases = [
         'apc'              => Adapter\Apc::class,
         'Apc'              => Adapter\Apc::class,
@@ -120,13 +122,6 @@ class AdapterPluginManager extends AbstractPluginManager
     ];
 
     /**
-     * Do not share by default (v3)
-     *
-     * @var array
-     */
-    protected $sharedByDefault = false;
-
-    /**
      * Don't share by default (v2)
      *
      * @var boolean
@@ -134,44 +129,41 @@ class AdapterPluginManager extends AbstractPluginManager
     protected $shareByDefault = false;
 
     /**
+     * Don't share by default (v3)
+     *
+     * @var boolean
+     */
+    protected $sharedByDefault = false;
+
+    /**
      * @var string
      */
     protected $instanceOf = StorageInterface::class;
 
     /**
-     * Validate the plugin is of the expected type (v3).
+     * Override get to inject options as AdapterOptions instance.
      *
-     * Validates against `$instanceOf`.
-     *
-     * @param mixed $instance
-     * @throws InvalidServiceException
+     * {@inheritDoc}
      */
-    public function validate($instance)
+    public function get($plugin, $options = [], $usePeeringServiceManagers = true)
     {
-        if (! $instance instanceof $this->instanceOf) {
-            throw new InvalidServiceException(sprintf(
-                '%s can only create instances of %s; %s is invalid',
-                get_class($this),
-                $this->instanceOf,
-                (is_object($instance) ? get_class($instance) : gettype($instance))
-            ));
-        }
-    }
+        $adapter = parent::get($plugin, [], $usePeeringServiceManagers);
 
-    /**
-     * Validate the plugin is of the expected type (v2).
-     *
-     * Proxies to `validate()`.
-     *
-     * @param mixed $instance
-     * @throws InvalidServiceException
-     */
-    public function validatePlugin($instance)
-    {
-        try {
-            $this->validate($instance);
-        } catch (InvalidServiceException $e) {
-            throw new RuntimeException($e->getMessage(), $e->getCode(), $e);
+        if (empty($options)) {
+            return $adapter;
         }
+
+        list($options, $pluginConfiguration) = $this->parseOptions($options);
+
+        if (! empty($pluginConfiguration)) {
+            $plugins = $this->serviceLocator->has(PluginManager::class) ?
+                $this->serviceLocator->get(PluginManager::class) : new PluginManager($this->serviceLocator);
+            $this->attachPlugins($adapter, $plugins, $pluginConfiguration);
+        }
+
+        /** @var StorageInterface $adapter */
+        $adapter->setOptions(new Adapter\AdapterOptions($options));
+
+        return $adapter;
     }
 }

@@ -13,12 +13,24 @@ use Zend\Cache\Storage\Plugin\Serializer;
 use Zend\Cache\StorageFactory;
 use Zend\Cache\Exception;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
+use Zend\Stdlib\ErrorHandler;
 
 /**
  * @requires extension xcache
  */
 class XCacheIntegrationTest extends TestCase
 {
+    protected function setUp()
+    {
+        ErrorHandler::start(E_USER_DEPRECATED);
+        parent::setUp();
+    }
+
+    protected function tearDown()
+    {
+        ErrorHandler::clean();
+        parent::tearDown();
+    }
 
     /**
      * XCache is using request time based TTL handling which violates PSR-6

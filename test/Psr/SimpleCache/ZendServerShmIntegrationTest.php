@@ -12,6 +12,7 @@ use Zend\Cache\Psr\SimpleCache\SimpleCacheDecorator;
 use Zend\Cache\StorageFactory;
 use Zend\Cache\Exception;
 use Zend\ServiceManager\Exception\ServiceNotCreatedException;
+use Zend\Stdlib\ErrorHandler;
 
 class ZendServerShmIntegrationTest extends SimpleCacheTest
 {
@@ -19,7 +20,7 @@ class ZendServerShmIntegrationTest extends SimpleCacheTest
      * Backup default timezone
      * @var string
      */
-    private $tz;
+    private $tz = 'UTC';
 
     protected function setUp()
     {
@@ -31,8 +32,9 @@ class ZendServerShmIntegrationTest extends SimpleCacheTest
             $this->markTestSkipped("Missing 'zend_shm_cache_*' functions or running from SAPI 'cli'");
         }
 
+        ErrorHandler::start(E_USER_DEPRECATED);
         // set non-UTC timezone
-        $this->tz = date_default_timezone_get();
+        $this->tz = date_default_timezone_get() ?: 'UTC';
         date_default_timezone_set('America/Vancouver');
 
         parent::setUp();
@@ -46,6 +48,7 @@ class ZendServerShmIntegrationTest extends SimpleCacheTest
             zend_disk_cache_clear();
         }
 
+        ErrorHandler::clean();
         parent::tearDown();
     }
 

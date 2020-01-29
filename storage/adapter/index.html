@@ -7,12 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Caching implementation with a variety of storage options, as well as codified caching strategies for callbacks, classes, and output.">  
-    <link rel="canonical" href="https://docs.zendframework.com/zend-cache/storage/adapter/">
+    <link rel="canonical" href="https://docs.zendframework.com/storage/adapter/">
     <link rel="shortcut icon" href="../../img/favicon.ico">
 
     <title>Adapters - zend-cache - Zend Framework Docs</title>
 
-    <link rel="stylesheet" href="../../css/styles-5cfabd53ee.css">
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body id="page-top">
 
@@ -249,9 +249,9 @@
     <div class="laminas-announcement">
     <div class="container">
         <div class="row">
-            <div class="col-xs-12">
-                Zend Framework transitions to the Linux Foundation. <a href="https://getlaminas.org">Learn More.</a>
-            </div>
+            <div class="col-xs-12"><strong>
+                This package has moved. Visit its replacement, <a href="https://docs.laminas.dev/laminas-cache/">laminas/laminas-cache.</a>
+            </strong></div>
         </div>
     </div>
 </div>
@@ -440,7 +440,7 @@ them. You can do so manually, or you can use the plugin
 <code>Zend\Cache\Storage\Adapter\*</code> classes.  To make life easier, the
 <code>Zend\Cache\StorageFactory</code> comes with a <code>factory()</code> method to create an adapter
 and all requested plugins at once.</p>
-<pre class=codehilite><code class=language-php>use Zend\Cache\StorageFactory;
+<pre><code class="language-php">use Zend\Cache\StorageFactory;
 
 // Via factory:
 $cache = StorageFactory::factory([
@@ -466,7 +466,9 @@ $cache-&gt;getOptions()-&gt;setTtl(3600);
 
 $plugin = new Zend\Cache\Storage\Plugin\ExceptionHandler();
 $plugin-&gt;getOptions()-&gt;setThrowExceptions(false);
-$cache-&gt;addPlugin($plugin);</code></pre>
+$cache-&gt;addPlugin($plugin);
+</code></pre>
+
 <h2 id="basic-configuration-options">Basic Configuration Options</h2>
 <p>The following configuration options are defined by <code>Zend\Cache\Storage\Adapter\AdapterOptions</code> and
 are available for every supported adapter. Adapter-specific configuration options are described on
@@ -516,7 +518,7 @@ adapter level below.</p>
 <h2 id="the-storageinterface">The StorageInterface</h2>
 <p><code>Zend\Cache\Storage\StorageInterface</code> is the basic interface implemented by all
 storage adapters.</p>
-<pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
+<pre><code class="language-php">namespace Zend\Cache\Storage;
 
 use Traversable;
 
@@ -752,11 +754,13 @@ interface StorageInterface
      * @return Capabilities
      */
     public function getCapabilities();
-}</code></pre>
+}
+</code></pre>
+
 <h2 id="the-availablespacecapableinterface">The AvailableSpaceCapableInterface</h2>
 <p><code>Zend\Cache\Storage\AvailableSpaceCapableInterface</code> implements a method to allow
 retrieving the current available space remaining in storage.</p>
-<pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
+<pre><code class="language-php">namespace Zend\Cache\Storage;
 
 interface AvailableSpaceCapableInterface
 {
@@ -766,11 +770,13 @@ interface AvailableSpaceCapableInterface
      * @return int|float
      */
     public function getAvailableSpace();
-}</code></pre>
+}
+</code></pre>
+
 <h2 id="the-totalspacecapableinterface">The TotalSpaceCapableInterface</h2>
 <p><code>Zend\Cache\Storage\TotalSpaceCapableInterface</code> implements a method to allow
 retrieving the total storage space.</p>
-<pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
+<pre><code class="language-php">namespace Zend\Cache\Storage;
 
 interface TotalSpaceCapableInterface
 {
@@ -780,11 +786,13 @@ interface TotalSpaceCapableInterface
      * @return int|float
      */
     public function getTotalSpace();
-}</code></pre>
+}
+</code></pre>
+
 <h2 id="the-clearbynamespaceinterface">The ClearByNamespaceInterface</h2>
 <p><code>Zend\Cache\Storage\ClearByNamespaceInterface</code> implements a method to allow
 clearing all cached items within a given namespace.</p>
-<pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
+<pre><code class="language-php">namespace Zend\Cache\Storage;
 
 interface ClearByNamespaceInterface
 {
@@ -795,12 +803,14 @@ interface ClearByNamespaceInterface
      * @return bool
      */
     public function clearByNamespace($namespace);
-}</code></pre>
+}
+</code></pre>
+
 <h2 id="the-clearbyprefixinterface">The ClearByPrefixInterface</h2>
 <p><code>Zend\Cache\Storage\ClearByPrefixInterface</code> implements a method to allow
 clearing all cached items that have a given prefix (within the currently
 configured namespace).</p>
-<pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
+<pre><code class="language-php">namespace Zend\Cache\Storage;
 
 interface ClearByPrefixInterface
 {
@@ -811,11 +821,13 @@ interface ClearByPrefixInterface
      * @return bool
      */
     public function clearByPrefix($prefix);
-}</code></pre>
+}
+</code></pre>
+
 <h2 id="the-clearexpiredinterface">The ClearExpiredInterface</h2>
 <p><code>Zend\Cache\Storage\ClearExpiredInterface</code> implements a method to allow clearing
 all expired items (within the current configured namespace).</p>
-<pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
+<pre><code class="language-php">namespace Zend\Cache\Storage;
 
 interface ClearExpiredInterface
 {
@@ -825,11 +837,13 @@ interface ClearExpiredInterface
      * @return bool
      */
     public function clearExpired();
-}</code></pre>
+}
+</code></pre>
+
 <h2 id="the-flushableinterface">The FlushableInterface</h2>
 <p><code>Zend\Cache\Storage\FlushableInterface</code> implements a method for flushing the
 entire cache storage.</p>
-<pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
+<pre><code class="language-php">namespace Zend\Cache\Storage;
 
 interface FlushableInterface
 {
@@ -839,13 +853,15 @@ interface FlushableInterface
      * @return bool
      */
     public function flush();
-}</code></pre>
+}
+</code></pre>
+
 <h2 id="the-iterableinterface">The IterableInterface</h2>
 <p><code>Zend\Cache\Storage\IterableInterface</code> implements a method for retrieving an
 iterator of all items in storage. It extends <code>IteratorAggregate</code>, so it's
 possible to directly iterate over the storage implementations that implement
 this interface using <code>foreach</code>.</p>
-<pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
+<pre><code class="language-php">namespace Zend\Cache\Storage;
 
 use IteratorAggregate;
 
@@ -859,11 +875,13 @@ interface IterableInterface extends IteratorAggregate
      * @return \Traversable
      */
     public function getIterator();
-}</code></pre>
+}
+</code></pre>
+
 <h2 id="the-optimizableinterface">The OptimizableInterface</h2>
 <p><code>Zend\Cache\Storage\OptimizableInterface</code> implements a method for running
 optimization processes on the storage adapter.</p>
-<pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
+<pre><code class="language-php">namespace Zend\Cache\Storage;
 
 interface OptimizableInterface
 {
@@ -873,11 +891,13 @@ interface OptimizableInterface
      * @return bool
      */
     public function optimize();
-}</code></pre>
+}
+</code></pre>
+
 <h2 id="the-taggableinterface">The TaggableInterface</h2>
 <p><code>Zend\Cache\Storage\TaggableInterface</code> implements methods for tagging items, and
 cleaning (expiring) items matching tags.</p>
-<pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage;
+<pre><code class="language-php">namespace Zend\Cache\Storage;
 
 interface TaggableInterface
 {
@@ -910,7 +930,9 @@ interface TaggableInterface
      * @return bool
      */
     public function clearByTags(array $tags, $disjunction = false);
-}</code></pre>
+}
+</code></pre>
+
 <h2 id="the-apc-adapter">The Apc Adapter</h2>
 <p><code>Zend\Cache\Storage\Adapter\Apc</code> stores cache items in shared memory through the
 PHP extension <a href="http://pecl.php.net/package/APC">APC</a> (Alternative PHP Cache).</p>
@@ -1703,7 +1725,9 @@ to use the <a href="#the-extmongodb-adapter">ExtMongoDb adapter</a> instead.</p>
 <p><code>Zend\Cache\Storage\Adapter\ExtMongoDB</code> stores cache items using the mongodb extension, and
 requires that the MongoDB PHP Client library is also installed. You can install the client
 library using the following:</p>
-<pre class=codehilite><code class=language-bash>$ composer require mongodb/mongodb</code></pre>
+<pre><code class="language-bash">$ composer require mongodb/mongodb
+</code></pre>
+
 <blockquote>
 <h4>ext-mongo</h4>
 <p>If you are using the mongo extension (vs the mongodb extension), you will need
@@ -2148,7 +2172,7 @@ through the <a href="http://www.zend.com/en/products/server/">Zend Server Data C
 </table></div>
 <h2 id="examples">Examples</h2>
 <h3>Basic Usage</h3>
-<pre class=codehilite><code class=language-php>use Zend\Cache\StorageFactory;
+<pre><code class="language-php">use Zend\Cache\StorageFactory;
 
 $cache = StorageFactory::factory([
     'adapter' =&gt; [
@@ -2167,9 +2191,11 @@ $result = $cache-&gt;getItem($key, $success);
 if (! $success) {
     $result = doExpensiveStuff();
     $cache-&gt;setItem($key, $result);
-}</code></pre>
+}
+</code></pre>
+
 <h3>Get multiple Rows from a Database</h3>
-<pre class=codehilite><code class=language-php>use Zend\Cache\StorageFactory;
+<pre><code class="language-php">use Zend\Cache\StorageFactory;
 
 // Instantiate the cache instance using a namespace for the same type of items
 $cache = StorageFactory::factory([
@@ -2208,7 +2234,8 @@ if (count($results) &lt; count($ids)) {
 
     // merge results from cache and db
     $results = array_merge($results, $missingResults);
-}</code></pre>
+}
+</code></pre>
 
 
 
@@ -2424,7 +2451,7 @@ if (count($results) &lt; count($ids)) {
             
             <div class="col-md-9">
                 <h4 class="footer__headline">Copyright</h4>
-                <p>&copy; 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+                <p>&copy; 2006-2020 by <a href="https://www.zend.com/">Zend</a> by <a href="https://www.perforce.com/">Perforce</a>.</p>
             </div>
 
             
@@ -2432,10 +2459,10 @@ if (count($results) &lt; count($ids)) {
                 <h4 class="footer__headline">Support</h4>
                 <ul class="support__list">
                     <li class="support__list-item">
-                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                        <a href="https://discourse.laminas.dev" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
                     </li>
                     <li class="support__list-item">
-                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                        <a href="https://laminas.dev/chat/" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
                     </li>
                     <li class="support__list-item">
                         <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
@@ -2443,27 +2470,28 @@ if (count($results) &lt; count($ids)) {
                     <li class="support__list-item">
                         <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
                     </li>
-                    <li class="support__list-item">
-                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
-                    </li>
-                    <li class="support__list-item">
-                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
-                    </li>
-                    <li class="support__list-item">
-                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
-                    </li>
                 </ul>
             </div>
         </div>
     </div>
 </footer>
 
+<nav class="cookie-bar navbar navbar-fixed-bottom navbar-default hidden">
+    <div class="container">
+        <p class="navbar-text">
+            We use cookies to allow you to dismiss dialogs such as the Laminas
+            Project notification.
+        </p>
+        <button type="button" class="cookie-button btn btn-default navbar-btn">Allow Cookies</button>
+    </div>
+</nav>
+
     <script>
         var base_url = '../..',
             siteName = 'zend-cache';
     </script>
-    <script src="../../js/scripts-8d7ae56abf.js"></script>
-        <script src="../../search/main.js"></script>
+    <script src="/js/scripts.js"></script>
+    <script src="../../search/main.js"></script>
 
     
     <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">

@@ -7,12 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Caching implementation with a variety of storage options, as well as codified caching strategies for callbacks, classes, and output.">  
-    <link rel="canonical" href="https://docs.zendframework.com/zend-cache/storage/plugin/">
+    <link rel="canonical" href="https://docs.zendframework.com/storage/plugin/">
     <link rel="shortcut icon" href="../../img/favicon.ico">
 
     <title>Plugins - zend-cache - Zend Framework Docs</title>
 
-    <link rel="stylesheet" href="../../css/styles-5cfabd53ee.css">
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body id="page-top">
 
@@ -249,9 +249,9 @@
     <div class="laminas-announcement">
     <div class="container">
         <div class="row">
-            <div class="col-xs-12">
-                Zend Framework transitions to the Linux Foundation. <a href="https://getlaminas.org">Learn More.</a>
-            </div>
+            <div class="col-xs-12"><strong>
+                This package has moved. Visit its replacement, <a href="https://docs.laminas.dev/laminas-cache/">laminas/laminas-cache.</a>
+            </strong></div>
         </div>
     </div>
 </div>
@@ -359,7 +359,7 @@ influence behavior of a storage adapter.</p>
 <code>Zend\Cache\Storage\Plugin\*</code> classes.</p>
 <p>To make life easier, <code>Zend\Cache\StorageFactory::factory()</code> can create both the
 requested adapter and all specified plugins at once.</p>
-<pre class=codehilite><code class=language-php>use Zend\Cache\StorageFactory;
+<pre><code class="language-php">use Zend\Cache\StorageFactory;
 
 // All at once:
 $cache = StorageFactory::factory([
@@ -375,7 +375,9 @@ $cache-&gt;addPlugin($plugin);
 // Or manually:
 $cache  = new Zend\Cache\Storage\Adapter\Filesystem();
 $plugin = new Zend\Cache\Storage\Plugin\Serializer();
-$cache-&gt;addPlugin($plugin);</code></pre>
+$cache-&gt;addPlugin($plugin);
+</code></pre>
+
 <h2 id="the-clearexpiredbyfactor-plugin">The ClearExpiredByFactor Plugin</h2>
 <p><code>Zend\Cache\Storage\Plugin\ClearExpiredByFactor</code> calls the storage method
 <code>clearExpired()</code> randomly (by factor) after every call of <code>setItem()</code>,
@@ -520,7 +522,7 @@ by the underlying storage adapter.</p>
 </ul>
 <h2 id="available-methods">Available Methods</h2>
 <p>The following methods are available to all <code>Zend\Cache\Storage\Plugin\PluginInterface</code> implementations:</p>
-<pre class=codehilite><code class=language-php>namespace Zend\Cache\Storage\Plugin;
+<pre><code class="language-php">namespace Zend\Cache\Storage\Plugin;
 
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
@@ -557,10 +559,12 @@ interface PluginInterface extends ListenerAggregateInterface
      * @return void
      */
     public function attach(EventManagerInterface $events);
-}</code></pre>
+}
+</code></pre>
+
 <h2 id="examples">Examples</h2>
 <h3>Basic Plugin Implementation</h3>
-<pre class=codehilite><code class=language-php>use Zend\Cache\Storage\Event;
+<pre><code class="language-php">use Zend\Cache\Storage\Event;
 use Zend\Cache\Storage\Plugin\AbstractPlugin;
 use Zend\EventManager\EventManagerInterface;
 
@@ -609,7 +613,8 @@ $cache-&gt;addPlugin($plugin);
 // Now when calling getItem(), our plugin should print the expected output:
 $cache-&gt;getItem('cache-key');
 // Method 'getItem' with key 'cache-key' started
-// Method 'getItem' with key 'cache-key' finished</code></pre>
+// Method 'getItem' with key 'cache-key' finished
+</code></pre>
 
 
 
@@ -825,7 +830,7 @@ $cache-&gt;getItem('cache-key');
             
             <div class="col-md-9">
                 <h4 class="footer__headline">Copyright</h4>
-                <p>&copy; 2006-2019 by <a href="https://www.zend.com/">Zend</a>, a <a href="https://www.roguewave.com/">Rogue Wave Company</a>.</p>
+                <p>&copy; 2006-2020 by <a href="https://www.zend.com/">Zend</a> by <a href="https://www.perforce.com/">Perforce</a>.</p>
             </div>
 
             
@@ -833,10 +838,10 @@ $cache-&gt;getItem('cache-key');
                 <h4 class="footer__headline">Support</h4>
                 <ul class="support__list">
                     <li class="support__list-item">
-                        <a href="https://discourse.zendframework.com" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
+                        <a href="https://discourse.laminas.dev" class="support__link" title="Forum"><i class="fa fa-comments"></i></a>
                     </li>
                     <li class="support__list-item">
-                        <a href="https://zendframework-slack.herokuapp.com" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
+                        <a href="https://laminas.dev/chat/" class="support__link" title="Chat"><i class="fa fa-slack"></i></a>
                     </li>
                     <li class="support__list-item">
                         <a href="https://github.com/zendframework" class="support__link" title="Github"><i class="fa fa-github"></i></a>
@@ -844,27 +849,28 @@ $cache-&gt;getItem('cache-key');
                     <li class="support__list-item">
                         <a href="https://twitter.com/zfdevteam" class="support__link" title="Twitter"><i class="fa fa-twitter"></i></a>
                     </li>
-                    <li class="support__list-item">
-                        <a href="https://tinyletter.com/mwopzend" class="support__link" title="Newsletter"><i class="fa fa-envelope"></i></a>
-                    </li>
-                    <li class="support__list-item">
-                        <a href="https://framework.zend.com/blog/feed-rss.xml" class="support__link" title="Blog feed"><i class="fa fa-rss"></i></a>
-                    </li>
-                    <li class="support__list-item">
-                        <a href="https://framework.zend.com/security/feed" class="support__link" title="Security feed"><i class="fa fa-rss-square"></i></a>
-                    </li>
                 </ul>
             </div>
         </div>
     </div>
 </footer>
 
+<nav class="cookie-bar navbar navbar-fixed-bottom navbar-default hidden">
+    <div class="container">
+        <p class="navbar-text">
+            We use cookies to allow you to dismiss dialogs such as the Laminas
+            Project notification.
+        </p>
+        <button type="button" class="cookie-button btn btn-default navbar-btn">Allow Cookies</button>
+    </div>
+</nav>
+
     <script>
         var base_url = '../..',
             siteName = 'zend-cache';
     </script>
-    <script src="../../js/scripts-8d7ae56abf.js"></script>
-        <script src="../../search/main.js"></script>
+    <script src="/js/scripts.js"></script>
+    <script src="../../search/main.js"></script>
 
     
     <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
